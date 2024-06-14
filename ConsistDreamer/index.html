@@ -1,1 +1,371 @@
-Coming soon
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>ConsistDreamer: 3D-Consistent 2D Diffusion for High-Fidelity Scene Editing</title>
+<meta name="description" content="This paper proposes ConsistDreamer - a novel framework that lifts 2D diffusion models with 3D awareness and 3D consistency, thus enabling high-fidelity instruction-guided scene editing. To overcome the fundamental limitation of missing 3D consistency in 2D diffusion models, our key insight is to introduce three synergetic strategies that augment the input of the 2D diffusion model to become 3D-aware and to explicitly enforce 3D consistency during the training process. Specifically, we design surrounding views as context-rich input for the 2D diffusion model, and generate 3D-consistent, structured noise instead of image-independent noise. Moreover, we introduce self-supervised consistency-enforcing training within the per-scene editing procedure. Extensive evaluation shows that our ConsistDreamer achieves state-of-the-art performance for instruction-guided scene editing across various scenes and editing instructions, particularly in complicated large-scale indoor scenes from ScanNet++, with significantly improved sharpness and fine-grained textures. Notably, ConsistDreamer stands as the first work capable of successfully editing complex (e.g., plaid/checkered) patterns.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta property="og:image" content="img/teaser_simple.jpg">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1335">
+<meta property="og:image:height" content="1192"> -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://immortalco.github.io/ConsistDreamer/">
+<meta property="og:title" content="ConsistDreamer: 3D-Consistent 2D Diffusion for High-Fidelity Scene Editing">
+<meta property="og:description" content="This paper proposes ConsistDreamer - a novel framework that lifts 2D diffusion models with 3D awareness and 3D consistency, thus enabling high-fidelity instruction-guided scene editing. To overcome the fundamental limitation of missing 3D consistency in 2D diffusion models, our key insight is to introduce three synergetic strategies that augment the input of the 2D diffusion model to become 3D-aware and to explicitly enforce 3D consistency during the training process. Specifically, we design surrounding views as context-rich input for the 2D diffusion model, and generate 3D-consistent, structured noise instead of image-independent noise. Moreover, we introduce self-supervised consistency-enforcing training within the per-scene editing procedure. Extensive evaluation shows that our ConsistDreamer achieves state-of-the-art performance for instruction-guided scene editing across various scenes and editing instructions, particularly in complicated large-scale indoor scenes from ScanNet++, with significantly improved sharpness and fine-grained textures. Notably, ConsistDreamer stands as the first work capable of successfully editing complex (e.g., plaid/checkered) patterns.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ConsistDreamer: 3D-Consistent 2D Diffusion for High-Fidelity Scene Editing">
+<meta name="twitter:description" content="This paper proposes ConsistDreamer - a novel framework that lifts 2D diffusion models with 3D awareness and 3D consistency, thus enabling high-fidelity instruction-guided scene editing. To overcome the fundamental limitation of missing 3D consistency in 2D diffusion models, our key insight is to introduce three synergetic strategies that augment the input of the 2D diffusion model to become 3D-aware and to explicitly enforce 3D consistency during the training process. Specifically, we design surrounding views as context-rich input for the 2D diffusion model, and generate 3D-consistent, structured noise instead of image-independent noise. Moreover, we introduce self-supervised consistency-enforcing training within the per-scene editing procedure. Extensive evaluation shows that our ConsistDreamer achieves state-of-the-art performance for instruction-guided scene editing across various scenes and editing instructions, particularly in complicated large-scale indoor scenes from ScanNet++, with significantly improved sharpness and fine-grained textures. Notably, ConsistDreamer stands as the first work capable of successfully editing complex (e.g., plaid/checkered) patterns.">
+<!-- <meta name="twitter:image" content="img/teaser_simple.jpg"> -->
+<!-- mirror: F0%9F%AA%9E&lt -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/codemirror.min.css">
+<link rel="stylesheet" href="css/app.css">
+<style>
+.rrotated {
+    transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    /* Internet Explorer 9*/
+    -moz-transform: rotate(90deg);
+    /* Firefox */
+    -webkit-transform: rotate(90deg);
+    /* Safari 和 Chrome */
+    -o-transform: rotate(90deg);/* Opera */
+}
+.lrotated {
+    transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    /* Internet Explorer 9*/
+    -moz-transform: rotate(270deg);
+    /* Firefox */
+    -webkit-transform: rotate(270deg);
+    /* Safari 和 Chrome */
+    -o-transform: rotate(270deg);/* Opera */
+}
+</style>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/codemirror.min.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script src="js/video_comparison.js"></script>
+<script src="js/app.js"></script>
+</head>
+
+<body>
+<div class="container" id="header" style="text-align: center; margin: auto;">
+    <div class="row" id="title-row" style="max-width: 100%; margin: 0 auto; display: inline-block">
+        <h2 class="col-md-12 text-center" id="title"> <b>ConsistDreamer</b>: 3D-Consistent 2D Diffusion for High-Fidelity Scene Editing  <br>
+            <small> CVPR 2024 </small> </h2>
+    </div>
+    <div class="row" id="author-row" style="margin:0 auto;">
+        <div class="col-md-12 text-center" style="display: table; margin:0 auto">
+            <table class="author-table" id="author-table">
+                <tr>
+                    <!-- Jun-Kun Chen, Samuel Rota Bulò, Norman Müller, Lorenzo Porzi, Peter Kontschieder, Yu-Xiong Wang -->
+                    <td><a style="text-decoration:none" href="https://scholar.google.com/citations?user=_m5__wUAAAAJ"> Jun-Kun Chen </a><sup>1</sup></td>
+                    <td><a style="text-decoration:none" href=""> Samuel Rota Bulò </a><sup>2</sup></td>
+                    <td><a style="text-decoration:none" href=""> Norman Müller </a><sup>2</sup></td>
+                    <td><a style="text-decoration:none" href=""> Lorenzo Porzi </a><sup>2</sup></td>
+                    <td><a style="text-decoration:none" href=""> Peter Kontschieder </a><sup>2</sup></td>
+                    <td><a style="text-decoration:none" href="https://yxw.cs.illinois.edu/"> Yu-Xiong Wang </a><sup>1</sup></td>
+                </tr>
+            </table>
+            <sup>1</sup>University of Illinois at Urbana-Champaign &emsp; <sup>2</sup>Meta Reality Labs Zurich<br/>
+            {<a style="text-decoration:none" href="mailto:junkun3@illinois.edu">junkun3</a>, <a style="text-decoration:none" href="mailto:yxw@illinois.edu">yxw</a>}@illinois.edu &emsp; 
+            {<a style="text-decoration:none" href="mailto:rotabulo@meta.com">rotabulo</a>, <a style="text-decoration:none" href="mailto:normanm@meta.com">normanm</a>, <a style="text-decoration:none" href="mailto:porzi@meta.com">porzi</a>, <a style="text-decoration:none" href="mailto:pkontschieder@meta.com">pkontschieder</a>}@meta.com </div>
+    </div>
+</div>
+<script>
+        document.getElementById('author-row').style.maxWidth = document.getElementById("title-row").clientWidth + 'px';
+    </script>
+<div class="container" id="main">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 text-center">
+            <ul class="nav nav-pills nav-justified">
+                <li> <a href="https://arxiv.org/abs/2406.09404"> <img src="https://info.arxiv.org/brand/images/brand-logomark-primary-large.jpg" height="60px" />
+                    <h4><strong>Paper</strong></h4>
+                    </a> </li>
+                <li> <a href="./poster.pdf"> <img src="./img/poster_small.png" height="60px" />
+                    <h4><strong>Poster</strong></h4>
+                    </a> </li>
+                <li> <a href="./presentation.html?version=1"> <img src="./img/youtube_icon.png" height="60px" />
+                    <h4><strong>Video</strong></h4>
+                    </a> </li>
+                <li> <a href="https://github.com/immortalCO/" target="_blank">
+                    <image src="img/github.png" height="60px" />
+                    <h4><strong>Code</strong></h4>
+                    </a> </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!--
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="video-compare-container" id="materialsDiv">
+                    <video class="video" id="materials" loop playsinline autoPlay muted src="video/materials_circle_mipnerf_ours.mp4" onplay="resizeAndPlay(this)"></video>
+                    
+                    <canvas height=0 class="videoMerge" id="materialsMerge"></canvas>
+                </div>
+            </div>
+        </div>
+		-->
+    
+    <div class="row" align="center">
+        <image src="img/teaser.png" class="img-responsive" alt="overview" width="75%" style="max-height: 300px;margin:auto;" />
+    </div>
+    <div class="row">
+        <h3> Abstract </h3>
+        
+        <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+            <p class="text-justify"> This paper proposes ConsistDreamer - a novel framework that lifts 2D diffusion models with 3D awareness and 3D consistency, thus enabling high-fidelity instruction-guided scene editing. To overcome the fundamental limitation of missing 3D consistency in 2D diffusion models, our key insight is to introduce three synergetic strategies that augment the input of the 2D diffusion model to become 3D-aware and to explicitly enforce 3D consistency during the training process. Specifically, we design surrounding views as context-rich input for the 2D diffusion model, and generate 3D-consistent, structured noise instead of image-independent noise. Moreover, we introduce self-supervised consistency-enforcing training within the per-scene editing procedure. Extensive evaluation shows that our ConsistDreamer achieves state-of-the-art performance for instruction-guided scene editing across various scenes and editing instructions, particularly in complicated large-scale indoor scenes from ScanNet++, with significantly improved sharpness and fine-grained textures. Notably, ConsistDreamer stands as the first work capable of successfully editing complex (e.g., plaid/checkered) patterns. </p>
+        </div>
+    </div>
+    <div class="row">
+        <h3> Architecture &amp; Design</h3>
+        <image src="img/pipeline.png" class="img-responsive" alt="overview" width="75%" style="margin:auto;" />
+        <!-- <table width="100%" style="table-layout:fixed">
+            <tbody>
+                <tr>
+                    <td align="left" valign="top" width="25%"><video id="arch1" width="100%" playsinline="" autoplay="" loop="" muted="">
+                            <source src="video/arch1.mp4" type="video/mp4">
+                        </video></td>
+                    <td align="left" valign="top" width="25%"><video id="arch2" width="100%" playsinline="" autoplay="" loop="" muted="">
+                            <source src="video/arch2v2.mp4" type="video/mp4">
+                        </video></td>
+                    <td align="left" valign="top" width="25%"><video id="arch3" width="100%" playsinline="" autoplay="" loop="" muted="">
+                            <source src="video/arch3.mp4" type="video/mp4">
+                        </video></td>
+                    <td align="left" valign="top" width="25%"><video id="arch4" width="100%" playsinline="" autoplay="" loop="" muted="">
+                            <source src="video/arch4.mp4" type="video/mp4">
+                        </video></td>
+                </tr>
+                <tr>
+                    <td width="25%"><center>
+                            K-D Tree-Based Adaptive Voxel
+                        </center></td>
+                    <td width="25%"><center>
+                            Render Over K-D Voxels
+                        </center></td>
+                    <td width="25%"><center>
+                            Deterministic Spline Integration
+                        </center></td>
+                    <td width="25%"><center>
+                            Unified Scene Editing Scheme
+                        </center></td>
+                </tr>
+            </tbody>
+        </table> -->
+    </div>
+    <div class="row">
+        <h3> Gallery: ScanNet++ Dataset </h3>
+        <center>
+            <table width="100%" style="table-layout:fixed">
+                <tbody>
+                    <tr>
+                        <td align="left" valign="top" width="" >
+                            <video width="100%" playsinline="" autoplay="" loop="" muted="" id="scannetpp_orig_scene">
+                                <source src="video/scannetpp_B_orig.mp4" type="video/mp4">
+                            </video>
+                        </td>
+                        <td align="left" valign="top" width="" >
+                            <video width="100%" playsinline="" autoplay="" loop="" muted=""id="scannetpp_edited_scene">
+                                <source src="video/scannetpp_B_2077.mp4" type="video/mp4">
+                            </video>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top">
+                            Original Scene
+                        </td>
+                        <td align="center" valign="top">
+                            <i id="scannetpp_edit_instr">Make it a near-futuristic night city style of Cyberpunk2077</i>
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>
+
+            <script>
+                function replace_scannetpp_video(orig_video, edited_video, edit_instr) {
+                    document.getElementById("scannetpp_orig_scene").src = "video/" + orig_video + ".mp4";
+                    document.getElementById("scannetpp_edited_scene").src = "video/" + edited_video + ".mp4";
+                    document.getElementById("scannetpp_edit_instr").innerHTML = edit_instr;
+                }
+            </script>
+
+            <div class="container" id="main" >
+                <div class="row">
+                    <div class="text-center" >
+                        <ul class="nav nav-pills nav-justified" width="75%">
+                            <li> 
+                                <a href="javascript:replace_scannetpp_video('scannetpp_B_orig', 'scannetpp_B_2077', 'Make it a near-futuristic night city style of Cyberpunk2077')">
+                                    <img src="img/scannetpp_B_2077.jpg" height="50px" />
+                                    <h4><strong>2077</strong></h4>
+                                </a> 
+                            </li>
+                            <li> 
+                                <a href="javascript:replace_scannetpp_video('scannetpp_B_orig', 'scannetpp_B_van_gogh', 'Make it look like a Van Gogh painting')">
+                                    <img src="img/scannetpp_B_van_gogh.jpg" height="50px" />
+                                    <h4><strong>Van Gogh</strong></h4>
+                                </a> 
+                            </li>
+                            <li> 
+                                <a href="javascript:replace_scannetpp_video('scannetpp_A_orig', 'scannetpp_A_transistor', 'Make the room look like in Transistor game')">
+                                    <img src="img/scannetpp_A_transistor.jpg" height="50px" />
+                                    <h4><strong>Transistor</strong></h4>
+                                </a> 
+                            </li>
+                            <li> 
+                                <a href="javascript:replace_scannetpp_video('scannetpp_A_orig', 'scannetpp_A_picasso', 'Make it look like a Picasso painting')">
+                                    <img src="img/scannetpp_A_picasso.jpg" height="50px" />
+                                    <h4><strong>Picasso</strong></h4>
+                                </a> 
+                            </li>
+                            
+                            <li> 
+                                <a href="javascript:replace_scannetpp_video('scannetpp_W_orig', 'scannetpp_W_fauvism', 'Make it look like a Fauvism painting')">
+                                    <img src="img/scannetpp_W_fauvism.jpg" height="50px" />
+                                    <h4><strong>Fauvism</strong></h4>
+                                </a> 
+                            </li>
+                            <li> 
+                                <a href="javascript:replace_scannetpp_video('scannetpp_X_orig', 'scannetpp_X_utagawa', 'Make it look like a Hiroshige Utagawa painting')">
+                                    <img src="img/scannetpp_X_utagawa.jpg" height="50px" />
+                                    <h4><strong>Utagawa</strong></h4>
+                                </a> 
+                            </li>
+                            <li> 
+                                <a href="javascript:replace_scannetpp_video('scannetpp_Y_orig', 'scannetpp_Y_munch', 'Make it look like a Edvard Munch painting')">
+                                    <img src="img/scannetpp_Y_munch.jpg" height="50px" />
+                                    <h4><strong>Munch</strong></h4>
+                                </a> 
+                            </li>
+                            <li> 
+                                <a href="javascript:replace_scannetpp_video('scannetpp_Z_orig', 'scannetpp_Z_bastion', 'Make the room look like in Bastion game')">
+                                    <img src="img/scannetpp_Z_bastion.jpg" height="50px" />
+                                    <h4><strong>Bastion</strong></h4>
+                                </a> 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </center>
+        <h3> Gallery: Further Results </h3>
+        <center>
+            <video style="width: 100%; height: auto; max-height: 500px;" playsinline="" autoplay="" loop="" muted="" id="in2n_gallery">
+                <source src="video/in2n_face_all.mp4" type="video/mp4">
+            </video>
+            <p><b id="in2n_scene_name">Scene: IN2N/Face</b></p>
+
+            <script>
+                function replace_in2n_video(video, scene_name) {
+                    document.getElementById("in2n_gallery").src = "video/" + video + ".mp4";
+                    document.getElementById("in2n_scene_name").innerHTML = "Scene: IN2N/" + scene_name + "";
+                }
+                
+            </script>
+
+            <div class="container" id="main" >
+                <div class="row">
+                    <div class="text-center" >
+                        <ul class="nav nav-pills nav-justified" width="75%">
+                            <li>
+                                <a href="javascript:replace_in2n_video('in2n_face_all', 'Face')">
+                                    <img src="img/in2n_face.png" height="80px" />
+                                    <h4><strong>Face</strong></h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:replace_in2n_video('in2n_person_all', 'Person')">
+                                    <img src="img/in2n_person.png" height="80px" />
+                                    <h4><strong>Person</strong></h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:replace_in2n_video('in2n_fangzhou_all', 'Fangzhou')">
+                                    <img src="img/in2n_fangzhou.png" height="80px" />
+                                    <h4><strong>Fangzhou</strong></h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:replace_in2n_video('in2n_outdoor_1', 'Farm')">
+                                    <img src="img/in2n_farm.png" height="80px" />
+                                    <h4><strong>Farm</strong></h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:replace_in2n_video('in2n_outdoor_2', 'Farm')">
+                                    <img src="img/in2n_campsite.png" height="80px" />
+                                    <h4><strong>Campsite</strong></h4>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </center>
+        <!-- <center>
+            <table width="75%" style="table-layout:fixed">
+                <tbody>
+                    <tr>
+                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                                <source src="video/in2n_face_orig.mp4" type="video/mp4">
+                            </video></td>
+                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                                <source src="video/in2n_face_orig.mp4" type="video/mp4">
+                            </video></td>
+                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                                <source src="video/in2n_face_orig.mp4" type="video/mp4">
+                            </video></td>
+                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                                <source src="video/in2n_face_orig.mp4" type="video/mp4">
+                            </video></td>
+                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                                <source src="video/in2n_face_orig.mp4" type="video/mp4">
+                            </video></td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="middle">Original Scene</td>
+                        <td align="center" valign="middle">Original Scene</td>
+                        <td align="center" valign="middle">Original Scene</td>
+                        <td align="center" valign="middle">Original Scene</td>
+                        <td align="center" valign="middle">Original Scene</td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </center> -->
+    </div>
+ 
+    
+    <div class="row">
+        <h3> Citation </h3>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group col-md-10 col-md-offset-1">
+                <textarea id="bibtex" class="form-control" readonly>
+@inproceedings{consistdreamer,
+    title={{ConsistDreamer}: {3D}-Consistent {2D} Diffusion for High-Fidelity Scene Editing},
+    author={Chen, Jun-Kun and Rota Bulò, Samuel and Müller, Norman and Porzi, Lorenzo and Kontschieder, Peter and Wang, Yu-Xiong},
+    booktitle={CVPR},
+    year={2024}
+}
+</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h3> Acknowledgements </h3>
+        <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+            <p class="text-justify"> 
+                Jun-Kun and Yu-Xiong were supported in part by NSF Grant 2106825 and NIFA Award 2020-67021-32799, using NVIDIA GPUs at NCSA Delta through allocations CIS220014 and CIS230012 from the ACCESS program.  <br/>
+                The website template is borrowed from <a href="https://immortalco.github.io/NeuralEditor/">NeuralEditor</a>. <br/>
+                We thank you and the other <script type="text/javascript" src="https://counter.websiteout.net/js/7/0/0/0"></script> visitors for visiting our project page.
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
