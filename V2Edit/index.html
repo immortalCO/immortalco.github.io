@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>V2Edit: Versatile Video Diffusion Editor for Videos and 3D Scenes</title>
+<meta name="description" content="This paper introduces V2Edit, a novel training-free framework for instruction-guided video and 3D scene editing. Addressing the critical challenge of balancing original content preservation with editing task fulfillment, our approach employs a progressive strategy that decomposes complex editing tasks into a sequence of simpler subtasks. Each subtask is controlled through three key synergistic mechanisms: the initial noise, noise added at each denoising step, and cross-attention maps between text prompts and video content. This ensures robust preservation of original video elements while effectively applying the desired edits. Beyond its native video editing capability, we extend V2Edit to 3D scene editing via a "render-edit-reconstruct" process, enabling high-quality, 3D-consistent edits even for tasks involving substantial geometric changes such as object insertion. Extensive experiments demonstrate that our V2Edit achieves high-quality and successful edits across various challenging video editing tasks and complex 3D scene editing tasks, thereby establishing state-of-the-art performance in both domains.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta property="og:image" content="img/teaser_simple.jpg">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1335">
+<meta property="og:image:height" content="1192"> -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://immortalco.github.io/ProEdit/">
+<meta property="og:title" content="V2Edit: Versatile Video Diffusion Editor for Videos and 3D Scenes">
+<meta property="og:description" content="This paper introduces V2Edit, a novel training-free framework for instruction-guided video and 3D scene editing. Addressing the critical challenge of balancing original content preservation with editing task fulfillment, our approach employs a progressive strategy that decomposes complex editing tasks into a sequence of simpler subtasks. Each subtask is controlled through three key synergistic mechanisms: the initial noise, noise added at each denoising step, and cross-attention maps between text prompts and video content. This ensures robust preservation of original video elements while effectively applying the desired edits. Beyond its native video editing capability, we extend V2Edit to 3D scene editing via a "render-edit-reconstruct" process, enabling high-quality, 3D-consistent edits even for tasks involving substantial geometric changes such as object insertion. Extensive experiments demonstrate that our V2Edit achieves high-quality and successful edits across various challenging video editing tasks and complex 3D scene editing tasks, thereby establishing state-of-the-art performance in both domains.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="V2Edit: Versatile Video Diffusion Editor for Videos and 3D Scenes">
+<meta name="twitter:description" content="This paper introduces V2Edit, a novel training-free framework for instruction-guided video and 3D scene editing. Addressing the critical challenge of balancing original content preservation with editing task fulfillment, our approach employs a progressive strategy that decomposes complex editing tasks into a sequence of simpler subtasks. Each subtask is controlled through three key synergistic mechanisms: the initial noise, noise added at each denoising step, and cross-attention maps between text prompts and video content. This ensures robust preservation of original video elements while effectively applying the desired edits. Beyond its native video editing capability, we extend V2Edit to 3D scene editing via a "render-edit-reconstruct" process, enabling high-quality, 3D-consistent edits even for tasks involving substantial geometric changes such as object insertion. Extensive experiments demonstrate that our V2Edit achieves high-quality and successful edits across various challenging video editing tasks and complex 3D scene editing tasks, thereby establishing state-of-the-art performance in both domains.">
+<!-- <meta name="twitter:image" content="img/teaser_simple.jpg"> -->
+<!-- mirror: F0%9F%AA%9E&lt -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/codemirror.min.css">
+<link rel="stylesheet" href="css/app.css">
+<style>
+.rrotated {
+    transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    /* Internet Explorer 9*/
+    -moz-transform: rotate(90deg);
+    /* Firefox */
+    -webkit-transform: rotate(90deg);
+    /* Safari 和 Chrome */
+    -o-transform: rotate(90deg);/* Opera */
+}
+.lrotated {
+    transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    /* Internet Explorer 9*/
+    -moz-transform: rotate(270deg);
+    /* Firefox */
+    -webkit-transform: rotate(270deg);
+    /* Safari 和 Chrome */
+    -o-transform: rotate(270deg);/* Opera */
+}
+</style>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/codemirror.min.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script src="js/video_comparison.js"></script>
+<script src="js/app.js"></script>
+</head>
+
+<body>
+<div class="container" id="header" style="text-align: center; margin: auto;">
+    <div class="row" id="title-row" style="max-width: 100%; margin: 0 auto; display: inline-block">
+        <h2 class="col-md-12 text-center" id="title"> <b>V<sup>2</sup>Edit</b>: Versatile Video Diffusion Editor for Videos and 3D Scenes<br>
+            <!-- <small> NeurIPS 2024 </small>  -->
+        </h2>
+        <h2 class="col-md-12 text-center" id="title" hidden> V2Edit: Versatile Video Diffusion Editor for Videos and 3D Scenes<br>
+            <!-- <small> NeurIPS 2024 </small>  -->
+        </h2>
+    </div>
+    <div class="row" id="author-row" style="margin:0 auto;">
+        <div class="col-md-12 text-center" style="display: table; margin:0 auto">
+            <table class="author-table" id="author-table">
+                <tr>
+                    <td><a style="text-decoration:none" href="mailto:yanmingzhang@zju.edu.cn"> Yanming Zhang </a><sup>2†</sup></td>
+                    <td><a style="text-decoration:none" href="https://scholar.google.com/citations?user=_m5__wUAAAAJ"> Jun-Kun Chen </a><sup>1†</sup></td>
+                    <td><a style="text-decoration:none" href="mailto:jipeng2@illinois.edu"> Jipeng Lyu </a><sup>1</sup></td>
+                    <td><a style="text-decoration:none" href="https://yxw.cs.illinois.edu/"> Yu-Xiong Wang </a><sup>1</sup></td>
+                </tr>
+            </table>
+            <sup>1</sup>University of Illinois at Urbana-Champaign &emsp; <sup>2</sup>Zhejiang University  &emsp; <sup>†</sup>Equal Contribution <br/>
+            {
+                <a style="text-decoration:none" href="mailto:junkun3@illinois.edu">junkun3</a>, 
+                <a style="text-decoration:none" href="mailto:jipeng2@illinois.edu">jipeng2</a>, 
+                <a style="text-decoration:none" href="mailto:yxw@illinois.edu">yxw</a>
+            }@illinois.edu 
+            &emsp; 
+            <a style="text-decoration:none" href="mailto:yanmingzhang@zju.edu.cn">yanmingzhang@zju.edu.cn</a> </div>
+    </div>
+</div>
+<script>
+        document.getElementById('author-row').style.maxWidth = document.getElementById("title-row").clientWidth + 'px';
+    </script>
+<div class="container" id="main">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 text-center">
+            <ul class="nav nav-pills nav-justified">
+                <li> <a href="./paper.html?version=1"> <img src="https://info.arxiv.org/brand/images/brand-logomark-primary-large.jpg" height="60px" />
+                    <h4><strong>Paper</strong></h4>
+                    </a> </li>
+                <!-- <li> <a href="./poster.pdf"> <img src="./img/poster_small.png" height="60px" />
+                    <h4><strong>Poster</strong></h4>
+                    </a> </li> -->
+                <li> <a href="./presentation.html?version=1"> <img src="./img/youtube_icon.png" height="60px" />
+                    <h4><strong>Video</strong></h4>
+                    </a> </li>
+                <li> <a href="./code.html?version=1" target="_blank">
+                    <image src="img/github.png" height="60px" />
+                    <h4><strong>Code</strong></h4>
+                    </a> </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!--
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="video-compare-container" id="materialsDiv">
+                    <video class="video" id="materials" loop playsinline autoPlay muted src="video/materials_circle_mipnerf_ours.mp4" onplay="resizeAndPlay(this)"></video>
+                    
+                    <canvas height=0 class="videoMerge" id="materialsMerge"></canvas>
+                </div>
+            </div>
+        </div>
+		-->
+    
+    <div class="row" align="center">
+        <image src="img/figym-teaser.png" class="img-responsive" alt="overview" width="75%"  />
+    </div>
+    <div class="row">
+        <h3> Abstract </h3>
+        
+        <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+            <p class="text-justify"> This paper introduces V<sup>2</sup>Edit, a novel training-free framework for instruction-guided video and 3D scene editing. Addressing the critical challenge of balancing original content preservation with editing task fulfillment, our approach employs a progressive strategy that decomposes complex editing tasks into a sequence of simpler subtasks. Each subtask is controlled through three key synergistic mechanisms: the initial noise, noise added at each denoising step, and cross-attention maps between text prompts and video content. This ensures robust preservation of original video elements while effectively applying the desired edits. Beyond its native video editing capability, we extend V<sup>2</sup>Edit to 3D scene editing via a "render-edit-reconstruct" process, enabling high-quality, 3D-consistent edits even for tasks involving substantial geometric changes such as object insertion. Extensive experiments demonstrate that our V<sup>2</sup>Edit achieves high-quality and successful edits across various challenging video editing tasks and complex 3D scene editing tasks, thereby establishing state-of-the-art performance in both domains. </p>
+        </div>
+    </div>
+    <div class="row">
+        <h3> Architecture &amp; Design</h3>
+        <image src="img/figym-pipeline.png" class="img-responsive" alt="overview" style="margin:auto;" />
+        
+    </div>
+    <div class="row">
+        
+        <h3> Gallery: Video Editing </h3>
+        <center>
+            <table width="100%" style="table-layout:fixed">
+                <tbody>
+                    <tr>
+                        <td align="left" valign="top" width="" >
+                            <video width="100%" playsinline="" autoplay="" loop="" muted="" id="ve_orig_video">
+                                <source src="video/scannetpp_B_orig.mp4" type="video/mp4">
+                            </video>
+                        </td>
+                        <td align="left" valign="top" width="" >
+                            <video width="100%" playsinline="" autoplay="" loop="" muted=""id="ve_edit_video">
+                                <source src="video/scannetpp_B_2077.mp4" type="video/mp4">
+                            </video>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top">
+                            Original Video
+                        </td>
+                        <td align="center" valign="top">
+                            <i id="ve_desc">Make it a near-futuristic night city style of Cyberpunk2077</i>
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>
+
+            <script>
+                function replace_ve(orig_video, edit_video, edit_desc) {
+                    document.getElementById("ve_orig_video").src = "video/" + orig_video + ".mp4";
+                    document.getElementById("ve_edit_video").src = "video/" + edit_video + ".mp4";
+                    document.getElementById("ve_desc").innerHTML = edit_desc;
+                }
+            </script>
+
+            <div class="container" id="main" >
+                <div class="row">
+                    <div class="text-center" >
+                        <ul class="nav nav-pills nav-justified" width="75%">
+                            <li> 
+                                <a href="javascript:replace_ve('scannetpp_B_orig', 'scannetpp_B_2077', 'Make it a near-futuristic night city style of Cyberpunk2077')">
+                                    <img src="img/scannetpp_B_2077.jpg" height="50px" />
+                                    <h4><strong>2077</strong></h4>
+                                </a> 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </center>
+
+        <h3> Gallery: 3D Scene Editing </h3>
+        <center>
+            <table width="100%" style="table-layout:fixed">
+                <tbody>
+                    <tr>
+                        <td align="left" valign="top" width="" >
+                            <video width="100%" playsinline="" autoplay="" loop="" muted="" id="se_orig_scene">
+                                <source src="video/scannetpp_B_orig.mp4" type="video/mp4">
+                            </video>
+                        </td>
+                        <td align="left" valign="top" width="" >
+                            <video width="100%" playsinline="" autoplay="" loop="" muted=""id="se_edit_video">
+                                <source src="video/scannetpp_B_2077.mp4" type="video/mp4">
+                            </video>
+                        </td>
+                        <td align="left" valign="top" width="" >
+                            <video width="100%" playsinline="" autoplay="" loop="" muted=""id="se_edit_scene">
+                                <source src="video/scannetpp_B_2077.mp4" type="video/mp4">
+                            </video>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" align="center" valign="middle">Original Scene</td>
+                        <td align="center">Edited Video</td>
+                        <td align="center">Edited 3D Scene</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <i id="se_desc">Make it a near-futuristic night city style of Cyberpunk2077</i>
+                        </td>
+                    </tr>                
+                </tbody>
+            </table>
+
+            <script>
+                function replace_se(orig_scene, edit_video, edit_scene, edit_desc) {
+                    document.getElementById("se_orig_scene").src = "video/" + orig_scene + ".mp4";
+                    document.getElementById("se_edit_video").src = "video/" + edit_video + ".mp4";
+                    document.getElementById("se_edit_scene").src = "video/" + edit_scene + ".mp4";
+                    document.getElementById("se_desc").innerHTML = edit_desc;
+                }
+            </script>
+
+            <div class="container" id="main" >
+                <div class="row">
+                    <div class="text-center" >
+                        <ul class="nav nav-pills nav-justified" width="75%">
+                            <li> 
+                                <a href="javascript:replace_se('scannetpp_B_orig', 'scannetpp_B_2077', 'scannetpp_B_2077', 'Make it a near-futuristic night city style of Cyberpunk2077')">
+                                    <img src="img/scannetpp_B_2077.jpg" height="50px" />
+                                    <h4><strong>2077</strong></h4>
+                                </a> 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </center>
+
+
+        <h3> Gallery: Comparison </h3>
+        <center>
+            <video style="width: 100%; height: auto; max-height: 500px;" playsinline="" autoplay="" loop="" muted="" id="gallery_video">
+                <source src="video/progressive.mp4" type="video/mp4">
+            </video>
+            <p><b id="gallery_video_desc">Progressive Editing Process<br/>The editing task is decomposed into subtasks r<sub>0</sub> to r<sub>5</sub></b></p>
+
+            <script>
+                function replace_video(video, scene_name) {
+                    document.getElementById("gallery_video").src = "video/" + video + ".mp4";
+                    document.getElementById("gallery_video_desc").innerHTML = "" + scene_name + "";
+                }
+                
+            </script>
+
+            <div class="container" id="main" >
+                <div class="row">
+                    <div class="text-center" >
+                        <ul class="nav nav-pills nav-justified" width="75%">
+                            <li>
+                                <a href="javascript:replace_video('progressive', 'Progressive Editing Process<br/>Each editing task is decomposed into subtasks r<sub>0</sub> to r<sub>5</sub>.')">
+                                    <img src="img/progressive.png" height="80px" />
+                                    <h4><strong>Progressive Process</strong></h4>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="javascript:replace_video('fangzhou', 'Scene: Fangzhou')">
+                                    <img src="img/in2n_fangzhou.png" height="80px" />
+                                    <h4><strong>Scene: Fangzhou</strong></h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:replace_video('person', 'Scene: Person<br/>Editing Tasks (left to right): suit; marble statue; plaid shirt; firefighter with a hat')">
+                                    <img src="img/in2n_person.png" height="80px" />
+                                    <h4><strong>Scene: Person</strong></h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:replace_video('scannetpp', 'Indoor Scenes in ScanNet++')">
+                                    <img src="img/scannetpp.png" height="80px" />
+                                    <h4><strong>Indoor Scenes (ScanNet++)</strong></h4>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </center>
+ 
+    
+    <div class="row">
+        <h3> Citation </h3>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group col-md-10 col-md-offset-1">
+                <textarea id="bibtex" class="form-control" readonly>
+@inproceedings{v2edit,
+    title={{V2Edit}: Versatile Video Diffusion Editor for Videos and {3D} Scenes},
+    author={Zhang, Yanming and Chen, Jun-Kun and Lyu Jipeng and Wang, Yu-Xiong},
+    year={2025}
+}
+</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h3> Acknowledgements </h3>
+        <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+            <p class="text-justify"> 
+                The website template is borrowed from <a href="https://immortalco.github.io/ProEdit/">ProEdit</a>. <br/>
+                We thank you and the other <script type="text/javascript" src="https://counter.websiteout.net/js/7/0/0/0"></script> visitors for visiting our project page.
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
