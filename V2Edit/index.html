@@ -136,7 +136,7 @@
     </div>
     <div class="row">
         
-        <h3> Gallery: Video Editing </h3>
+        <!-- <h3> Gallery: Video Editing </h3>
         <center>
             <table width="100%" style="table-layout:fixed">
                 <tbody>
@@ -244,20 +244,20 @@
                     </div>
                 </div>
             </div>
-        </center>
+        </center> -->
 
 
-        <h3> Gallery: Comparison </h3>
+        <h3> Gallery: Video Editing </h3>
         <center>
-            <video style="width: 100%; height: auto; max-height: 500px;" playsinline="" autoplay="" loop="" muted="" id="gallery_video">
-                <source src="video/progressive.mp4" type="video/mp4">
+            <video style="width: 100%; height: auto; max-height: 500px;" playsinline="" autoplay="" loop="" muted="" id="gallery_video_ve">
+                <source src="video/compare_vid_fiery_ring.mp4" type="video/mp4">
             </video>
-            <p><b id="gallery_video_desc">Progressive Editing Process<br/>The editing task is decomposed into subtasks r<sub>0</sub> to r<sub>5</sub></b></p>
+            <p hidden><b id="gallery_video_ve_desc">Add a large, fiery ring above the motorcyclist who drives through it and catches fire on head.</b></p>
 
             <script>
-                function replace_video(video, scene_name) {
-                    document.getElementById("gallery_video").src = "video/" + video + ".mp4";
-                    document.getElementById("gallery_video_desc").innerHTML = "" + scene_name + "";
+                function replace_video_gal_ve(video, desc) {
+                    document.getElementById("gallery_video_ve").src = "video/" + video + ".mp4";
+                    document.getElementById("gallery_video_ve_desc").innerHTML = "" + desc + "";
                 }
                 
             </script>
@@ -267,30 +267,85 @@
                     <div class="text-center" >
                         <ul class="nav nav-pills nav-justified" width="75%">
                             <li>
-                                <a href="javascript:replace_video('progressive', 'Progressive Editing Process<br/>Each editing task is decomposed into subtasks r<sub>0</sub> to r<sub>5</sub>.')">
-                                    <img src="img/progressive.png" height="80px" />
-                                    <h4><strong>Progressive Process</strong></h4>
+                                <a href="javascript:replace_video_gal_ve('compare_vid_fiery_ring', 'Add a large, fiery ring above the motorcyclist who drives through it and catches fire on head.')">
+                                    <img src="video/compare_vid_fiery_ring.png" height="80px" />
+                                    <h4><strong>Fiery Ring</strong></h4>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:replace_video_gal_ve('compare_vid_batman_tenis', 'Replace the player with Batman playing tennis.')">
+                                    <img src="video/compare_vid_batman_tenis.png" height="80px" />
+                                    <h4><strong>Batman Tennis</strong></h4>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:replace_video_gal_ve('compare_vid_panda', 'Replace the bear with a panda with black and white fur.')">
+                                    <img src="video/compare_vid_panda.png" height="80px" />
+                                    <h4><strong>Panda</strong></h4>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:replace_video_gal_ve('compare_vid_pig', 'Replace the cow with a pig.')">
+                                    <img src="video/compare_vid_pig.png" height="80px" />
+                                    <h4><strong>Pig</strong></h4>
                                 </a>
                             </li>
                             
+                            
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </center>
+
+        <h3> Gallery: 3D Scene Editing </h3>
+        <center>
+            <video style="width: 100%; height: auto; max-height: 500px;" playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                <source src="video/compare_3d_parrot.mp4" type="video/mp4">
+            </video>
+            <p hidden><b id="gallery_video_se_desc">Place a colorful parrot statue on his shoulder, making him look like an adventurer.</b></p>
+
+            <script>
+                function replace_video_gal_se(video, desc) {
+                    document.getElementById("gallery_video_se").src = "video/" + video + ".mp4";
+                    document.getElementById("gallery_video_se_desc").innerHTML = "" + desc + "";
+                }
+                
+            </script>
+
+            <div class="container" id="main" >
+                <div class="row">
+                    <div class="text-center" >
+                        <ul class="nav nav-pills nav-justified" width="75%">
                             <li>
-                                <a href="javascript:replace_video('fangzhou', 'Scene: Fangzhou')">
-                                    <img src="img/in2n_fangzhou.png" height="80px" />
-                                    <h4><strong>Scene: Fangzhou</strong></h4>
+                                <a href="javascript:replace_video_gal_se('compare_3d_parrot', 'Place a colorful parrot statue on his shoulder, making him look like an adventurer.')">
+                                    <img src="video/compare_3d_parrot.png" height="80px" />
+                                    <h4><strong>Parrot</strong></h4>
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:replace_video('person', 'Scene: Person<br/>Editing Tasks (left to right): suit; marble statue; plaid shirt; firefighter with a hat')">
-                                    <img src="img/in2n_person.png" height="80px" />
-                                    <h4><strong>Scene: Person</strong></h4>
+                                <a href="javascript:replace_video_gal_se('compare_3d_lion', 'Place a still golden lion cub on his shoulder.')">
+                                    <img src="video/compare_3d_lion.png" height="80px" />
+                                    <h4><strong>Lion</strong></h4>
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:replace_video('scannetpp', 'Indoor Scenes in ScanNet++')">
-                                    <img src="img/scannetpp.png" height="80px" />
-                                    <h4><strong>Indoor Scenes (ScanNet++)</strong></h4>
+                                <a href="javascript:replace_video_gal_se('compare_3d_pig', 'Turn the stone bear into a realistic piglet statue.')">
+                                    <img src="video/compare_3d_pig.png" height="80px" />
+                                    <h4><strong>Pig</strong></h4>
                                 </a>
                             </li>
+                            <li>
+                                <a href="javascript:replace_video_gal_se('compare_3d_fairy_light', 'Decorate the top edge of the stump with tiny, glowing fairy lights.')">
+                                    <img src="video/compare_3d_fairy_light.png" height="80px" />
+                                    <h4><strong>Fairy Light</strong></h4>
+                                </a>
+                            </li>
+                            
 
                         </ul>
                     </div>
