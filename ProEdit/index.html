@@ -92,25 +92,25 @@
             </ul>
         </div>
     </div>
-    
+
     <!--
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="video-compare-container" id="materialsDiv">
                     <video class="video" id="materials" loop playsinline autoPlay muted src="video/materials_circle_mipnerf_ours.mp4" onplay="resizeAndPlay(this)"></video>
-                    
+
                     <canvas height=0 class="videoMerge" id="materialsMerge"></canvas>
                 </div>
             </div>
         </div>
 		-->
-    
+
     <div class="row" align="center">
         <image src="img/teaser.png" class="img-responsive" alt="overview" width="75%" style="max-height: 300px;margin:auto;" />
     </div>
     <div class="row">
         <h3> Abstract </h3>
-        
+
         <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
             <p class="text-justify"> This paper proposes ProEdit - a simple yet effective framework for high-quality 3D scene editing guided by diffusion distillation in a novel progressive manner. Inspired by the crucial observation that multi-view inconsistency in scene editing is rooted in the diffusion model’s large feasible output space (FOS), our framework controls the size of FOS and reduces inconsistency by decomposing the overall editing task into several subtasks, which are then executed progressively on the scene. Within this framework, we design a difficulty-aware subtask decomposition scheduler and an adaptive 3D Gaussian splatting (3DGS) training strategy, ensuring high efficiency in performing each subtask. Extensive evaluation shows that our ProEdit achieves state-of-the-art results in various scenes and challenging editing tasks, all through a simple framework without any expensive or sophisticated add-ons like distillation losses, components, or training procedures. Notably, ProEdit also provides a new way to preview, control, and select the aggressivity of editing operation during the editing process. </p>
         </div>
@@ -118,10 +118,10 @@
     <div class="row">
         <h3> Architecture &amp; Design</h3>
         <image src="img/pipeline.png" class="img-responsive" alt="overview" width="75%" style="margin:auto;" />
-        
+
     </div>
     <div class="row">
-        
+
         <h3> Gallery </h3>
         <center>
             <video style="width: 100%; height: auto; max-height: 500px;" playsinline="" autoplay="" loop="" muted="" id="gallery_video">
@@ -134,7 +134,7 @@
                     document.getElementById("gallery_video").src = "video/" + video + ".mp4";
                     document.getElementById("gallery_video_desc").innerHTML = "" + scene_name + "";
                 }
-                
+
             </script>
 
             <div class="container" id="main" >
@@ -147,7 +147,7 @@
                                     <h4><strong>Progressive Process</strong></h4>
                                 </a>
                             </li>
-                            
+
                             <li>
                                 <a href="javascript:replace_video('fangzhou', 'Scene: Fangzhou')">
                                     <img src="img/in2n_fangzhou.png" height="80px" />
@@ -198,13 +198,13 @@
                         <td align="center" valign="middle">Original Scene</td>
                         <td align="center" valign="middle">Original Scene</td>
                         <td align="center" valign="middle">Original Scene</td>
-                    </tr>                    
+                    </tr>
                 </tbody>
             </table>
         </center> -->
     </div>
- 
-    
+
+
     <div class="row">
         <h3> Citation </h3>
         <div class="col-md-8 col-md-offset-2">
@@ -223,7 +223,7 @@
     <div class="row">
         <h3> Acknowledgements </h3>
         <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
-            <p class="text-justify"> 
+            <p class="text-justify">
                 The website template is borrowed from <a href="https://immortalco.github.io/ConsistDreamer/">ConsistDreamer</a>. <br/>
                 We thank you and the other <script type="text/javascript" src="https://counter.websiteout.net/js/7/0/0/0"></script> visitors for visiting our project page.
             </p>
