@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Virtual Fitting Room: Generating Arbitrarily Long Videos of Virtual Try-On from a Single Image</title>
+    <meta name="description" content="Abstract">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta property="og:image" content="img/teaser_simple.jpg">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1335">
+<meta property="og:image:height" content="1192"> -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://immortalco.github.io/VirtualFittingRoom/">
+    <meta property="og:title" content="Virtual Fitting Room: Generating Arbitrarily Long Videos of Virtual Try-On from a Single Image">
+    <meta property="og:description" content="Abstract">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Virtual Fitting Room: Generating Arbitrarily Long Videos of Virtual Try-On from a Single Image">
+    <meta name="twitter:description" content="Abstract">
+    <!-- <meta name="twitter:image" content="img/teaser_simple.jpg"> -->
+    <!-- mirror: F0%9F%AA%9E&lt -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:700|Nunito:700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <style>
+        .rrotated {
+            transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            /* Internet Explorer 9*/
+            -moz-transform: rotate(90deg);
+            /* Firefox */
+            -webkit-transform: rotate(90deg);
+            /* Safari 和 Chrome */
+            -o-transform: rotate(90deg);
+            /* Opera */
+        }
+
+        .lrotated {
+            transform: rotate(270deg);
+            -ms-transform: rotate(270deg);
+            /* Internet Explorer 9*/
+            -moz-transform: rotate(270deg);
+            /* Firefox */
+            -webkit-transform: rotate(270deg);
+            /* Safari 和 Chrome */
+            -o-transform: rotate(270deg);
+            /* Opera */
+        }
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/codemirror.min.js"></script>
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/video_comparison.js"></script>
+    <script src="js/app.js"></script>
+</head>
+
+<body>
+    <div class="container" id="header" style="text-align: center; margin: auto;">
+        <div class="row" id="title-row" style="max-width: 100%; margin: 0 auto; display: inline-block">
+            <h2 class="col-md-12 text-center" id="title">
+                <span
+                        style="font-family:'Georgia Pro', Georgia, 'Times New Roman', Times, serif; text-shadow: 0.5px 0.5px 0.5px #888;">
+                        Virtual Fitting Room</span>: Generating Arbitrarily Long Videos of Virtual Try-On from a Single
+                    Image
+            </h2>
+            <h2 class="col-md-12 text-center" id="title" hidden> Virtual Fitting Room: Generating Arbitrarily Long Videos of Virtual Try-On from a Single Image<br>
+                <!-- <small> NeurIPS 2024 </small>  -->
+            </h2>
+        </div>
+        <div class="row" id="author-row" style="margin:0 auto;">
+            <div class="col-md-12 text-center" style="display: table; margin:0 auto">
+                <table class="author-table" id="author-table">
+                    <tr>
+                        <td><a style="text-decoration:none"
+                                href="https://scholar.google.com/citations?user=_m5__wUAAAAJ"> Jun-Kun Chen </a><sup>
+                                <img src="img/icon_uiuc.png" alt="UIUC" style="height:1em;vertical-align:text-top;">
+                                <img src="img/icon_spreeai.png" alt="SpreeAI"
+                                    style="height:1em;vertical-align:text-top;">
+                            </sup></td>
+                        <td><a style="text-decoration:none" href="mailto:aayush.bansal@spreeai.com"> Aayush Bansal
+                            </a><sup>
+                                <img src="img/icon_spreeai.png" alt="SpreeAI"
+                                    style="height:1em;vertical-align:text-top;">
+                            </sup></td>
+                        <td><a style="text-decoration:none" href="mailto:minh.vo@spreeai.com"> Minh Phuoc Vo </a><sup>
+                                <img src="img/icon_spreeai.png" alt="SpreeAI"
+                                    style="height:1em;vertical-align:text-top;">
+                            </sup></td>
+                        <td><a style="text-decoration:none" href="https://yxw.cs.illinois.edu/"> Yu-Xiong Wang </a><sup>
+                                <img src="img/icon_uiuc.png" alt="UIUC" style="height:1em;vertical-align:text-top;">
+                            </sup></td>
+                    </tr>
+                </table>
+                <sup><img src="img/icon_uiuc.png" alt="UIUC"
+                        style="height:1em;vertical-align:text-top;"></sup>University of Illinois at Urbana-Champaign
+                &emsp;
+                <sup><img src="img/icon_spreeai.png" alt="SpreeAI"
+                        style="height:1em;vertical-align:text-top;"></sup>SpreeAI<br />
+
+            </div>
+        </div>
+        <script>
+            document.getElementById('author-row').style.maxWidth = document.getElementById("title-row").clientWidth + 'px';
+        </script>
+        <div class="container" id="main">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 text-center">
+                    <ul class="nav nav-pills nav-justified">
+
+                        <li> <a href="./paper_vfr.html?version=2"> <video
+                                    style="width: 50%; height: auto; max-height: 800px; filter:contrast(1) brightness(1);"
+                                    playsinline="" autoplay="" loop="" muted="" onloadedmetadata="this.playbackRate=2.0"
+                                    id="gallery_video_se">
+                                    <source src="video/teaser_vfr.mp4" type="video/mp4">
+                                </video>
+                                <h3><strong>Read Tech Report</strong></h3>
+                            </a> </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <!-- <div class="row" align="center">
+                <video style="width: 50%; height: auto; max-height: 500px; filter:contrast(1) brightness(1);"
+                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                    <source src="video/teaser.mp4" type="video/mp4">
+                </video>
+            </div> -->
+            <div class="row">
+                <h3> Overview </h3>
+
+
+
+                <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+                    <p class="text-justify">
+                        We present <span
+                            style="font-family:'Georgia Pro', Georgia, 'Times New Roman', Times, serif; text-shadow: 0.5px 0.5px 0.5px #888;">
+                            Virtual Fitting Room</span>, a video generation framework for creating <strong>minute-scale
+                            try-on videos</strong>
+                        from a single user image, a target garment, and a reference motion. Unlike traditional try-on
+                        methods that produce short clips or static images, VFR supports <strong>arbitrarily long,
+                            high-resolution videos</strong> with natural user-garment interactions.
+                    </p>
+
+                    <p class="text-justify">
+                        Our approach segments long sequences into overlapping clips and enforces <strong>local
+                            smoothness</strong> between adjacent segments while preserving <strong>global temporal
+                            consistency</strong> using a compact <strong>anchor video</strong>. This design enables
+                        stable synthesis over extended motions without relying on long training sequences.
+                    </p>
+
+                    <p class="text-justify">
+                        The generated videos exhibit <strong>appearance consistency</strong> from all viewpoints, robust
+                        handling of <strong>self-occlusions and body interactions</strong>, and preservation of fine
+                        details such as accessories. As a by-product, VFR also supports <strong>free-viewpoint
+                            rendering</strong>, enabling novel camera angles from a single input image.
+                    </p>
+
+                </div>
+
+                <div>
+                    <video style="width: 100%; height: auto; max-height: 500px; filter:contrast(1) brightness(1);"
+                        playsinline="" autoplay="" loop="" muted="" onloadedmetadata="this.playbackRate=2.0"
+                        id="gallary_video_vfr">
+                        <source src="video/vfr_various1.mp4" type="video/mp4">
+                    </video>
+                    <p><b id="gallary_video_vfr_desc">Various motions.</b></p>
+
+                    <script>
+                        function replace_video_vfr(video, desc) {
+                            document.getElementById("gallary_video_vfr").src = "video/" + video + ".mp4";
+                            document.getElementById("gallary_video_vfr_desc").innerHTML = "" + desc + "";
+                        }
+
+                    </script>
+
+                    <div class="container" id="main">
+                        <div class="row">
+                            <div class="text-center">
+                                <ul class="nav nav-pills nav-justified" width="75%">
+                                    <li>
+                                        <a href="javascript:replace_video_vfr('vfr_360', '360° view.')">
+                                            <img src="img/vfr_360.png" height="80px" />
+                                            <h4><strong>360° View</strong></h4>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:replace_video_vfr('vfr_90s', 'Fixed motion.')">
+                                            <img src="img/vfr_90s.png" height="80px" />
+                                            <h4><strong>Fixed Motion</strong></h4>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:replace_video_vfr('vfr_various1', 'Various motions.')">
+                                            <img src="img/vfr_various1.png" height="80px" />
+                                            <h4><strong>Various Motions 1</strong></h4>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:replace_video_vfr('vfr_various2', 'Various motions.')">
+                                            <img src="img/vfr_various2.png" height="80px" />
+                                            <h4><strong>Various Motions 2</strong></h4>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:replace_video_vfr('vfr_compare', 'Baseline comparison.')">
+                                            <img src="img/vfr_compare.png" height="80px" />
+                                            <h4><strong>Comparison</strong></h4>
+                                        </a>
+                                    </li>
+
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <h3> Result Gallery </h3>
+                <div class="text-center">
+                    <ul class="nav nav-pills nav-justified" width="100%">
+                        <li> <a href=""> <video
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                                    <source src="video/teaser_vfr.mp4" type="video/mp4">
+                                </video>
+                            </a> </li>
+                        <li> <a href=""> <video
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                                    <source src="video/teaser_vfr.mp4" type="video/mp4">
+                                </video>
+                            </a> </li>
+                        <li> <a href=""> <video
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                                    <source src="video/teaser_vfr.mp4" type="video/mp4">
+                                </video>
+                            </a> </li>
+                        <li> <a href=""> <video
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                                    <source src="video/teaser_vfr.mp4" type="video/mp4">
+                                </video>
+                            </a> </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <h3> Citation </h3>
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="form-group col-md-10 col-md-offset-1">
+                        <textarea id="bibtex" class="form-control" readonly>TBD</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h3> Acknowledgements </h3>
+                <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+                    <p class="text-justify">
+                        We thank you and the other
+                        <script type="text/javascript" src="https://counter.websiteout.net/js/7/0/0/0"></script>
+                        visitors for visiting our project page.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Dress&amp;Dance: Dress up and Dance as You Like It</title>
+    <meta name="description" content="Abstract">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta property="og:image" content="img/teaser_simple.jpg">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1335">
+<meta property="og:image:height" content="1192"> -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://immortalco.github.io/DressAndDance/">
+    <meta property="og:title" content="Dress&Dance: Dress up and Dance as You Like It">
+    <meta property="og:description" content="Abstract">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dress&Dance: Dress up and Dance as You Like It">
+    <meta name="twitter:description" content="Abstract">
+    <!-- <meta name="twitter:image" content="img/teaser_simple.jpg"> -->
+    <!-- mirror: F0%9F%AA%9E&lt -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:700|Nunito:700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <style>
+        .rrotated {
+            transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            /* Internet Explorer 9*/
+            -moz-transform: rotate(90deg);
+            /* Firefox */
+            -webkit-transform: rotate(90deg);
+            /* Safari 和 Chrome */
+            -o-transform: rotate(90deg);
+            /* Opera */
+        }
+
+        .lrotated {
+            transform: rotate(270deg);
+            -ms-transform: rotate(270deg);
+            /* Internet Explorer 9*/
+            -moz-transform: rotate(270deg);
+            /* Firefox */
+            -webkit-transform: rotate(270deg);
+            /* Safari 和 Chrome */
+            -o-transform: rotate(270deg);
+            /* Opera */
+        }
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/codemirror.min.js"></script>
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/video_comparison.js"></script>
+    <script src="js/app.js"></script>
+</head>
+
+<body>
+    <div class="container" id="header" style="text-align: center; margin: auto;">
+        <div class="row" id="title-row" style="max-width: 100%; margin: 0 auto; display: inline-block">
+            <h2 class="col-md-12 text-center" id="title">
+                <span style="font-family: 'ADLaM Display', 'Nunito', Arial, sans-serif;">
+                    <b><span style="color:#00B0F0;">Dress</span>&amp;<span
+                            style="color:#FF0000;">Dance</span></b></span>:
+                <span style="color:#00B0F0;">Dress</span> up and <span style="color:#FF0000;">Dance</span>
+                as You Like It
+            </h2>
+            <h2 class="col-md-12 text-center" id="title" hidden> Dress&amp;Dance: Dress up and Dance as You Like It
+                <!-- <small> NeurIPS 2024 </small>  -->
+            </h2>
+        </div>
+        <div class="row" id="author-row" style="margin:0 auto;">
+            <div class="col-md-12 text-center" style="display: table; margin:0 auto">
+                <table class="author-table" id="author-table">
+                    <tr>
+                        <td><a style="text-decoration:none"
+                                href="https://scholar.google.com/citations?user=_m5__wUAAAAJ"> Jun-Kun Chen </a><sup>
+                                <img src="img/icon_uiuc.png" alt="UIUC" style="height:1em;vertical-align:text-top;">
+                                <img src="img/icon_spreeai.png" alt="SpreeAI"
+                                    style="height:1em;vertical-align:text-top;">
+                            </sup></td>
+                        <td><a style="text-decoration:none" href="mailto:aayush.bansal@spreeai.com"> Aayush Bansal
+                            </a><sup>
+                                <img src="img/icon_spreeai.png" alt="SpreeAI"
+                                    style="height:1em;vertical-align:text-top;">
+                            </sup></td>
+                        <td><a style="text-decoration:none" href="mailto:minh.vo@spreeai.com"> Minh Phuoc Vo </a><sup>
+                                <img src="img/icon_spreeai.png" alt="SpreeAI"
+                                    style="height:1em;vertical-align:text-top;">
+                            </sup></td>
+                        <td><a style="text-decoration:none" href="https://yxw.cs.illinois.edu/"> Yu-Xiong Wang </a><sup>
+                                <img src="img/icon_uiuc.png" alt="UIUC" style="height:1em;vertical-align:text-top;">
+                            </sup></td>
+                    </tr>
+                </table>
+                <sup><img src="img/icon_uiuc.png" alt="UIUC"
+                        style="height:1em;vertical-align:text-top;"></sup>University of Illinois at Urbana-Champaign
+                &emsp;
+                <sup><img src="img/icon_spreeai.png" alt="SpreeAI"
+                        style="height:1em;vertical-align:text-top;"></sup>SpreeAI<br />
+
+            </div>
+        </div>
+        <script>
+            document.getElementById('author-row').style.maxWidth = document.getElementById("title-row").clientWidth + 'px';
+        </script>
+        <div class="container" id="main">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 text-center">
+                    <ul class="nav nav-pills nav-justified">
+                        <li> <a href="./paper_dnd.html?version=2"> <video
+                                    style="width: 50%; height: auto; max-height: 800px; filter:contrast(1) brightness(1);"
+                                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                                    <source src="video/teaser_dnd.mp4" type="video/mp4">
+                                </video>
+                                <h3><strong>Read Tech Report</strong></h3>
+                            </a> </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- <div class="row" align="center">
+                <video style="width: 50%; height: auto; max-height: 500px; filter:contrast(1) brightness(1);"
+                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                    <source src="video/teaser.mp4" type="video/mp4">
+                </video>
+            </div> -->
+
+            <div class="row">
+                <h3> Overview
+                </h3>
+
+                <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+
+                    <p class="text-justify">
+                        We introduce <span style="font-family: 'ADLaM Display', 'Nunito', Arial, sans-serif;">
+                            <b><span style="color:#00B0F0;">Dress</span>&amp;<span
+                                    style="color:#FF0000;">Dance</span></b></span>, a general framework for video
+                        generation conditioned on a wide range of inputs,
+                        including text, layout, sparse pose sequences, and multimodal combinations. Instead of building
+                        task-specific architectures, we employ a <strong>unified conditioning mechanism</strong> that we
+                        call <strong>CondNet</strong>, which processes different modalities into a shared space. This
+                        allows
+                        a single video generator to support <strong>diverse control signals</strong> without retraining.
+                        Our
+                        approach further combines <strong>hybrid training paradigms</strong> to balance realism and
+                        controllability.
+                    </p>
+
+                    <p class="text-justify">
+                        Across a range of examples—including those shown in the accompanying videos—our method generates
+                        <strong>temporally coherent</strong> and <strong>photorealistic</strong> results, often
+                        capturing
+                        subtle dynamics and maintaining <strong>faithful alignment with input prompts</strong>. The same
+                        model generalizes well across tasks, demonstrating <strong>strong compositionality</strong> and
+                        responsiveness to diverse conditioning inputs.
+                    </p>
+                </div>
+
+                <div id="video-scroller-dnd"
+                    style="display: flex; overflow-x: auto; scroll-behavior: auto; gap: 16px; padding: 12px; white-space: nowrap; border: 1px solid #ccc; margin-bottom: 24px;">
+                    <div id="video-track-dnd" style="display: flex;">
+                        <video src="video/dnd01.mp4"
+                            style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline
+                            autoplay loop muted></video>
+                        <video src="video/dnd02.mp4"
+                            style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline
+                            autoplay loop muted></video>
+                        <video src="video/dnd03.mp4"
+                            style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline
+                            autoplay loop muted></video>
+                        <video src="video/dnd04.mp4"
+                            style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline
+                            autoplay loop muted></video>
+                        <video src="video/dnd05.mp4"
+                            style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline
+                            autoplay loop muted></video>
+                        <video src="video/dnd06.mp4"
+                            style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline
+                            autoplay loop muted></video>
+                    </div>
+                </div>
+
+                <script>
+                    const scrollerDND = document.getElementById('video-scroller-dnd');
+                    const trackDND = document.getElementById('video-track-dnd');
+                    let autoScrollDND = true;
+                    let scrollSpeed = 2; // 控制滚动速度，越大越快
+
+                    // 克隆内容实现无缝
+                    const clonedDND = trackDND.cloneNode(true);
+                    scrollerDND.appendChild(clonedDND);
+
+                    function scrollLoopDND() {
+                        if (!autoScrollDND) return;
+                        scrollerDND.scrollLeft += scrollSpeed;
+
+                        if (scrollerDND.scrollLeft >= trackDND.scrollWidth) {
+                            // 跳回原始起点，形成无缝滚动
+                            scrollerDND.scrollLeft = 0;
+                        }
+                    }
+
+                    const intervalDND = setInterval(scrollLoopDND, 20);
+
+                    // 点击任何地方停止自动滚动
+                    scrollerDND.addEventListener('click', () => {
+                        autoScrollDND = false;
+                    });
+                </script>
+
+            </div>
+
+            <div class="row">
+                <h3> Result Gallery </h3>
+                <div class="text-center">
+                    <ul class="nav nav-pills nav-justified" width="100%">
+                        <li> <a href=""> <video
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                                    <source src="video/teaser_dnd.mp4" type="video/mp4">
+                                </video>
+                            </a> </li>
+                        <li> <a href=""> <video
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                                    <source src="video/teaser_dnd.mp4" type="video/mp4">
+                                </video>
+                            </a> </li>
+                        <li> <a href=""> <video
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                                    <source src="video/teaser_dnd.mp4" type="video/mp4">
+                                </video>
+                            </a> </li>
+                        <li> <a href=""> <video
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                                    <source src="video/teaser_dnd.mp4" type="video/mp4">
+                                </video>
+                            </a> </li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <h3> Citation </h3>
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="form-group col-md-10 col-md-offset-1">
+                        <textarea id="bibtex" class="form-control" readonly>TBD</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h3> Acknowledgements </h3>
+                <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+                    <p class="text-justify">
+                        We thank you and the other
+                        <script type="text/javascript" src="https://counter.websiteout.net/js/7/0/0/0"></script>
+                        visitors for visiting our project page.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
