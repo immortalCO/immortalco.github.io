@@ -193,7 +193,7 @@
     #resultOverlay .viewer {
       inset: 4% 4%;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto auto auto auto;
+        grid-template-rows: 2fr 1fr 1fr auto;
       grid-template-areas:
         "result result"
         "motion g1"
@@ -201,19 +201,7 @@
         "footer footer";
     }
   }
-  @media (max-width: 640px) {
-    #resultOverlay .viewer {
-      inset: 3% 3%;
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto auto auto auto;
-      grid-template-areas:
-        "result"
-        "motion"
-        "g1"
-        "g2"
-        "footer";
-    }
-  }
+
 </style>
 
 <div id="resultOverlay" onclick="hide_result()">
