@@ -260,6 +260,46 @@
       height: 100%;
       border: 0;
     }
+
+    #video-scroller-dnd {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: auto;
+      gap: 16px;
+      padding: 12px;
+      white-space: nowrap;
+      border: 1px solid #ccc;
+      margin-bottom: 24px;
+
+      /* 默认隐藏滚动条 */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+
+    #video-scroller-dnd:hover {
+      /* 鼠标悬停时显示滚动条 */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(200, 200, 200, 0.5) transparent;
+    }
+
+    /* Chrome / Edge / Safari */
+    #video-scroller-dnd::-webkit-scrollbar {
+      height: 8px;
+      /* 滚动条高度 */
+    }
+
+    #video-scroller-dnd::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #video-scroller-dnd::-webkit-scrollbar-thumb {
+      background: rgba(200, 200, 200, 0.4);
+      border-radius: 4px;
+    }
+
+    #video-scroller-dnd::-webkit-scrollbar-thumb:hover {
+      background: rgba(200, 200, 200, 0.7);
+    }
   </style>
 
   <div id="resultOverlay" onclick="hide_result()">
@@ -593,7 +633,7 @@
                   autoplay="" loop="" muted="" id="gallery_video_se">
                   <source src="video/teaser_dnd.mp4" type="video/mp4">
                 </video>
-                <h3><strong>Read Tech Report<br/>ArXiV</strong></h3>
+                <h3><strong>Read Tech Report<br />ArXiV</strong></h3>
               </a> </li>
 
             <li> <a href="https://www.youtube.com/watch?v=s-IYxa0PBU8" target="_blank">
@@ -602,17 +642,18 @@
                   autoplay="" loop="" muted="" id="gallery_video_se">
                   <source src="video/demo_lowres_preview.mp4" type="video/mp4">
                 </video>
-                <h3><strong>Watch Demo Video<br/>YouTube</strong></h3>
+                <h3><strong>Watch Demo Video<br />YouTube</strong></h3>
               </a> </li>
 
-            <li> <a href="../VirtualFittingRoom/index.html" target="_blank"> <video class="gallery-video" preload="metadata"
+            <li> <a href="../VirtualFittingRoom/index.html" target="_blank"> <video class="gallery-video"
+                  preload="metadata"
                   style="width: 100%; height: auto; max-height: 200px; filter:contrast(1) brightness(1);" playsinline=""
                   autoplay="" loop="" muted="" onloadedmetadata="this.playbackRate=2.0" id="gallery_video_se">
                   <source src="../VirtualFittingRoom/video/teaser_vfr.mp4" type="video/mp4">
                 </video>
                 <h3><strong><span
                       style="font-family:'Georgia Pro', Georgia, 'Times New Roman', Times, serif; text-shadow: 0.5px 0.5px 0.5px #888; color:#000000;">
-                      Virtual Fitting Room</span><br/>Our Follow-Up Work on Long Video Try-On</strong></h3>
+                      Virtual Fitting Room</span><br />Our Follow-Up Work on Long Video Try-On</strong></h3>
               </a> </li>
 
 
