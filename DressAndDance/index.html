@@ -2,715 +2,894 @@
 <html>
 
 <head lang="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Dress&amp;Dance: Dress up and Dance as You Like It</title>
-    <meta name="description" content="Abstract">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <meta property="og:image" content="img/teaser_simple.jpg">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Dress&amp;Dance: Dress up and Dance as You Like It</title>
+  <meta name="description" content="Abstract">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta property="og:image" content="img/teaser_simple.jpg">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1335">
 <meta property="og:image:height" content="1192"> -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://immortalco.github.io/DressAndDance/">
-    <meta property="og:title" content="Dress&Dance: Dress up and Dance as You Like It">
-    <meta property="og:description" content="Abstract">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Dress&Dance: Dress up and Dance as You Like It">
-    <meta name="twitter:description" content="Abstract">
-    <!-- <meta name="twitter:image" content="img/teaser_simple.jpg"> -->
-    <!-- mirror: F0%9F%AA%9E&lt -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:700|Nunito:700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/codemirror.min.css">
-    <link rel="stylesheet" href="css/app.css">
-    <style>
-        .rrotated {
-            transform: rotate(90deg);
-            -ms-transform: rotate(90deg);
-            /* Internet Explorer 9*/
-            -moz-transform: rotate(90deg);
-            /* Firefox */
-            -webkit-transform: rotate(90deg);
-            /* Safari 和 Chrome */
-            -o-transform: rotate(90deg);
-            /* Opera */
-        }
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://immortalco.github.io/DressAndDance/">
+  <meta property="og:title" content="Dress&Dance: Dress up and Dance as You Like It">
+  <meta property="og:description" content="Abstract">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dress&Dance: Dress up and Dance as You Like It">
+  <meta name="twitter:description" content="Abstract">
+  <!-- <meta name="twitter:image" content="img/teaser_simple.jpg"> -->
+  <!-- mirror: F0%9F%AA%9E&lt -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:700|Nunito:700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/codemirror.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    .rrotated {
+      transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      /* Internet Explorer 9*/
+      -moz-transform: rotate(90deg);
+      /* Firefox */
+      -webkit-transform: rotate(90deg);
+      /* Safari 和 Chrome */
+      -o-transform: rotate(90deg);
+      /* Opera */
+    }
 
-        .lrotated {
-            transform: rotate(270deg);
-            -ms-transform: rotate(270deg);
-            /* Internet Explorer 9*/
-            -moz-transform: rotate(270deg);
-            /* Firefox */
-            -webkit-transform: rotate(270deg);
-            /* Safari 和 Chrome */
-            -o-transform: rotate(270deg);
-            /* Opera */
-        }
-    </style>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/codemirror.min.js"></script>
-    <script src="js/clipboard.min.js"></script>
-    <script src="js/video_comparison.js"></script>
-    <script src="js/app.js"></script>
+    .lrotated {
+      transform: rotate(270deg);
+      -ms-transform: rotate(270deg);
+      /* Internet Explorer 9*/
+      -moz-transform: rotate(270deg);
+      /* Firefox */
+      -webkit-transform: rotate(270deg);
+      /* Safari 和 Chrome */
+      -o-transform: rotate(270deg);
+      /* Opera */
+    }
+  </style>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/codemirror.min.js"></script>
+  <script src="js/clipboard.min.js"></script>
+  <script src="js/video_comparison.js"></script>
+  <script src="js/app.js"></script>
 
 
- <!-- ===== Floating Result Viewer (final, with Garment 2) ===== -->
-<style>
-  /* 全屏遮罩 */
-  #resultOverlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    display: none;                     /* 默认隐藏 */
-    z-index: 9999;
-    cursor: pointer;                   /* 点击遮罩可关闭 */
-  }
+  <!-- ===== Floating Result Viewer (final, with Garment 2) ===== -->
+  <style>
+    /* 全屏遮罩 */
+    #resultOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      /* 默认隐藏 */
+      z-index: 9999;
+      cursor: pointer;
+      /* 点击遮罩可关闭 */
+    }
 
-  /* 主容器：无边框“表格感”布局（Grid） */
-  #resultOverlay .viewer {
-    position: absolute;
-    inset: 5% 6%;
-    background: transparent;
-    display: grid;
-    gap: 12px;
-    grid-template-columns: 1fr 1fr 2.5fr;     /* 左/中/右 */
-    grid-template-rows: 1fr 1fr auto;         /* 上/下/底栏 */
-    grid-template-areas:
-      "g1   motion  result"
-      "g2   user    result"
-      "footer footer footer";
-    cursor: default;                           /* 内容区正常鼠标 */
-  }
+    /* 主容器：无边框“表格感”布局（Grid） */
+    #resultOverlay .viewer {
+      position: absolute;
+      inset: 5% 6%;
+      background: transparent;
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr 1fr 2.5fr;
+      /* 左/中/右 */
+      grid-template-rows: 1fr 1fr auto;
+      /* 上/下/底栏 */
+      grid-template-areas:
+        "g1   motion  result"
+        "g2   user    result"
+        "footer footer footer";
+      cursor: default;
+      /* 内容区正常鼠标 */
+    }
 
-  /* 右上角关闭按钮 */
-  #resultCloseBtn {
-    position: absolute;
-    top: 10px; right: 14px;
-    z-index: 10000;
-    background: rgba(0,0,0,0.55);
-    color: #fff;
-    border: none;
-    border-radius: 24px;
-    padding: 6px 12px;
-    font-size: 16px;
-    cursor: pointer;
-    line-height: 1;
-  }
-  #resultCloseBtn:hover { background: rgba(0,0,0,0.75); }
+    /* 右上角关闭按钮 */
+    #resultCloseBtn {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      z-index: 10000;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      padding: 6px 12px;
+      font-size: 16px;
+      cursor: pointer;
+      line-height: 1;
+    }
 
-  /* 单元格：无边框、居中排版 */
-  #resultOverlay .cell {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;                  /* 避免溢出 */
-    border: none;
-    background: transparent;
-    border-radius: 6px;
-  }
+    #resultCloseBtn:hover {
+      background: rgba(0, 0, 0, 0.75);
+    }
 
-  /* figure 容器 + 下方 caption 标签 */
-  #resultOverlay figure {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  #resultOverlay .media-box {
-    flex: 1 1 auto;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;           /* 与遮罩融为一体，避免黑边视觉 */
-    border-radius: 6px;
-    overflow: hidden;
-  }
-  #resultOverlay figcaption {
-    flex: 0 0 auto;
-    text-align: center;
-    color: #eaeaea;
-    font-size: 14px;
-    margin-top: 6px;
-    user-select: none;
-  }
+    /* 单元格：无边框、居中排版 */
+    #resultOverlay .cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      /* 避免溢出 */
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+    }
 
-  /* 媒体规则：
+    /* figure 容器 + 下方 caption 标签 */
+    #resultOverlay figure {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #resultOverlay .media-box {
+      flex: 1 1 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      /* 与遮罩融为一体，避免黑边视觉 */
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    #resultOverlay figcaption {
+      flex: 0 0 auto;
+      text-align: center;
+      color: #eaeaea;
+      font-size: 14px;
+      margin-top: 6px;
+      user-select: none;
+    }
+
+    /* 媒体规则：
      - 图片保持比例不裁切
      - 视频铺满不留边（会有轻微裁切；若想不裁切请把 cover 改为 contain） */
-  #resultOverlay img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    background: transparent;
-  }
-#resultOverlay video {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;               /* 保持比例，不裁切 */
-  display: block;
-  background: transparent;           /* 空边透明 */
-}
-
-  /* 区域定位 */
-  #cell-g1     { grid-area: g1; }
-  #cell-g2     { grid-area: g2; }      /* Garment 2（默认 JS 控制显隐） */
-  #cell-motion { grid-area: motion; }
-  #cell-user   { grid-area: user; }
-  #cell-result { grid-area: result; }
-  #cell-footer { grid-area: footer; color: #eaeaea; font-size: 14px; }
-
-  /* Prompt 底栏（可滚动，保留换行） */
-  #cell-footer {
-    display: none;                     /* 无 prompt 时隐藏 */
-    background: rgba(0,0,0,0.35);
-    border-radius: 6px;
-    padding: 8px 10px;
-    line-height: 1.4;
-    max-height: 28vh;
-    overflow: auto;
-  }
-  #cell-footer #footer-text {
-    white-space: pre-wrap;             /* 自动换行 & 保留 \n */
-    word-break: break-word;            /* 超长单词也断行 */
-  }
-
-  /* 响应式 */
-  @media (max-width: 640px) {
-    #resultOverlay .viewer {
-      inset: 4% 4%;
-      grid-template-columns: 1fr 1fr;
-        grid-template-rows: 2fr 1fr 1fr auto;
-      grid-template-areas:
-        "result result"
-        "motion g1"
-        "user   g2"
-        "footer footer";
+    #resultOverlay img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      background: transparent;
     }
-  }
-  .youtube-video-container {
-    position: relative;
-    width: 100%;
-    max-width: 80%;          /* 最大不超过页面宽度的 80% */
-    margin: 0 auto;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-  }
 
-  .youtube-video-container iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
+    #resultOverlay video {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      /* 保持比例，不裁切 */
+      display: block;
+      background: transparent;
+      /* 空边透明 */
+    }
 
-</style>
+    /* 区域定位 */
+    #cell-g1 {
+      grid-area: g1;
+    }
 
-<div id="resultOverlay" onclick="hide_result()">
-  <button id="resultCloseBtn" onclick="hide_result(); event.stopPropagation();" aria-label="Close">&times; Close</button>
+    #cell-g2 {
+      grid-area: g2;
+    }
 
-  <div class="viewer" onclick="event.stopPropagation()">
-    <!-- Garment 1 -->
-    <div id="cell-g1" class="cell">
-      <figure>
-        <div class="media-box"><img id="img-garment1" alt="garment_1"></div>
-        <figcaption>Garment 1</figcaption>
-      </figure>
-    </div>
+    /* Garment 2（默认 JS 控制显隐） */
+    #cell-motion {
+      grid-area: motion;
+    }
 
-    <!-- Garment 2（可选） -->
-    <div id="cell-g2" class="cell" style="display:none;">
-      <figure>
-        <div class="media-box"><img id="img-garment2" alt="garment_2"></div>
-        <figcaption>Garment 2</figcaption>
-      </figure>
-    </div>
+    #cell-user {
+      grid-area: user;
+    }
 
-    <!-- Motion Reference -->
-    <div id="cell-motion" class="cell">
-      <figure>
-        <div class="media-box"><video id="vid-motion" playsinline autoplay loop muted></video></div>
-        <figcaption>Motion Reference</figcaption>
-      </figure>
-    </div>
+    #cell-result {
+      grid-area: result;
+    }
 
-    <!-- User -->
-    <div id="cell-user" class="cell">
-      <figure>
-        <div class="media-box"><img id="img-user" alt="user_image"></div>
-        <figcaption>User</figcaption>
-      </figure>
-    </div>
+    #cell-footer {
+      grid-area: footer;
+      color: #eaeaea;
+      font-size: 14px;
+    }
 
-    <!-- Try-On Result -->
-    <div id="cell-result" class="cell">
-      <figure>
-        <div class="media-box"><video id="vid-result" playsinline autoplay loop muted controls></video></div>
-        <figcaption>Try-On Result</figcaption>
-      </figure>
-    </div>
+    /* Prompt 底栏（可滚动，保留换行） */
+    #cell-footer {
+      display: none;
+      /* 无 prompt 时隐藏 */
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 6px;
+      padding: 8px 10px;
+      line-height: 1.4;
+      max-height: 28vh;
+      overflow: auto;
+    }
 
-    <!-- Prompt（TXT） -->
-    <div id="cell-footer" title="prompt">
-      <div id="footer-text"></div>
+    #cell-footer #footer-text {
+      white-space: pre-wrap;
+      /* 自动换行 & 保留 \n */
+      word-break: break-word;
+      /* 超长单词也断行 */
+    }
+
+    /* 响应式 */
+    @media (max-width: 640px) {
+      #resultOverlay .viewer {
+        inset: 4% 4%;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 2fr 1fr 1fr auto;
+        grid-template-areas:
+          "result result"
+          "motion g1"
+          "user   g2"
+          "footer footer";
+      }
+    }
+
+    .youtube-video-container {
+      position: relative;
+      width: 100%;
+      max-width: 80%;
+      /* 最大不超过页面宽度的 80% */
+      margin: 0 auto;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+    }
+
+    .youtube-video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+
+  <div id="resultOverlay" onclick="hide_result()">
+    <button id="resultCloseBtn" onclick="hide_result(); event.stopPropagation();" aria-label="Close">&times;
+      Close</button>
+
+    <div class="viewer" onclick="event.stopPropagation()">
+      <!-- Garment 1 -->
+      <div id="cell-g1" class="cell">
+        <figure>
+          <div class="media-box"><img id="img-garment1" alt="garment_1"></div>
+          <figcaption>Garment 1</figcaption>
+        </figure>
+      </div>
+
+      <!-- Garment 2（可选） -->
+      <div id="cell-g2" class="cell" style="display:none;">
+        <figure>
+          <div class="media-box"><img id="img-garment2" alt="garment_2"></div>
+          <figcaption>Garment 2</figcaption>
+        </figure>
+      </div>
+
+      <!-- Motion Reference -->
+      <div id="cell-motion" class="cell">
+        <figure>
+          <div class="media-box"><video id="vid-motion" playsinline autoplay loop muted></video></div>
+          <figcaption>Motion Reference</figcaption>
+        </figure>
+      </div>
+
+      <!-- User -->
+      <div id="cell-user" class="cell">
+        <figure>
+          <div class="media-box"><img id="img-user" alt="user_image"></div>
+          <figcaption>User</figcaption>
+        </figure>
+      </div>
+
+      <!-- Try-On Result -->
+      <div id="cell-result" class="cell">
+        <figure>
+          <div class="media-box"><video id="vid-result" playsinline autoplay loop muted controls></video></div>
+          <figcaption>Try-On Result</figcaption>
+        </figure>
+      </div>
+
+      <!-- Prompt（TXT） -->
+      <div id="cell-footer" title="prompt">
+        <div id="footer-text"></div>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  // 缓存引用
-  const _mediaRefs = {
-    result:     document.getElementById('vid-result'),
-    motion:     document.getElementById('vid-motion'),
-    g1:         document.getElementById('img-garment1'),
-    g2:         document.getElementById('img-garment2'),
-    g2Cell:     document.getElementById('cell-g2'),
-    user:       document.getElementById('img-user'),
-    footer:     document.getElementById('footer-text'),
-    footerCell: document.getElementById('cell-footer'),
-    overlay:    document.getElementById('resultOverlay')
-  };
-
-  /**
-   * 显示结果浮窗（prompt 仅支持 txt 路径）
-   * @param {string} resultVideo   ./video/gallery/{task}.mp4
-   * @param {string} motionVideo   ./video/gallery/{task}_motion_ref_full.mp4
-   * @param {string} userImage     ./video/gallery/{task}_image_processed.jpg
-   * @param {string} garmentImg1   ./video/gallery/{task}_garment_processed.jpg
-   * @param {string|null} garmentImg2  可选（有就显示，无则隐藏）
-   * @param {string|null} promptFile   ./video/gallery/{task}.txt
-   */
-  function show_result(resultVideo, motionVideo, userImage, garmentImg1, garmentImg2 = null, promptFile = null) {
-    // 媒体源
-    setVideoSource(_mediaRefs.result, resultVideo);
-    setVideoSource(_mediaRefs.motion, motionVideo);
-    setImageSource(_mediaRefs.user,   userImage);
-    setImageSource(_mediaRefs.g1,     garmentImg1);
-
-    // Garment 2：可选显示/隐藏
-    if (garmentImg2) {
-      _mediaRefs.g2.src = garmentImg2;
-      _mediaRefs.g2Cell.style.display = '';
-    } else {
-      _mediaRefs.g2.removeAttribute('src');
-      _mediaRefs.g2Cell.style.display = 'none';
-    }
-
-    // prompt：只支持 txt；无论成功失败都显示底栏并给出文案
-    if (promptFile) {
-      _mediaRefs.footerCell.style.display = 'block';
-      _mediaRefs.footer.textContent = 'Loading prompt...';
-      fetch(new Request(promptFile, { cache: 'no-store' }))
-        .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.text(); })
-        .then(text => {
-          const t = (text || '').trim();
-          _mediaRefs.footer.textContent = t || '[Empty prompt]';
-        })
-        .catch(() => {
-          _mediaRefs.footer.textContent = '[Prompt not found: ' + promptFile + ']';
-        });
-    } else {
-      _mediaRefs.footer.textContent = '';
-      _mediaRefs.footerCell.style.display = 'none';
-    }
-
-    // 显示浮层 + 锁定滚动
-    _mediaRefs.overlay.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-  }
-
-  function hide_result() {
-    // 暂停并清理视频
-    clearVideo(_mediaRefs.result);
-    clearVideo(_mediaRefs.motion);
-
-    // 隐藏浮层 + 恢复滚动
-    _mediaRefs.overlay.style.display = 'none';
-    document.body.style.overflow = '';
-  }
-
-  // 设置 <video> 源并自动播放；同时根据视频真实尺寸设置容器的 aspect-ratio（更顺眼）
-  function setVideoSource(videoEl, src) {
-    if (!src) { clearVideo(videoEl); return; }
-    clearVideo(videoEl);
-    const source = document.createElement('source');
-    source.src = src;
-    source.type = 'video/mp4';
-    videoEl.appendChild(source);
-    videoEl.onloadedmetadata = () => {
-      const ar = (videoEl.videoWidth && videoEl.videoHeight)
-        ? (videoEl.videoWidth + ' / ' + videoEl.videoHeight)
-        : null;
-      const box = videoEl.closest('.media-box');
-      if (box && ar) box.style.aspectRatio = ar; // 让容器跟随真实比例
+  <script>
+    // 缓存引用
+    const _mediaRefs = {
+      result: document.getElementById('vid-result'),
+      motion: document.getElementById('vid-motion'),
+      g1: document.getElementById('img-garment1'),
+      g2: document.getElementById('img-garment2'),
+      g2Cell: document.getElementById('cell-g2'),
+      user: document.getElementById('img-user'),
+      footer: document.getElementById('footer-text'),
+      footerCell: document.getElementById('cell-footer'),
+      overlay: document.getElementById('resultOverlay')
     };
-    videoEl.load();
-    const p = videoEl.play();
-    if (p && typeof p.catch === 'function') p.catch(()=>{});
-  }
-  function clearVideo(videoEl) {
-    try { videoEl.pause(); } catch(e){}
-    while (videoEl.firstChild) videoEl.removeChild(videoEl.firstChild);
-    videoEl.removeAttribute('src');
-    try { videoEl.load(); } catch(e){}
-    const box = videoEl.closest('.media-box');
-    if (box) box.style.removeProperty('aspect-ratio');
-  }
 
-  // 设置 <img> 源
-  function setImageSource(imgEl, src) {
-    if (!src) { imgEl.removeAttribute('src'); return; }
-    imgEl.src = src;
-  }
+    /**
+     * 显示结果浮窗（prompt 仅支持 txt 路径）
+     * @param {string} resultVideo   ./video/gallery/{task}.mp4
+     * @param {string} motionVideo   ./video/gallery/{task}_motion_ref_full.mp4
+     * @param {string} userImage     ./video/gallery/{task}_image_processed.jpg
+     * @param {string} garmentImg1   ./video/gallery/{task}_garment_processed.jpg
+     * @param {string|null} garmentImg2  可选（有就显示，无则隐藏）
+     * @param {string|null} promptFile   ./video/gallery/{task}.txt
+     */
+    function show_result(resultVideo, motionVideo, userImage, garmentImg1, garmentImg2 = null, promptFile = null) {
+      // 媒体源
+      setVideoSource(_mediaRefs.result, resultVideo);
+      setVideoSource(_mediaRefs.motion, motionVideo);
+      setImageSource(_mediaRefs.user, userImage);
+      setImageSource(_mediaRefs.g1, garmentImg1);
 
-  // Esc 关闭
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && _mediaRefs.overlay.style.display === 'block') hide_result();
-  });
-</script>
+      // Garment 2：可选显示/隐藏
+      if (garmentImg2) {
+        _mediaRefs.g2.src = garmentImg2;
+        _mediaRefs.g2Cell.style.display = '';
+      } else {
+        _mediaRefs.g2.removeAttribute('src');
+        _mediaRefs.g2Cell.style.display = 'none';
+      }
+
+      // prompt：只支持 txt；无论成功失败都显示底栏并给出文案
+      if (promptFile) {
+        _mediaRefs.footerCell.style.display = 'block';
+        _mediaRefs.footer.textContent = 'Loading prompt...';
+        fetch(new Request(promptFile, { cache: 'no-store' }))
+          .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.text(); })
+          .then(text => {
+            const t = (text || '').trim();
+            _mediaRefs.footer.textContent = t || '[Empty prompt]';
+          })
+          .catch(() => {
+            _mediaRefs.footer.textContent = '[Prompt not found: ' + promptFile + ']';
+          });
+      } else {
+        _mediaRefs.footer.textContent = '';
+        _mediaRefs.footerCell.style.display = 'none';
+      }
+
+      // 显示浮层 + 锁定滚动
+      _mediaRefs.overlay.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hide_result() {
+      // 暂停并清理视频
+      clearVideo(_mediaRefs.result);
+      clearVideo(_mediaRefs.motion);
+
+      // 隐藏浮层 + 恢复滚动
+      _mediaRefs.overlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // 设置 <video> 源并自动播放；同时根据视频真实尺寸设置容器的 aspect-ratio（更顺眼）
+    function setVideoSource(videoEl, src) {
+      if (!src) { clearVideo(videoEl); return; }
+      clearVideo(videoEl);
+      const source = document.createElement('source');
+      source.src = src;
+      source.type = 'video/mp4';
+      videoEl.appendChild(source);
+      videoEl.onloadedmetadata = () => {
+        const ar = (videoEl.videoWidth && videoEl.videoHeight)
+          ? (videoEl.videoWidth + ' / ' + videoEl.videoHeight)
+          : null;
+        const box = videoEl.closest('.media-box');
+        if (box && ar) box.style.aspectRatio = ar; // 让容器跟随真实比例
+      };
+      videoEl.load();
+      const p = videoEl.play();
+      if (p && typeof p.catch === 'function') p.catch(() => { });
+    }
+    function clearVideo(videoEl) {
+      try { videoEl.pause(); } catch (e) { }
+      while (videoEl.firstChild) videoEl.removeChild(videoEl.firstChild);
+      videoEl.removeAttribute('src');
+      try { videoEl.load(); } catch (e) { }
+      const box = videoEl.closest('.media-box');
+      if (box) box.style.removeProperty('aspect-ratio');
+    }
+
+    // 设置 <img> 源
+    function setImageSource(imgEl, src) {
+      if (!src) { imgEl.removeAttribute('src'); return; }
+      imgEl.src = src;
+    }
+
+    // Esc 关闭
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && _mediaRefs.overlay.style.display === 'block') hide_result();
+    });
+
+    /* ========= Gallery 可见性自动播放 ========= */
+    function _galleryVideos() {
+      return Array.from(document.querySelectorAll('video.gallery-video'));
+    }
+
+    let _overlayOpen = false;
+    let _io = null;
+
+    function _ensureObserver() {
+      if (_io) return;
+      _io = new IntersectionObserver((entries) => {
+        if (_overlayOpen) {
+          // 浮层打开时，强制暂停所有背景缩略视频
+          entries.forEach(e => { try { e.target.pause(); } catch (_) { } });
+          return;
+        }
+        entries.forEach(e => {
+          const v = e.target;
+          if (e.isIntersecting) {
+            const p = v.play();
+            if (p && typeof p.catch === 'function') p.catch(() => { });
+          } else {
+            try { v.pause(); } catch (_) { }
+          }
+        });
+      }, { root: null, threshold: 0.5 }); // ≥50% 可见时播放
+    }
+
+    function setupGalleryAutoPlayOnce() {
+      _ensureObserver();
+      _galleryVideos().forEach(v => _io.observe(v));
+      playVisibleVideosNow(); // 先按当前可见性做一遍
+    }
+
+    function playVisibleVideosNow() {
+      if (_overlayOpen) return;
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const vw = window.innerWidth || document.documentElement.clientWidth;
+      _galleryVideos().forEach(v => {
+        const r = v.getBoundingClientRect();
+        const visible =
+          r.width > 0 &&
+          r.height > 0 &&
+          r.bottom > 0 &&
+          r.right > 0 &&
+          r.top < vh &&
+          r.left < vw;
+        if (visible) {
+          const p = v.play();
+          if (p && typeof p.catch === 'function') p.catch(() => { });
+        } else {
+          try { v.pause(); } catch (_) { }
+        }
+      });
+    }
+
+    window.addEventListener('load', setupGalleryAutoPlayOnce);
+    window.addEventListener('resize', playVisibleVideosNow);
+
+    /* ========= 打开/关闭浮层时联动 ========= */
+    function pauseAllGalleryVideos() {
+      _galleryVideos().forEach(v => { try { v.pause(); } catch (_) { } });
+    }
+    function resumeVisibleGalleryVideos() {
+      playVisibleVideosNow();
+    }
+
+    /* ========= 挂钩现有 show_result / hide_result ========= */
+    (function hookOverlay() {
+      const _origShow = window.show_result;
+      const _origHide = window.hide_result;
+
+      window.show_result = function (...args) {
+        _overlayOpen = true;
+        pauseAllGalleryVideos();   // 打开大图前，暂停所有背景缩略视频
+        return _origShow.apply(this, args);
+      };
+
+      window.hide_result = function (...args) {
+        const ret = _origHide ? _origHide.apply(this, args) : undefined;
+        _overlayOpen = false;
+        resumeVisibleGalleryVideos(); // 仅恢复屏幕内可见的缩略视频
+        return ret;
+      };
+    })();
+  </script>
 
 
 
 </head>
 
 <body>
-    <div class="container" id="header" style="text-align: center; margin: auto;">
-        <div class="row" id="title-row" style="max-width: 100%; margin: 0 auto; display: inline-block">
-            <h2 class="col-md-12 text-center" id="title">
-                <span style="font-family: 'ADLaM Display', 'Nunito', Arial, sans-serif;">
-                    <b><span style="color:#00B0F0;">Dress</span>&amp;<span
-                            style="color:#FF0000;">Dance</span></b></span>:
-                <span style="color:#00B0F0;">Dress</span> up and <span style="color:#FF0000;">Dance</span>
-                as You Like It
-            </h2>
-            <h2 class="col-md-12 text-center" id="title" hidden> Dress&amp;Dance: Dress up and Dance as You Like It
-                <!-- <small> NeurIPS 2024 </small>  -->
-            </h2>
+  <div class="container" id="header" style="text-align: center; margin: auto;">
+    <div class="row" id="title-row" style="max-width: 100%; margin: 0 auto; display: inline-block">
+      <h2 class="col-md-12 text-center" id="title">
+        <span style="font-family: 'ADLaM Display', 'Nunito', Arial, sans-serif;">
+          <b><span style="color:#00B0F0;">Dress</span>&amp;<span style="color:#FF0000;">Dance</span></b></span>:
+        <span style="color:#00B0F0;">Dress</span> up and <span style="color:#FF0000;">Dance</span>
+        as You Like It
+      </h2>
+      <h2 class="col-md-12 text-center" id="title" hidden> Dress&amp;Dance: Dress up and Dance as You Like It
+        <!-- <small> NeurIPS 2024 </small>  -->
+      </h2>
+    </div>
+    <div class="row" id="author-row" style="margin:0 auto;">
+      <div class="col-md-12 text-center" style="display: table; margin:0 auto">
+        <table class="author-table" id="author-table">
+          <tr>
+            <td><a style="text-decoration:none" href="https://scholar.google.com/citations?user=_m5__wUAAAAJ"> Jun-Kun
+                Chen </a><sup>
+                <img src="img/icon_uiuc.png" alt="UIUC" style="height:1em;vertical-align:text-top;">
+                <img src="img/icon_spreeai.png" alt="SpreeAI" style="height:1em;vertical-align:text-top;">
+              </sup></td>
+            <td><a style="text-decoration:none" href="https://aayushbansal.xyz/"> Aayush Bansal
+              </a><sup>
+                <img src="img/icon_spreeai.png" alt="SpreeAI" style="height:1em;vertical-align:text-top;">
+              </sup></td>
+            <td><a style="text-decoration:none" href="https://minhpvo.github.io/"> Minh Phuoc Vo </a><sup>
+                <img src="img/icon_spreeai.png" alt="SpreeAI" style="height:1em;vertical-align:text-top;">
+              </sup></td>
+            <td><a style="text-decoration:none" href="https://yxw.cs.illinois.edu/"> Yu-Xiong Wang </a><sup>
+                <img src="img/icon_uiuc.png" alt="UIUC" style="height:1em;vertical-align:text-top;">
+              </sup></td>
+          </tr>
+        </table>
+        <sup><img src="img/icon_uiuc.png" alt="UIUC" style="height:1em;vertical-align:text-top;"></sup>University of
+        Illinois at Urbana-Champaign
+        &emsp;
+        <sup><img src="img/icon_spreeai.png" alt="SpreeAI"
+            style="height:1em;vertical-align:text-top;"></sup>SpreeAI<br />
+
+      </div>
+    </div>
+    <script>
+      document.getElementById('author-row').style.maxWidth = document.getElementById("title-row").clientWidth + 'px';
+    </script>
+    <div class="container" id="main">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 text-center">
+          <ul class="nav nav-pills nav-justified">
+            <li> <a href="https://arxiv.org/abs/2508.21070">
+                <video class="gallery-video" preload="metadata" style="width: 100%; height: auto; max-height: 180px; filter:contrast(1) brightness(1);"
+                  playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                  <source src="video/teaser_dnd.mp4" type="video/mp4">
+                </video>
+                <h3><strong>Read Tech Report</strong></h3>
+              </a> </li>
+
+            <li> <a href="https://www.youtube.com/watch?v=s-IYxa0PBU8">
+                <video class="gallery-video" preload="metadata" style="width: auto; max-width: 100%; height: 180px; filter:contrast(1) brightness(1);"
+                  playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                  <source src="video/demo_lowres_preview.mp4" type="video/mp4">
+                </video>
+                <h3><strong>Watch Demo Video</strong></h3>
+              </a> </li>
+
+            <li> <a href="../VirtualFittingRoom/index.html"> <video class="gallery-video" preload="metadata"
+                style="width: 100%; height: auto; max-height: 180px; filter:contrast(1) brightness(1);"
+                playsinline="" autoplay="" loop="" muted="" onloadedmetadata="this.playbackRate=2.0"
+                id="gallery_video_se">
+                <source src="../VirtualFittingRoom/video/teaser_vfr.mp4" type="video/mp4">
+            </video>
+            <h3><strong><span
+              style="font-family:'Georgia Pro', Georgia, 'Times New Roman', Times, serif; text-shadow: 0.5px 0.5px 0.5px #888; color:#000000;">
+              VFR</span>: Long Video Try-On</strong></h3>
+           </a> </li>
+
+
+          </ul>
+
         </div>
-        <div class="row" id="author-row" style="margin:0 auto;">
-            <div class="col-md-12 text-center" style="display: table; margin:0 auto">
-                <table class="author-table" id="author-table">
-                    <tr>
-                        <td><a style="text-decoration:none"
-                                href="https://scholar.google.com/citations?user=_m5__wUAAAAJ"> Jun-Kun Chen </a><sup>
-                                <img src="img/icon_uiuc.png" alt="UIUC" style="height:1em;vertical-align:text-top;">
-                                <img src="img/icon_spreeai.png" alt="SpreeAI"
-                                    style="height:1em;vertical-align:text-top;">
-                            </sup></td>
-                        <td><a style="text-decoration:none" href="https://aayushbansal.xyz/"> Aayush Bansal
-                            </a><sup>
-                                <img src="img/icon_spreeai.png" alt="SpreeAI"
-                                    style="height:1em;vertical-align:text-top;">
-                            </sup></td>
-                        <td><a style="text-decoration:none" href="https://minhpvo.github.io/"> Minh Phuoc Vo </a><sup>
-                                <img src="img/icon_spreeai.png" alt="SpreeAI"
-                                    style="height:1em;vertical-align:text-top;">
-                            </sup></td>
-                        <td><a style="text-decoration:none" href="https://yxw.cs.illinois.edu/"> Yu-Xiong Wang </a><sup>
-                                <img src="img/icon_uiuc.png" alt="UIUC" style="height:1em;vertical-align:text-top;">
-                            </sup></td>
-                    </tr>
-                </table>
-                <sup><img src="img/icon_uiuc.png" alt="UIUC"
-                        style="height:1em;vertical-align:text-top;"></sup>University of Illinois at Urbana-Champaign
-                &emsp;
-                <sup><img src="img/icon_spreeai.png" alt="SpreeAI"
-                        style="height:1em;vertical-align:text-top;"></sup>SpreeAI<br />
+      </div>
 
-            </div>
-        </div>
-        <script>
-            document.getElementById('author-row').style.maxWidth = document.getElementById("title-row").clientWidth + 'px';
-        </script>
-        <div class="container" id="main">
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 text-center">
-                    <ul class="nav nav-pills nav-justified">
-                        <li> <a href="https://arxiv.org/abs/2508.21070">
-                                <video
-                                    style="width: 100%; height: auto; max-height: 300px; filter:contrast(1) brightness(1);"
-                                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
-                                    <source src="video/teaser_dnd.mp4" type="video/mp4">
-                                </video>
-                                <h3><strong>Read Tech Report</strong></h3>
-                            </a> </li>
-
-                          <li> <a href="https://www.youtube.com/watch?v=s-IYxa0PBU8">
-                                <video
-                                    style="width: auto; max-width: 100%; height: 300px; filter:contrast(1) brightness(1);"
-                                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
-                                    <source src="video/demo_lowres_preview.mp4" type="video/mp4">
-                                </video>
-                                <h3><strong>Watch Demo Video</strong></h3>
-                            </a> </li>
-
-
-                    </ul>
-
-                </div>
-            </div>
-
-            <!-- <div class="row" align="center">
+      <!-- <div class="row" align="center">
                 <video style="width: 50%; height: auto; max-height: 500px; filter:contrast(1) brightness(1);"
                     playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
                     <source src="video/teaser.mp4" type="video/mp4">
                 </video>
             </div> -->
 
-            <div class="row">
-                <h3> Overview
-                </h3>
+      <div class="row">
+        <h3> Overview
+        </h3>
 
-                <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+        <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
 
-                    <p class="text-justify">
-                        We introduce <span style="font-family: 'ADLaM Display', 'Nunito', Arial, sans-serif;">
-                            <b><span style="color:#00B0F0;">Dress</span>&amp;<span
-                                    style="color:#FF0000;">Dance</span></b></span>, a general framework for video
-                        generation conditioned on a wide range of inputs,
-                        including text, layout, sparse pose sequences, and multimodal combinations. Instead of building
-                        task-specific architectures, we employ a <strong>unified conditioning mechanism</strong> that we
-                        call <strong>CondNet</strong>, which processes different modalities into a shared space. This
-                        allows
-                        a single video generator to support <strong>diverse control signals</strong> without retraining.
-                        Our
-                        approach further combines <strong>hybrid training paradigms</strong> to balance realism and
-                        controllability.
-                    </p>
+          <p class="text-justify">
+            We introduce <span style="font-family: 'ADLaM Display', 'Nunito', Arial, sans-serif;">
+              <b><span style="color:#00B0F0;">Dress</span>&amp;<span style="color:#FF0000;">Dance</span></b></span>, a
+            general framework for video
+            generation conditioned on a wide range of inputs,
+            including text, layout, sparse pose sequences, and multimodal combinations. Instead of building
+            task-specific architectures, we employ a <strong>unified conditioning mechanism</strong> that we
+            call <strong>CondNet</strong>, which processes different modalities into a shared space. This
+            allows
+            a single video generator to support <strong>diverse control signals</strong> without retraining.
+            Our
+            approach further combines <strong>hybrid training paradigms</strong> to balance realism and
+            controllability.
+          </p>
 
-                    <p class="text-justify">
-                        Across a range of examples—including those shown in the accompanying videos—our method generates
-                        <strong>temporally coherent</strong> and <strong>photorealistic</strong> results, often
-                        capturing
-                        subtle dynamics and maintaining <strong>faithful alignment with input prompts</strong>. The same
-                        model generalizes well across tasks, demonstrating <strong>strong compositionality</strong> and
-                        responsiveness to diverse conditioning inputs.
-                    </p>
-                </div>
+          <p class="text-justify">
+            Across a range of examples—including those shown in the accompanying videos—our method generates
+            <strong>temporally coherent</strong> and <strong>photorealistic</strong> results, often
+            capturing
+            subtle dynamics and maintaining <strong>faithful alignment with input prompts</strong>. The same
+            model generalizes well across tasks, demonstrating <strong>strong compositionality</strong> and
+            responsiveness to diverse conditioning inputs.
+          </p>
+        </div>
 
-                <div id="video-scroller-dnd"
-                    style="display: flex; overflow-x: auto; scroll-behavior: auto; gap: 16px; padding: 12px; white-space: nowrap; border: 1px solid #ccc; margin-bottom: 24px;">
-                    <div id="video-track-dnd" style="display: flex;">
-                        <video src="video/dnd01.mp4"
-                            style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline
-                            autoplay loop muted></video>
-                        <video src="video/dnd02.mp4"
-                            style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline
-                            autoplay loop muted></video>
-                        <video src="video/dnd03.mp4"
-                            style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline
-                            autoplay loop muted></video>
-                        <video src="video/dnd04.mp4"
-                            style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline
-                            autoplay loop muted></video>
-                        <video src="video/dnd05.mp4"
-                            style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline
-                            autoplay loop muted></video>
-                        <video src="video/dnd06.mp4"
-                            style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline
-                            autoplay loop muted></video>
-                    </div>
-                </div>
+        <div id="video-scroller-dnd"
+          style="display: flex; overflow-x: auto; scroll-behavior: auto; gap: 16px; padding: 12px; white-space: nowrap; border: 1px solid #ccc; margin-bottom: 24px;">
+          <div id="video-track-dnd" style="display: flex;">
+            <video class="gallery-video" preload="metadata" src="video/dnd01.mp4" style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);"
+              playsinline autoplay loop muted></video>
+            <video class="gallery-video" preload="metadata" src="video/dnd02.mp4" style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);"
+              playsinline autoplay loop muted></video>
+            <video class="gallery-video" preload="metadata" src="video/dnd03.mp4" style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);"
+              playsinline autoplay loop muted></video>
+            <video class="gallery-video" preload="metadata" src="video/dnd04.mp4" style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);"
+              playsinline autoplay loop muted></video>
+            <video class="gallery-video" preload="metadata" src="video/dnd05.mp4" style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);"
+              playsinline autoplay loop muted></video>
+            <video class="gallery-video" preload="metadata" src="video/dnd06.mp4" style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);"
+              playsinline autoplay loop muted></video>
+          </div>
+        </div>
 
-                <script>
-                    const scrollerDND = document.getElementById('video-scroller-dnd');
-                    const trackDND = document.getElementById('video-track-dnd');
-                    let autoScrollDND = true;
-                    let scrollSpeed = 2; // 控制滚动速度，越大越快
+        <script>
+          const scrollerDND = document.getElementById('video-scroller-dnd');
+          const trackDND = document.getElementById('video-track-dnd');
+          let autoScrollDND = true;
+          let scrollSpeed = 2; // 控制滚动速度，越大越快
 
-                    // 克隆内容实现无缝
-                    const clonedDND = trackDND.cloneNode(true);
-                    scrollerDND.appendChild(clonedDND);
+          // 克隆内容实现无缝
+          const clonedDND = trackDND.cloneNode(true);
+          scrollerDND.appendChild(clonedDND);
 
-                    function scrollLoopDND() {
-                        if (!autoScrollDND) return;
-                        scrollerDND.scrollLeft += scrollSpeed;
+          function scrollLoopDND() {
+            if (!autoScrollDND) return;
+            scrollerDND.scrollLeft += scrollSpeed;
 
-                        if (scrollerDND.scrollLeft >= trackDND.scrollWidth) {
-                            // 跳回原始起点，形成无缝滚动
-                            scrollerDND.scrollLeft = 0;
-                        }
-                    }
+            if (scrollerDND.scrollLeft >= trackDND.scrollWidth) {
+              // 跳回原始起点，形成无缝滚动
+              scrollerDND.scrollLeft = 0;
+            }
+          }
 
-                    const intervalDND = setInterval(scrollLoopDND, 20);
+          const intervalDND = setInterval(scrollLoopDND, 20);
 
-                    // 点击任何地方停止自动滚动
-                    scrollerDND.addEventListener('click', () => {
-                        autoScrollDND = false;
-                    });
-                </script>
+          // 点击任何地方停止自动滚动
+          scrollerDND.addEventListener('click', () => {
+            autoScrollDND = false;
+          });
+        </script>
 
-            </div>
+      </div>
 
-            <div class="row">
-                <h3> Demo Video </h3>
-                <center>
-                <div class="youtube-video-container">
-            <iframe src="https://www.youtube.com/embed/s-IYxa0PBU8?si=-Jyh-9q8lvEgAO22" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-                </center>
-            </div>
+      <div class="row">
+        <h3> Demo Video </h3>
+        <center>
+          <div class="youtube-video-container">
+            <iframe src="https://www.youtube.com/embed/s-IYxa0PBU8?si=-Jyh-9q8lvEgAO22" title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+        </center>
+      </div>
 
-            <div class="row">
-                <h3> Result Gallery </h3>
-                <div class="text-center">
+      <div class="row">
+        <h3> Result Gallery </h3>
+        <div class="text-center">
 
-<ul class="nav nav-pills nav-justified" width="100%">
-  <li><a href="javascript:show_result('./video/gallery/000000.mp4','./video/gallery/000000_motion_ref_full.mp4','./video/gallery/000000_image_processed.jpg','./video/gallery/000000_garment_processed.jpg',null,'./video/gallery/000000.txt')">
-    <video id="gallery_video_000000" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000000_preview.mp4" type="video/mp4">
-    </video></a></li>
+          <ul class="nav nav-pills nav-justified" width="100%">
+            <li><a
+                href="javascript:show_result('./video/gallery/000000.mp4','./video/gallery/000000_motion_ref_full.mp4','./video/gallery/000000_image_processed.jpg','./video/gallery/000000_garment_processed.jpg',null,'./video/gallery/000000.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000000" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000000_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/000001.mp4','./video/gallery/000001_motion_ref_full.mp4','./video/gallery/000001_image_processed.jpg','./video/gallery/000001_garment_processed.jpg',null,'./video/gallery/000001.txt')">
-    <video id="gallery_video_000001" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000001_preview.mp4" type="video/mp4">
-    </video></a></li>
+            <li><a
+                href="javascript:show_result('./video/gallery/000001.mp4','./video/gallery/000001_motion_ref_full.mp4','./video/gallery/000001_image_processed.jpg','./video/gallery/000001_garment_processed.jpg',null,'./video/gallery/000001.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000001" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000001_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/000002.mp4','./video/gallery/000002_motion_ref_full.mp4','./video/gallery/000002_image_processed.jpg','./video/gallery/000002_garment_processed.jpg',null,'./video/gallery/000002.txt')">
-    <video id="gallery_video_000002" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000002_preview.mp4" type="video/mp4">
-    </video></a></li>
+            <li><a
+                href="javascript:show_result('./video/gallery/000002.mp4','./video/gallery/000002_motion_ref_full.mp4','./video/gallery/000002_image_processed.jpg','./video/gallery/000002_garment_processed.jpg',null,'./video/gallery/000002.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000002" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000002_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/000003.mp4','./video/gallery/000003_motion_ref_full.mp4','./video/gallery/000003_image_processed.jpg','./video/gallery/000003_garment_processed.jpg',null,'./video/gallery/000003.txt')">
-    <video id="gallery_video_000003" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000003_preview.mp4" type="video/mp4">
-    </video></a></li>
-</ul>
+            <li><a
+                href="javascript:show_result('./video/gallery/000003.mp4','./video/gallery/000003_motion_ref_full.mp4','./video/gallery/000003_image_processed.jpg','./video/gallery/000003_garment_processed.jpg',null,'./video/gallery/000003.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000003" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000003_preview.mp4" type="video/mp4">
+                </video></a></li>
+          </ul>
 
-<ul class="nav nav-pills nav-justified" width="100%">
-  <li><a href="javascript:show_result('./video/gallery/000004.mp4','./video/gallery/000004_motion_ref_full.mp4','./video/gallery/000004_image_processed.jpg','./video/gallery/000004_garment_processed.jpg',null,'./video/gallery/000004.txt')">
-    <video id="gallery_video_000004" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000004_preview.mp4" type="video/mp4">
-    </video></a></li>
+          <ul class="nav nav-pills nav-justified" width="100%">
+            <li><a
+                href="javascript:show_result('./video/gallery/000004.mp4','./video/gallery/000004_motion_ref_full.mp4','./video/gallery/000004_image_processed.jpg','./video/gallery/000004_garment_processed.jpg',null,'./video/gallery/000004.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000004" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000004_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/000005.mp4','./video/gallery/000005_motion_ref_full.mp4','./video/gallery/000005_image_processed.jpg','./video/gallery/000005_garment_processed.jpg',null,'./video/gallery/000005.txt')">
-    <video id="gallery_video_000005" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000005_preview.mp4" type="video/mp4">
-    </video></a></li>
+            <li><a
+                href="javascript:show_result('./video/gallery/000005.mp4','./video/gallery/000005_motion_ref_full.mp4','./video/gallery/000005_image_processed.jpg','./video/gallery/000005_garment_processed.jpg',null,'./video/gallery/000005.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000005" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000005_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/000007.mp4','./video/gallery/000007_motion_ref_full.mp4','./video/gallery/000007_image_processed.jpg','./video/gallery/000007_garment_processed.jpg',null,'./video/gallery/000007.txt')">
-    <video id="gallery_video_000007" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000007_preview.mp4" type="video/mp4">
-    </video></a></li>
+            <li><a
+                href="javascript:show_result('./video/gallery/000007.mp4','./video/gallery/000007_motion_ref_full.mp4','./video/gallery/000007_image_processed.jpg','./video/gallery/000007_garment_processed.jpg',null,'./video/gallery/000007.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000007" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000007_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/000009.mp4','./video/gallery/000009_motion_ref_full.mp4','./video/gallery/000009_image_processed.jpg','./video/gallery/000009_garment_processed.jpg',null,'./video/gallery/000009.txt')">
-    <video id="gallery_video_000009" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000009_preview.mp4" type="video/mp4">
-    </video></a></li>
-</ul>
+            <li><a
+                href="javascript:show_result('./video/gallery/000009.mp4','./video/gallery/000009_motion_ref_full.mp4','./video/gallery/000009_image_processed.jpg','./video/gallery/000009_garment_processed.jpg',null,'./video/gallery/000009.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000009" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000009_preview.mp4" type="video/mp4">
+                </video></a></li>
+          </ul>
 
-<ul class="nav nav-pills nav-justified" width="100%">
-  <li><a href="javascript:show_result('./video/gallery/000010.mp4','./video/gallery/000010_motion_ref_full.mp4','./video/gallery/000010_image_processed.jpg','./video/gallery/000010_garment_processed.jpg',null,'./video/gallery/000010.txt')">
-    <video id="gallery_video_000010" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000010_preview.mp4" type="video/mp4">
-    </video></a></li>
+          <ul class="nav nav-pills nav-justified" width="100%">
+            <li><a
+                href="javascript:show_result('./video/gallery/000010.mp4','./video/gallery/000010_motion_ref_full.mp4','./video/gallery/000010_image_processed.jpg','./video/gallery/000010_garment_processed.jpg',null,'./video/gallery/000010.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000010" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000010_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/000011.mp4','./video/gallery/000011_motion_ref_full.mp4','./video/gallery/000011_image_processed.jpg','./video/gallery/000011_garment_processed.jpg',null,'./video/gallery/000011.txt')">
-    <video id="gallery_video_000011" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000011_preview.mp4" type="video/mp4">
-    </video></a></li>
+            <li><a
+                href="javascript:show_result('./video/gallery/000011.mp4','./video/gallery/000011_motion_ref_full.mp4','./video/gallery/000011_image_processed.jpg','./video/gallery/000011_garment_processed.jpg',null,'./video/gallery/000011.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000011" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000011_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/000012.mp4','./video/gallery/000012_motion_ref_full.mp4','./video/gallery/000012_image_processed.jpg','./video/gallery/000012_garment_processed.jpg',null,'./video/gallery/000012.txt')">
-    <video id="gallery_video_000012" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000012_preview.mp4" type="video/mp4">
-    </video></a></li>
+            <li><a
+                href="javascript:show_result('./video/gallery/000012.mp4','./video/gallery/000012_motion_ref_full.mp4','./video/gallery/000012_image_processed.jpg','./video/gallery/000012_garment_processed.jpg',null,'./video/gallery/000012.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000012" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000012_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/000014.mp4','./video/gallery/000014_motion_ref_full.mp4','./video/gallery/000014_image_processed.jpg','./video/gallery/000014_garment_processed.jpg',null,'./video/gallery/000014.txt')">
-    <video id="gallery_video_000014" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000014_preview.mp4" type="video/mp4">
-    </video></a></li>
-</ul>
+            <li><a
+                href="javascript:show_result('./video/gallery/000014.mp4','./video/gallery/000014_motion_ref_full.mp4','./video/gallery/000014_image_processed.jpg','./video/gallery/000014_garment_processed.jpg',null,'./video/gallery/000014.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000014" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000014_preview.mp4" type="video/mp4">
+                </video></a></li>
+          </ul>
 
-<ul class="nav nav-pills nav-justified" width="100%">
-  <li><a href="javascript:show_result('./video/gallery/000015.mp4','./video/gallery/000015_motion_ref_full.mp4','./video/gallery/000015_image_processed.jpg','./video/gallery/000015_garment_processed.jpg',null,'./video/gallery/000015.txt')">
-    <video id="gallery_video_000015" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/000015_preview.mp4" type="video/mp4">
-    </video></a></li>
+          <ul class="nav nav-pills nav-justified" width="100%">
+            <li><a
+                href="javascript:show_result('./video/gallery/000015.mp4','./video/gallery/000015_motion_ref_full.mp4','./video/gallery/000015_image_processed.jpg','./video/gallery/000015_garment_processed.jpg',null,'./video/gallery/000015.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_000015" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/000015_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/100000.mp4','./video/gallery/100000_motion_ref_full.mp4','./video/gallery/100000_image_processed.jpg','./video/gallery/100000_garment_processed.jpg',null,'./video/gallery/100000.txt')">
-    <video id="gallery_video_100000" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/100000_preview.mp4" type="video/mp4">
-    </video></a></li>
+            <li><a
+                href="javascript:show_result('./video/gallery/100000.mp4','./video/gallery/100000_motion_ref_full.mp4','./video/gallery/100000_image_processed.jpg','./video/gallery/100000_garment_processed.jpg',null,'./video/gallery/100000.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_100000" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/100000_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/100002.mp4','./video/gallery/100002_motion_ref_full.mp4','./video/gallery/100002_image_processed.jpg','./video/gallery/100002_garment_processed.jpg',null,'./video/gallery/100002.txt')">
-    <video id="gallery_video_100002" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/100002_preview.mp4" type="video/mp4">
-    </video></a></li>
+            <li><a
+                href="javascript:show_result('./video/gallery/100002.mp4','./video/gallery/100002_motion_ref_full.mp4','./video/gallery/100002_image_processed.jpg','./video/gallery/100002_garment_processed.jpg',null,'./video/gallery/100002.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_100002" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/100002_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/100005.mp4','./video/gallery/100005_motion_ref_full.mp4','./video/gallery/100005_image_processed.jpg','./video/gallery/100005_garment_processed.jpg',null,'./video/gallery/100005.txt')">
-    <video id="gallery_video_100005" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/100005_preview.mp4" type="video/mp4">
-    </video></a></li>
-</ul>
+            <li><a
+                href="javascript:show_result('./video/gallery/100005.mp4','./video/gallery/100005_motion_ref_full.mp4','./video/gallery/100005_image_processed.jpg','./video/gallery/100005_garment_processed.jpg',null,'./video/gallery/100005.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_100005" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/100005_preview.mp4" type="video/mp4">
+                </video></a></li>
+          </ul>
 
-<ul class="nav nav-pills nav-justified" width="100%">
-  <li><a href="javascript:show_result('./video/gallery/100008.mp4','./video/gallery/100008_motion_ref_full.mp4','./video/gallery/100008_image_processed.jpg','./video/gallery/100008_garment_processed.jpg',null,'./video/gallery/100008.txt')">
-    <video id="gallery_video_100008" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/100008_preview.mp4" type="video/mp4">
-    </video></a></li>
+          <ul class="nav nav-pills nav-justified" width="100%">
+            <li><a
+                href="javascript:show_result('./video/gallery/100008.mp4','./video/gallery/100008_motion_ref_full.mp4','./video/gallery/100008_image_processed.jpg','./video/gallery/100008_garment_processed.jpg',null,'./video/gallery/100008.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_100008" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/100008_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/100009.mp4','./video/gallery/100009_motion_ref_full.mp4','./video/gallery/100009_image_processed.jpg','./video/gallery/100009_garment_processed.jpg',null,'./video/gallery/100009.txt')">
-    <video id="gallery_video_100009" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/100009_preview.mp4" type="video/mp4">
-    </video></a></li>
+            <li><a
+                href="javascript:show_result('./video/gallery/100009.mp4','./video/gallery/100009_motion_ref_full.mp4','./video/gallery/100009_image_processed.jpg','./video/gallery/100009_garment_processed.jpg',null,'./video/gallery/100009.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_100009" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/100009_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/100011.mp4','./video/gallery/100011_motion_ref_full.mp4','./video/gallery/100011_image_processed.jpg','./video/gallery/100011_garment_processed.jpg',null,'./video/gallery/100011.txt')">
-    <video id="gallery_video_100011" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/100011_preview.mp4" type="video/mp4">
-    </video></a></li>
+            <li><a
+                href="javascript:show_result('./video/gallery/100011.mp4','./video/gallery/100011_motion_ref_full.mp4','./video/gallery/100011_image_processed.jpg','./video/gallery/100011_garment_processed.jpg',null,'./video/gallery/100011.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_100011" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/100011_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/100013.mp4','./video/gallery/100013_motion_ref_full.mp4','./video/gallery/100013_image_processed.jpg','./video/gallery/100013_garment_processed.jpg',null,'./video/gallery/100013.txt')">
-    <video id="gallery_video_100013" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/100013_preview.mp4" type="video/mp4">
-    </video></a></li>
-</ul>
+            <li><a
+                href="javascript:show_result('./video/gallery/100013.mp4','./video/gallery/100013_motion_ref_full.mp4','./video/gallery/100013_image_processed.jpg','./video/gallery/100013_garment_processed.jpg',null,'./video/gallery/100013.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_100013" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/100013_preview.mp4" type="video/mp4">
+                </video></a></li>
+          </ul>
 
-<ul class="nav nav-pills nav-justified" width="100%">
-  <li><a href="javascript:show_result('./video/gallery/100014.mp4','./video/gallery/100014_motion_ref_full.mp4','./video/gallery/100014_image_processed.jpg','./video/gallery/100014_garment_processed.jpg',null,'./video/gallery/100014.txt')">
-    <video id="gallery_video_100014" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/100014_preview.mp4" type="video/mp4">
-    </video></a></li>
+          <ul class="nav nav-pills nav-justified" width="100%">
+            <li><a
+                href="javascript:show_result('./video/gallery/100014.mp4','./video/gallery/100014_motion_ref_full.mp4','./video/gallery/100014_image_processed.jpg','./video/gallery/100014_garment_processed.jpg',null,'./video/gallery/100014.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_100014" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/100014_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/100015.mp4','./video/gallery/100015_motion_ref_full.mp4','./video/gallery/100015_image_processed.jpg','./video/gallery/100015_garment_processed.jpg',null,'./video/gallery/100015.txt')">
-    <video id="gallery_video_100015" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/100015_preview.mp4" type="video/mp4">
-    </video></a></li>
+            <li><a
+                href="javascript:show_result('./video/gallery/100015.mp4','./video/gallery/100015_motion_ref_full.mp4','./video/gallery/100015_image_processed.jpg','./video/gallery/100015_garment_processed.jpg',null,'./video/gallery/100015.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_100015" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/100015_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/900001.mp4','./video/gallery/900001_motion_ref_full.mp4','./video/gallery/900001_image_processed.jpg','./video/gallery/900001_garment_processed.jpg',null,'./video/gallery/900001.txt')">
-    <video id="gallery_video_900001" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/900001_preview.mp4" type="video/mp4">
-    </video></a></li>
+            <li><a
+                href="javascript:show_result('./video/gallery/900001.mp4','./video/gallery/900001_motion_ref_full.mp4','./video/gallery/900001_image_processed.jpg','./video/gallery/900001_garment_processed.jpg',null,'./video/gallery/900001.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_900001" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/900001_preview.mp4" type="video/mp4">
+                </video></a></li>
 
-  <li><a href="javascript:show_result('./video/gallery/900003.mp4','./video/gallery/900003_motion_ref_full.mp4','./video/gallery/900003_image_processed.jpg','./video/gallery/900003_garment_processed.jpg',null,'./video/gallery/900003.txt')">
-    <video id="gallery_video_900003" style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
-      <source src="./video/gallery/900003_preview.mp4" type="video/mp4">
-    </video></a></li>
-</ul>
-                </div>
+            <li><a
+                href="javascript:show_result('./video/gallery/900003.mp4','./video/gallery/900003_motion_ref_full.mp4','./video/gallery/900003_image_processed.jpg','./video/gallery/900003_garment_processed.jpg',null,'./video/gallery/900003.txt')">
+                <video class="gallery-video" preload="metadata" id="gallery_video_900003" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
+                  playsinline autoplay loop muted>
+                  <source src="./video/gallery/900003_preview.mp4" type="video/mp4">
+                </video></a></li>
+          </ul>
+        </div>
 
-            </div>
+      </div>
 
 
 
-            <div class="row">
-                <h3> Citation </h3>
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="form-group col-md-10 col-md-offset-1" style="text-align: left;">
-                        <textarea id="bibtex" class="form-control" style="text-align: left;" readonly>
+      <div class="row">
+        <h3> Citation </h3>
+        <div class="col-md-8 col-md-offset-2">
+          <div class="form-group col-md-10 col-md-offset-1" style="text-align: left;">
+            <textarea id="bibtex" class="form-control" style="text-align: left;" readonly>
 @misc{dressanddancetechpreview,
       title={Dress&Dance: Dress up and Dance as You Like It - Technical Preview},
       author={Jun-Kun Chen and Aayush Bansal and Minh Phuoc Vo and Yu-Xiong Wang},
@@ -720,22 +899,22 @@
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2508.21070},
 }
-                        </textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <h3> Acknowledgements </h3>
-                <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
-                    <p class="text-justify">
-                        We thank you and the other
-                        <script type="text/javascript" src="https://counter.websiteout.net/js/7/0/0/0"></script>
-                        visitors for visiting our project page.
-                    </p>
-                </div>
-            </div>
+            </textarea>
+          </div>
         </div>
+      </div>
+      <div class="row">
+        <h3> Acknowledgements </h3>
+        <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+          <p class="text-justify">
+            We thank you and the other
+            <script type="text/javascript" src="https://counter.websiteout.net/js/7/0/0/0"></script>
+            visitors for visiting our project page.
+          </p>
+        </div>
+      </div>
     </div>
+  </div>
 </body>
 
 </html>
