@@ -433,25 +433,34 @@
     let _overlayOpen = false;
     let _io = null;
 
+
+
     function _ensureObserver() {
-      if (_io) return;
+      // 若之前已创建，先断开，避免还用旧阈值
+      if (_io) try { _io.disconnect(); } catch (_) { }
       _io = new IntersectionObserver((entries) => {
         if (_overlayOpen) {
-          // 浮层打开时，强制暂停所有背景缩略视频
           entries.forEach(e => { try { e.target.pause(); } catch (_) { } });
           return;
         }
         entries.forEach(e => {
           const v = e.target;
-          if (e.isIntersecting) {
+          const ratio = (typeof e.intersectionRatio === 'number') ? e.intersectionRatio : 0;
+          // 只要有任意可见面积就播放（不再依赖 isIntersecting/中心点）
+          if (ratio > 0) {
             const p = v.play();
             if (p && typeof p.catch === 'function') p.catch(() => { });
           } else {
             try { v.pause(); } catch (_) { }
           }
         });
-      }, { root: null, threshold: 0.5 }); // ≥50% 可见时播放
+      }, {
+        root: null,
+        threshold: [0],        // 只要 >0 的交集就触发
+        rootMargin: '0px'      // 需要也可调成 '1px' 来“更敏感”
+      });
     }
+
 
     function setupGalleryAutoPlayOnce() {
       _ensureObserver();
@@ -461,17 +470,30 @@
 
     function playVisibleVideosNow() {
       if (_overlayOpen) return;
+
       const vh = window.innerHeight || document.documentElement.clientHeight;
       const vw = window.innerWidth || document.documentElement.clientWidth;
+
       _galleryVideos().forEach(v => {
         const r = v.getBoundingClientRect();
-        const visible =
-          r.width > 0 &&
-          r.height > 0 &&
-          r.bottom > 0 &&
-          r.right > 0 &&
-          r.top < vh &&
-          r.left < vw;
+
+        // 跳过不可见/无尺寸的
+        if (r.width <= 0 || r.height <= 0) {
+          try { v.pause(); } catch (_) { }
+          return;
+        }
+
+        // 计算与视口的交集宽高（小于0则置0）
+        const interW = Math.max(0, Math.min(r.right, vw) - Math.max(r.left, 0));
+        const interH = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+
+        // 用“可见高度占比 + 可见宽度占比”作为标准（对称，不偏上/下）
+        const visibleHRatio = interH / r.height;  // 竖向可见比例
+        const visibleWRatio = interW / r.width;   // 横向可见比例
+
+        // 阈值可按需调
+        const visible = (visibleHRatio >= 0.01) && (visibleWRatio >= 0.01);
+
         if (visible) {
           const p = v.play();
           if (p && typeof p.catch === 'function') p.catch(() => { });
@@ -566,31 +588,32 @@
         <div class="col-sm-6 col-sm-offset-3 text-center">
           <ul class="nav nav-pills nav-justified">
             <li> <a href="https://arxiv.org/abs/2508.21070">
-                <video class="gallery-video" preload="metadata" style="width: 100%; height: auto; max-height: 180px; filter:contrast(1) brightness(1);"
-                  playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                <video class="gallery-video" preload="metadata"
+                  style="width: 100%; height: auto; max-height: 180px; filter:contrast(1) brightness(1);" playsinline=""
+                  autoplay="" loop="" muted="" id="gallery_video_se">
                   <source src="video/teaser_dnd.mp4" type="video/mp4">
                 </video>
                 <h3><strong>Read Tech Report</strong></h3>
               </a> </li>
 
             <li> <a href="https://www.youtube.com/watch?v=s-IYxa0PBU8">
-                <video class="gallery-video" preload="metadata" style="width: auto; max-width: 100%; height: 180px; filter:contrast(1) brightness(1);"
-                  playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                <video class="gallery-video" preload="metadata"
+                  style="width: auto; max-width: 100%; height: 180px; filter:contrast(1) brightness(1);" playsinline=""
+                  autoplay="" loop="" muted="" id="gallery_video_se">
                   <source src="video/demo_lowres_preview.mp4" type="video/mp4">
                 </video>
                 <h3><strong>Watch Demo Video</strong></h3>
               </a> </li>
 
             <li> <a href="../VirtualFittingRoom/index.html"> <video class="gallery-video" preload="metadata"
-                style="width: 100%; height: auto; max-height: 180px; filter:contrast(1) brightness(1);"
-                playsinline="" autoplay="" loop="" muted="" onloadedmetadata="this.playbackRate=2.0"
-                id="gallery_video_se">
-                <source src="../VirtualFittingRoom/video/teaser_vfr.mp4" type="video/mp4">
-            </video>
-            <h3><strong><span
-              style="font-family:'Georgia Pro', Georgia, 'Times New Roman', Times, serif; text-shadow: 0.5px 0.5px 0.5px #888; color:#000000;">
-              VFR</span>: Long Video Try-On</strong></h3>
-           </a> </li>
+                  style="width: 100%; height: auto; max-height: 180px; filter:contrast(1) brightness(1);" playsinline=""
+                  autoplay="" loop="" muted="" onloadedmetadata="this.playbackRate=2.0" id="gallery_video_se">
+                  <source src="../VirtualFittingRoom/video/teaser_vfr.mp4" type="video/mp4">
+                </video>
+                <h3><strong><span
+                      style="font-family:'Georgia Pro', Georgia, 'Times New Roman', Times, serif; text-shadow: 0.5px 0.5px 0.5px #888; color:#000000;">
+                      VFR</span>: Long Video Try-On</strong></h3>
+              </a> </li>
 
 
           </ul>
@@ -639,18 +662,24 @@
         <div id="video-scroller-dnd"
           style="display: flex; overflow-x: auto; scroll-behavior: auto; gap: 16px; padding: 12px; white-space: nowrap; border: 1px solid #ccc; margin-bottom: 24px;">
           <div id="video-track-dnd" style="display: flex;">
-            <video class="gallery-video" preload="metadata" src="video/dnd01.mp4" style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);"
-              playsinline autoplay loop muted></video>
-            <video class="gallery-video" preload="metadata" src="video/dnd02.mp4" style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);"
-              playsinline autoplay loop muted></video>
-            <video class="gallery-video" preload="metadata" src="video/dnd03.mp4" style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);"
-              playsinline autoplay loop muted></video>
-            <video class="gallery-video" preload="metadata" src="video/dnd04.mp4" style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);"
-              playsinline autoplay loop muted></video>
-            <video class="gallery-video" preload="metadata" src="video/dnd05.mp4" style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);"
-              playsinline autoplay loop muted></video>
-            <video class="gallery-video" preload="metadata" src="video/dnd06.mp4" style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);"
-              playsinline autoplay loop muted></video>
+            <video class="gallery-video" preload="metadata" src="video/dnd01.mp4"
+              style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline autoplay loop
+              muted></video>
+            <video class="gallery-video" preload="metadata" src="video/dnd02.mp4"
+              style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline autoplay loop
+              muted></video>
+            <video class="gallery-video" preload="metadata" src="video/dnd03.mp4"
+              style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline autoplay loop
+              muted></video>
+            <video class="gallery-video" preload="metadata" src="video/dnd04.mp4"
+              style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline autoplay loop
+              muted></video>
+            <video class="gallery-video" preload="metadata" src="video/dnd05.mp4"
+              style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline autoplay loop
+              muted></video>
+            <video class="gallery-video" preload="metadata" src="video/dnd06.mp4"
+              style="height: auto; max-height: 250px; filter:contrast(1) brightness(1);" playsinline autoplay loop
+              muted></video>
           </div>
         </div>
 
@@ -703,29 +732,29 @@
           <ul class="nav nav-pills nav-justified" width="100%">
             <li><a
                 href="javascript:show_result('./video/gallery/000000.mp4','./video/gallery/000000_motion_ref_full.mp4','./video/gallery/000000_image_processed.jpg','./video/gallery/000000_garment_processed.jpg',null,'./video/gallery/000000.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000000" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000000"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000000_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/000001.mp4','./video/gallery/000001_motion_ref_full.mp4','./video/gallery/000001_image_processed.jpg','./video/gallery/000001_garment_processed.jpg',null,'./video/gallery/000001.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000001" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000001"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000001_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/000002.mp4','./video/gallery/000002_motion_ref_full.mp4','./video/gallery/000002_image_processed.jpg','./video/gallery/000002_garment_processed.jpg',null,'./video/gallery/000002.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000002" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000002"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000002_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/000003.mp4','./video/gallery/000003_motion_ref_full.mp4','./video/gallery/000003_image_processed.jpg','./video/gallery/000003_garment_processed.jpg',null,'./video/gallery/000003.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000003" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000003"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000003_preview.mp4" type="video/mp4">
                 </video></a></li>
           </ul>
@@ -733,29 +762,29 @@
           <ul class="nav nav-pills nav-justified" width="100%">
             <li><a
                 href="javascript:show_result('./video/gallery/000004.mp4','./video/gallery/000004_motion_ref_full.mp4','./video/gallery/000004_image_processed.jpg','./video/gallery/000004_garment_processed.jpg',null,'./video/gallery/000004.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000004" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000004"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000004_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/000005.mp4','./video/gallery/000005_motion_ref_full.mp4','./video/gallery/000005_image_processed.jpg','./video/gallery/000005_garment_processed.jpg',null,'./video/gallery/000005.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000005" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000005"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000005_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/000007.mp4','./video/gallery/000007_motion_ref_full.mp4','./video/gallery/000007_image_processed.jpg','./video/gallery/000007_garment_processed.jpg',null,'./video/gallery/000007.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000007" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000007"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000007_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/000009.mp4','./video/gallery/000009_motion_ref_full.mp4','./video/gallery/000009_image_processed.jpg','./video/gallery/000009_garment_processed.jpg',null,'./video/gallery/000009.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000009" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000009"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000009_preview.mp4" type="video/mp4">
                 </video></a></li>
           </ul>
@@ -763,29 +792,29 @@
           <ul class="nav nav-pills nav-justified" width="100%">
             <li><a
                 href="javascript:show_result('./video/gallery/000010.mp4','./video/gallery/000010_motion_ref_full.mp4','./video/gallery/000010_image_processed.jpg','./video/gallery/000010_garment_processed.jpg',null,'./video/gallery/000010.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000010" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000010"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000010_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/000011.mp4','./video/gallery/000011_motion_ref_full.mp4','./video/gallery/000011_image_processed.jpg','./video/gallery/000011_garment_processed.jpg',null,'./video/gallery/000011.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000011" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000011"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000011_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/000012.mp4','./video/gallery/000012_motion_ref_full.mp4','./video/gallery/000012_image_processed.jpg','./video/gallery/000012_garment_processed.jpg',null,'./video/gallery/000012.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000012" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000012"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000012_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/000014.mp4','./video/gallery/000014_motion_ref_full.mp4','./video/gallery/000014_image_processed.jpg','./video/gallery/000014_garment_processed.jpg',null,'./video/gallery/000014.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000014" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000014"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000014_preview.mp4" type="video/mp4">
                 </video></a></li>
           </ul>
@@ -793,29 +822,29 @@
           <ul class="nav nav-pills nav-justified" width="100%">
             <li><a
                 href="javascript:show_result('./video/gallery/000015.mp4','./video/gallery/000015_motion_ref_full.mp4','./video/gallery/000015_image_processed.jpg','./video/gallery/000015_garment_processed.jpg',null,'./video/gallery/000015.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_000015" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_000015"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/000015_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/100000.mp4','./video/gallery/100000_motion_ref_full.mp4','./video/gallery/100000_image_processed.jpg','./video/gallery/100000_garment_processed.jpg',null,'./video/gallery/100000.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_100000" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_100000"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/100000_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/100002.mp4','./video/gallery/100002_motion_ref_full.mp4','./video/gallery/100002_image_processed.jpg','./video/gallery/100002_garment_processed.jpg',null,'./video/gallery/100002.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_100002" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_100002"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/100002_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/100005.mp4','./video/gallery/100005_motion_ref_full.mp4','./video/gallery/100005_image_processed.jpg','./video/gallery/100005_garment_processed.jpg',null,'./video/gallery/100005.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_100005" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_100005"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/100005_preview.mp4" type="video/mp4">
                 </video></a></li>
           </ul>
@@ -823,29 +852,29 @@
           <ul class="nav nav-pills nav-justified" width="100%">
             <li><a
                 href="javascript:show_result('./video/gallery/100008.mp4','./video/gallery/100008_motion_ref_full.mp4','./video/gallery/100008_image_processed.jpg','./video/gallery/100008_garment_processed.jpg',null,'./video/gallery/100008.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_100008" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_100008"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/100008_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/100009.mp4','./video/gallery/100009_motion_ref_full.mp4','./video/gallery/100009_image_processed.jpg','./video/gallery/100009_garment_processed.jpg',null,'./video/gallery/100009.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_100009" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_100009"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/100009_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/100011.mp4','./video/gallery/100011_motion_ref_full.mp4','./video/gallery/100011_image_processed.jpg','./video/gallery/100011_garment_processed.jpg',null,'./video/gallery/100011.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_100011" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_100011"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/100011_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/100013.mp4','./video/gallery/100013_motion_ref_full.mp4','./video/gallery/100013_image_processed.jpg','./video/gallery/100013_garment_processed.jpg',null,'./video/gallery/100013.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_100013" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_100013"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/100013_preview.mp4" type="video/mp4">
                 </video></a></li>
           </ul>
@@ -853,29 +882,29 @@
           <ul class="nav nav-pills nav-justified" width="100%">
             <li><a
                 href="javascript:show_result('./video/gallery/100014.mp4','./video/gallery/100014_motion_ref_full.mp4','./video/gallery/100014_image_processed.jpg','./video/gallery/100014_garment_processed.jpg',null,'./video/gallery/100014.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_100014" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_100014"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/100014_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/100015.mp4','./video/gallery/100015_motion_ref_full.mp4','./video/gallery/100015_image_processed.jpg','./video/gallery/100015_garment_processed.jpg',null,'./video/gallery/100015.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_100015" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_100015"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/100015_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/900001.mp4','./video/gallery/900001_motion_ref_full.mp4','./video/gallery/900001_image_processed.jpg','./video/gallery/900001_garment_processed.jpg',null,'./video/gallery/900001.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_900001" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_900001"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/900001_preview.mp4" type="video/mp4">
                 </video></a></li>
 
             <li><a
                 href="javascript:show_result('./video/gallery/900003.mp4','./video/gallery/900003_motion_ref_full.mp4','./video/gallery/900003_image_processed.jpg','./video/gallery/900003_garment_processed.jpg',null,'./video/gallery/900003.txt')">
-                <video class="gallery-video" preload="metadata" id="gallery_video_900003" style="width: 100%; height: auto; filter:contrast(1) brightness(1);"
-                  playsinline autoplay loop muted>
+                <video class="gallery-video" preload="metadata" id="gallery_video_900003"
+                  style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline autoplay loop muted>
                   <source src="./video/gallery/900003_preview.mp4" type="video/mp4">
                 </video></a></li>
           </ul>

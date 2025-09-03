@@ -250,24 +250,23 @@
 
         /* 让右侧 YouTube 自适应 16:9，并随列宽缩放 */
         .youtube-video-container {
-      position: relative;
-      width: 100%;
-      max-width: 80%;
-      /* 最大不超过页面宽度的 80% */
-      margin: 0 auto;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-    }
+            position: relative;
+            width: 100%;
+            max-width: 80%;
+            /* 最大不超过页面宽度的 80% */
+            margin: 0 auto;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+        }
 
-    .youtube-video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
+        .youtube-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
     </style>
 
     <div id="resultOverlay" onclick="hide_result()">
@@ -415,23 +414,29 @@
         let _io = null;
 
         function _ensureObserver() {
-            if (_io) return;
+            // 若之前已创建，先断开，避免还用旧阈值
+            if (_io) try { _io.disconnect(); } catch (_) { }
             _io = new IntersectionObserver((entries) => {
                 if (_overlayOpen) {
-                    // 浮层打开时，强制暂停所有背景缩略视频
                     entries.forEach(e => { try { e.target.pause(); } catch (_) { } });
                     return;
                 }
                 entries.forEach(e => {
                     const v = e.target;
-                    if (e.isIntersecting) {
+                    const ratio = (typeof e.intersectionRatio === 'number') ? e.intersectionRatio : 0;
+                    // 只要有任意可见面积就播放（不再依赖 isIntersecting/中心点）
+                    if (ratio > 0) {
                         const p = v.play();
                         if (p && typeof p.catch === 'function') p.catch(() => { });
                     } else {
                         try { v.pause(); } catch (_) { }
                     }
                 });
-            }, { root: null, threshold: 0.5 }); // ≥50% 可见时播放
+            }, {
+                root: null,
+                threshold: [0],        // 只要 >0 的交集就触发
+                rootMargin: '0px'      // 需要也可调成 '1px' 来“更敏感”
+            });
         }
 
         function setupGalleryAutoPlayOnce() {
@@ -442,17 +447,30 @@
 
         function playVisibleVideosNow() {
             if (_overlayOpen) return;
+
             const vh = window.innerHeight || document.documentElement.clientHeight;
             const vw = window.innerWidth || document.documentElement.clientWidth;
+
             _galleryVideos().forEach(v => {
                 const r = v.getBoundingClientRect();
-                const visible =
-                    r.width > 0 &&
-                    r.height > 0 &&
-                    r.bottom > 0 &&
-                    r.right > 0 &&
-                    r.top < vh &&
-                    r.left < vw;
+
+                // 跳过不可见/无尺寸的
+                if (r.width <= 0 || r.height <= 0) {
+                    try { v.pause(); } catch (_) { }
+                    return;
+                }
+
+                // 计算与视口的交集宽高（小于0则置0）
+                const interW = Math.max(0, Math.min(r.right, vw) - Math.max(r.left, 0));
+                const interH = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+
+                // 用“可见高度占比 + 可见宽度占比”作为标准（对称，不偏上/下）
+                const visibleHRatio = interH / r.height;  // 竖向可见比例
+                const visibleWRatio = interW / r.width;   // 横向可见比例
+
+                // 阈值可按需调
+                const visible = (visibleHRatio >= 0.01) && (visibleWRatio >= 0.01);
+
                 if (visible) {
                     const p = v.play();
                     if (p && typeof p.catch === 'function') p.catch(() => { });
@@ -461,6 +479,7 @@
                 }
             });
         }
+
 
         window.addEventListener('load', setupGalleryAutoPlayOnce);
         window.addEventListener('resize', playVisibleVideosNow);
@@ -623,8 +642,8 @@
 
             <div>
                 <video class="gallery-video" preload="metadata"
-                    style="width: 100%; height: 300px; filter:contrast(1) brightness(1);" playsinline
-                    autoplay loop muted onloadedmetadata="this.playbackRate=2.0" id="gallary_video_vfr">
+                    style="width: 100%; height: 300px; filter:contrast(1) brightness(1);" playsinline autoplay loop
+                    muted onloadedmetadata="this.playbackRate=2.0" id="gallary_video_vfr">
                     <source src="video/vfr_various1.mp4" type="video/mp4">
                 </video>
                 <p><b id="gallary_video_vfr_desc">Various motions.</b></p>
@@ -740,13 +759,15 @@
 
             </div>
             <div class="row">
-                <h3> Demo Video </h3><center>
-                <div class="youtube-video-container">
-                    <iframe src="https://www.youtube.com/embed/6iKdyf-Xocw?si=i52_X5Lac2EeUHv_"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div></center>
+                <h3> Demo Video </h3>
+                <center>
+                    <div class="youtube-video-container">
+                        <iframe src="https://www.youtube.com/embed/6iKdyf-Xocw?si=i52_X5Lac2EeUHv_"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                </center>
 
             </div>
             <div class="row">
