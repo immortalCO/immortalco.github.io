@@ -300,14 +300,14 @@
         /* 悬停/聚焦时稍微强调一下（可选） */
         a[href^="javascript:show_result"]:hover::after,
         a[href^="javascript:show_result"]:focus-visible::after {
-            background: rgba(0, 0, 0, 0.75);
+            background-color: rgba(0, 0, 0, 0.75);
             transform: scale(1.06);
         }
 
         /* 高对比度模式或浅底视频（改成更亮的底） */
         @media (prefers-contrast: more) {
             a[href^="javascript:show_result"]::after {
-                background-color: rgba(0, 0, 0, 0.85);
+                background: rgba(0, 0, 0, 0.85);
             }
         }
 
