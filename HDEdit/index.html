@@ -1,1 +1,392 @@
-<body onload="parent.location='/V2Edit'"></body>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>HDEdit: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition</title>
+<meta name="description" content="We introduce HDEdit, a training-free framework for instruction-guided video and 3D scene editing that resolves the fundamental tension between instruction fulfillment and original content preservation through Hierarchical task Decomposition. Our key insight is to progressively decompose complex edits into simpler subtasks. This hierarchical strategy aligns with dual objectives: an LLM-guided planner structures high-level subgoals for reliable instruction fulfillment, while embedding-space interpolation further refines each subgoal to preserve unedited content. Two tailored control mechanisms – word-level attention map propagation and parallel denoising synchronization – ensure temporally consistent, hyperparameter tuning-free execution. Beyond video, we extend HDEdit to 3D editing via a simple yet effective render-edit-reconstruct process that maintains strong geometric consistency. Extensive experiments demonstrate our state-of-the-art results across diverse and challenging edits, including long-duration videos, fast camera motion, and significant 3D geometric changes.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta property="og:image" content="img/teaser_simple.jpg">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1335">
+<meta property="og:image:height" content="1192"> -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://immortalco.github.io/HDEdit/">
+<meta property="og:title" content="HDEdit: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition">
+<meta property="og:description" content="We introduce HDEdit, a training-free framework for instruction-guided video and 3D scene editing that resolves the fundamental tension between instruction fulfillment and original content preservation through Hierarchical task Decomposition. Our key insight is to progressively decompose complex edits into simpler subtasks. This hierarchical strategy aligns with dual objectives: an LLM-guided planner structures high-level subgoals for reliable instruction fulfillment, while embedding-space interpolation further refines each subgoal to preserve unedited content. Two tailored control mechanisms – word-level attention map propagation and parallel denoising synchronization – ensure temporally consistent, hyperparameter tuning-free execution. Beyond video, we extend HDEdit to 3D editing via a simple yet effective render-edit-reconstruct process that maintains strong geometric consistency. Extensive experiments demonstrate our state-of-the-art results across diverse and challenging edits, including long-duration videos, fast camera motion, and significant 3D geometric changes.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HDEdit: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition">
+<meta name="twitter:description" content="We introduce HDEdit, a training-free framework for instruction-guided video and 3D scene editing that resolves the fundamental tension between instruction fulfillment and original content preservation through Hierarchical task Decomposition. Our key insight is to progressively decompose complex edits into simpler subtasks. This hierarchical strategy aligns with dual objectives: an LLM-guided planner structures high-level subgoals for reliable instruction fulfillment, while embedding-space interpolation further refines each subgoal to preserve unedited content. Two tailored control mechanisms – word-level attention map propagation and parallel denoising synchronization – ensure temporally consistent, hyperparameter tuning-free execution. Beyond video, we extend HDEdit to 3D editing via a simple yet effective render-edit-reconstruct process that maintains strong geometric consistency. Extensive experiments demonstrate our state-of-the-art results across diverse and challenging edits, including long-duration videos, fast camera motion, and significant 3D geometric changes.">
+<!-- <meta name="twitter:image" content="img/teaser_simple.jpg"> -->
+<!-- mirror: F0%9F%AA%9E&lt -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/codemirror.min.css">
+<link rel="stylesheet" href="css/app.css">
+<style>
+.rrotated {
+    transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    /* Internet Explorer 9*/
+    -moz-transform: rotate(90deg);
+    /* Firefox */
+    -webkit-transform: rotate(90deg);
+    /* Safari 和 Chrome */
+    -o-transform: rotate(90deg);/* Opera */
+}
+.lrotated {
+    transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    /* Internet Explorer 9*/
+    -moz-transform: rotate(270deg);
+    /* Firefox */
+    -webkit-transform: rotate(270deg);
+    /* Safari 和 Chrome */
+    -o-transform: rotate(270deg);/* Opera */
+}
+</style>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/codemirror.min.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script src="js/video_comparison.js"></script>
+<script src="js/app.js"></script>
+</head>
+
+<body>
+<div class="container" id="header" style="text-align: center; margin: auto;">
+    <div class="row" id="title-row" style="max-width: 100%; margin: 0 auto; display: inline-block">
+        <h2 class="col-md-12 text-center" id="title"> <b>HDEdit</b>: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition<br>
+            <!-- <small> NeurIPS 2024 </small>  -->
+        </h2>
+        <h2 class="col-md-12 text-center" id="title" hidden> HDEdit: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition<br>
+            <!-- <small> NeurIPS 2024 </small>  -->
+        </h2>
+    </div>
+    <div class="row" id="author-row" style="margin:0 auto;">
+        <div class="col-md-12 text-center" style="display: table; margin:0 auto">
+            <table class="author-table" id="author-table">
+                <tr>
+                    <td><a style="text-decoration:none" href="mailto:yanmingzhang@zju.edu.cn"> Yanming Zhang </a><sup>2†</sup></td>
+                    <td><a style="text-decoration:none" href="https://scholar.google.com/citations?user=_m5__wUAAAAJ"> Jun-Kun Chen </a><sup>1†</sup></td>
+                    <td><a style="text-decoration:none" href="mailto:jipeng2@illinois.edu"> Jipeng Lyu </a><sup>1</sup></td>
+                    <td><a style="text-decoration:none" href="https://yxw.cs.illinois.edu/"> Yu-Xiong Wang </a><sup>1</sup></td>
+                </tr>
+            </table>
+            <sup>1</sup>University of Illinois at Urbana-Champaign &emsp; <sup>2</sup>Zhejiang University  &emsp; <sup>†</sup>Equal Contribution <br/>
+            {
+                <a style="text-decoration:none" href="mailto:junkun3@illinois.edu">junkun3</a>, 
+                <a style="text-decoration:none" href="mailto:jipeng2@illinois.edu">jipeng2</a>, 
+                <a style="text-decoration:none" href="mailto:yxw@illinois.edu">yxw</a>
+            }@illinois.edu 
+            &emsp; 
+            <a style="text-decoration:none" href="mailto:yanmingzhang@zju.edu.cn">yanmingzhang@zju.edu.cn</a> </div>
+    </div>
+</div>
+<script>
+        document.getElementById('author-row').style.maxWidth = document.getElementById("title-row").clientWidth + 'px';
+    </script>
+<div class="container" id="main">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 text-center">
+            <ul class="nav nav-pills nav-justified">
+                <li> <a href="./paper.html?version=2"> <img src="https://info.arxiv.org/brand/images/brand-logomark-primary-large.jpg" height="60px" />
+                    <h4><strong>Paper</strong></h4>
+                    </a> </li>
+                <!-- <li> <a href="./poster.pdf"> <img src="./img/poster_small.png" height="60px" />
+                    <h4><strong>Poster</strong></h4>
+                    </a> </li> -->
+                <li> <a href="./presentation.html?version=1"> <img src="./img/youtube_icon.png" height="60px" />
+                    <h4><strong>Video</strong></h4>
+                    </a> </li>
+                <li> <a href="./code.html?version=21" target="_blank">
+                    <image src="img/github.png" height="60px" />
+                    <h4><strong>Code</strong></h4>
+                    </a> </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!--
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="video-compare-container" id="materialsDiv">
+                    <video class="video" id="materials" loop playsinline autoPlay muted src="video/materials_circle_mipnerf_ours.mp4" onplay="resizeAndPlay(this)"></video>
+                    
+                    <canvas height=0 class="videoMerge" id="materialsMerge"></canvas>
+                </div>
+            </div>
+        </div>
+		-->
+    
+    <div class="row" align="center">
+        <image src="img/figym-teaser.png" class="img-responsive" alt="overview" width="75%"  />
+    </div>
+    <div class="row">
+        <h3> Abstract </h3>
+        
+        <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+            <p class="text-justify"> We introduce HDEdit, a training-free framework for instruction-guided video and 3D scene editing that resolves the fundamental tension between instruction fulfillment and original content preservation through Hierarchical task Decomposition. Our key insight is to progressively decompose complex edits into simpler subtasks. This hierarchical strategy aligns with dual objectives: an LLM-guided planner structures high-level subgoals for reliable instruction fulfillment, while embedding-space interpolation further refines each subgoal to preserve unedited content. Two tailored control mechanisms – word-level attention map propagation and parallel denoising synchronization – ensure temporally consistent, hyperparameter tuning-free execution. Beyond video, we extend HDEdit to 3D editing via a simple yet effective render-edit-reconstruct process that maintains strong geometric consistency. Extensive experiments demonstrate our state-of-the-art results across diverse and challenging edits, including long-duration videos, fast camera motion, and significant 3D geometric changes. </p>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <h3> Architecture &amp; Design</h3>
+        <image src="img/figym-pipeline.png" class="img-responsive" alt="overview" style="margin:auto;" />
+        
+    </div>
+    <div class="row"> -->
+        
+        <!-- <h3> Gallery: Video Editing </h3>
+        <center>
+            <table width="100%" style="table-layout:fixed">
+                <tbody>
+                    <tr>
+                        <td align="left" valign="top" width="" >
+                            <video width="100%" playsinline="" autoplay="" loop="" muted="" id="ve_orig_video">
+                                <source src="video/scannetpp_B_orig.mp4" type="video/mp4">
+                            </video>
+                        </td>
+                        <td align="left" valign="top" width="" >
+                            <video width="100%" playsinline="" autoplay="" loop="" muted=""id="ve_edit_video">
+                                <source src="video/scannetpp_B_2077.mp4" type="video/mp4">
+                            </video>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top">
+                            Original Video
+                        </td>
+                        <td align="center" valign="top">
+                            <i id="ve_desc">Make it a near-futuristic night city style of Cyberpunk2077</i>
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>
+
+            <script>
+                function replace_ve(orig_video, edit_video, edit_desc) {
+                    document.getElementById("ve_orig_video").src = "video/" + orig_video + ".mp4";
+                    document.getElementById("ve_edit_video").src = "video/" + edit_video + ".mp4";
+                    document.getElementById("ve_desc").innerHTML = edit_desc;
+                }
+            </script>
+
+            <div class="container" id="main" >
+                <div class="row">
+                    <div class="text-center" >
+                        <ul class="nav nav-pills nav-justified" width="75%">
+                            <li> 
+                                <a href="javascript:replace_ve('scannetpp_B_orig', 'scannetpp_B_2077', 'Make it a near-futuristic night city style of Cyberpunk2077')">
+                                    <img src="img/scannetpp_B_2077.jpg" height="50px" />
+                                    <h4><strong>2077</strong></h4>
+                                </a> 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </center>
+
+        <h3> Gallery: 3D Scene Editing </h3>
+        <center>
+            <table width="100%" style="table-layout:fixed">
+                <tbody>
+                    <tr>
+                        <td align="left" valign="top" width="" >
+                            <video width="100%" playsinline="" autoplay="" loop="" muted="" id="se_orig_scene">
+                                <source src="video/scannetpp_B_orig.mp4" type="video/mp4">
+                            </video>
+                        </td>
+                        <td align="left" valign="top" width="" >
+                            <video width="100%" playsinline="" autoplay="" loop="" muted=""id="se_edit_video">
+                                <source src="video/scannetpp_B_2077.mp4" type="video/mp4">
+                            </video>
+                        </td>
+                        <td align="left" valign="top" width="" >
+                            <video width="100%" playsinline="" autoplay="" loop="" muted=""id="se_edit_scene">
+                                <source src="video/scannetpp_B_2077.mp4" type="video/mp4">
+                            </video>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" align="center" valign="middle">Original Scene</td>
+                        <td align="center">Edited Video</td>
+                        <td align="center">Edited 3D Scene</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <i id="se_desc">Make it a near-futuristic night city style of Cyberpunk2077</i>
+                        </td>
+                    </tr>                
+                </tbody>
+            </table>
+
+            <script>
+                function replace_se(orig_scene, edit_video, edit_scene, edit_desc) {
+                    document.getElementById("se_orig_scene").src = "video/" + orig_scene + ".mp4";
+                    document.getElementById("se_edit_video").src = "video/" + edit_video + ".mp4";
+                    document.getElementById("se_edit_scene").src = "video/" + edit_scene + ".mp4";
+                    document.getElementById("se_desc").innerHTML = edit_desc;
+                }
+            </script>
+
+            <div class="container" id="main" >
+                <div class="row">
+                    <div class="text-center" >
+                        <ul class="nav nav-pills nav-justified" width="75%">
+                            <li> 
+                                <a href="javascript:replace_se('scannetpp_B_orig', 'scannetpp_B_2077', 'scannetpp_B_2077', 'Make it a near-futuristic night city style of Cyberpunk2077')">
+                                    <img src="img/scannetpp_B_2077.jpg" height="50px" />
+                                    <h4><strong>2077</strong></h4>
+                                </a> 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </center> -->
+
+
+        <h3> Gallery: Video Editing </h3>
+        <center>
+            <video style="width: 100%; height: auto; max-height: 500px;" playsinline="" autoplay="" loop="" muted="" id="gallery_video_ve">
+                <source src="video/compare_vid_fiery_ring.mp4" type="video/mp4">
+            </video>
+            <p hidden><b id="gallery_video_ve_desc">Add a large, fiery ring above the motorcyclist who drives through it and catches fire on head.</b></p>
+
+            <script>
+                function replace_video_gal_ve(video, desc) {
+                    document.getElementById("gallery_video_ve").src = "video/" + video + ".mp4";
+                    document.getElementById("gallery_video_ve_desc").innerHTML = "" + desc + "";
+                }
+                
+            </script>
+
+            <div class="container" id="main" >
+                <div class="row">
+                    <div class="text-center" >
+                        <ul class="nav nav-pills nav-justified" width="75%">
+                            <li>
+                                <a href="javascript:replace_video_gal_ve('compare_vid_fiery_ring', 'Add a large, fiery ring above the motorcyclist who drives through it and catches fire on head.')">
+                                    <img src="video/compare_vid_fiery_ring.png" height="80px" />
+                                    <h4><strong>Fiery Ring</strong></h4>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:replace_video_gal_ve('compare_vid_batman_tenis', 'Replace the player with Batman playing tennis.')">
+                                    <img src="video/compare_vid_batman_tenis.png" height="80px" />
+                                    <h4><strong>Batman Tennis</strong></h4>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:replace_video_gal_ve('compare_vid_panda', 'Replace the bear with a panda with black and white fur.')">
+                                    <img src="video/compare_vid_panda.png" height="80px" />
+                                    <h4><strong>Panda</strong></h4>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:replace_video_gal_ve('compare_vid_pig', 'Replace the cow with a pig.')">
+                                    <img src="video/compare_vid_pig.png" height="80px" />
+                                    <h4><strong>Pig</strong></h4>
+                                </a>
+                            </li>
+                            
+                            
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </center>
+
+        <h3> Gallery: 3D Scene Editing </h3>
+        <center>
+            <video style="width: 100%; height: auto; max-height: 500px;" playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                <source src="video/compare_3d_parrot.mp4" type="video/mp4">
+            </video>
+            <p hidden><b id="gallery_video_se_desc">Place a colorful parrot statue on his shoulder, making him look like an adventurer.</b></p>
+
+            <script>
+                function replace_video_gal_se(video, desc) {
+                    document.getElementById("gallery_video_se").src = "video/" + video + ".mp4";
+                    document.getElementById("gallery_video_se_desc").innerHTML = "" + desc + "";
+                }
+                
+            </script>
+
+            <div class="container" id="main" >
+                <div class="row">
+                    <div class="text-center" >
+                        <ul class="nav nav-pills nav-justified" width="75%">
+                            <li>
+                                <a href="javascript:replace_video_gal_se('compare_3d_parrot', 'Place a colorful parrot statue on his shoulder, making him look like an adventurer.')">
+                                    <img src="video/compare_3d_parrot.png" height="80px" />
+                                    <h4><strong>Parrot</strong></h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:replace_video_gal_se('compare_3d_lion', 'Place a still golden lion cub on his shoulder.')">
+                                    <img src="video/compare_3d_lion.png" height="80px" />
+                                    <h4><strong>Lion</strong></h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:replace_video_gal_se('compare_3d_pig', 'Turn the stone bear into a realistic piglet statue.')">
+                                    <img src="video/compare_3d_pig.png" height="80px" />
+                                    <h4><strong>Pig</strong></h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:replace_video_gal_se('compare_3d_fairy_light', 'Decorate the top edge of the stump with tiny, glowing fairy lights.')">
+                                    <img src="video/compare_3d_fairy_light.png" height="80px" />
+                                    <h4><strong>Fairy Light</strong></h4>
+                                </a>
+                            </li>
+                            
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </center>
+ 
+    
+    <div class="row">
+        <h3> Citation </h3>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group col-md-10 col-md-offset-1">
+                <textarea id="bibtex" class="form-control" readonly>
+@inproceedings{HDEdit,
+    title={{HDEdit}: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition},
+    author={Yanming Zhang and Jun-Kun Chen and Jipeng Lyu and Yu-Xiong Wang},
+    booktitle={3DV},
+    year={2026},
+}
+@misc{V2Edit,
+    title={{V2Edit}: Versatile Video Diffusion Editor for Videos and {3D} Scenes}, 
+    author={Yanming Zhang and Jun-Kun Chen and Jipeng Lyu and Yu-Xiong Wang},
+    year={2025},
+    eprint={2503.10634},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV},
+    url={https://arxiv.org/abs/2503.10634}, 
+}
+</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h3> Acknowledgements </h3>
+        <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
+            <p class="text-justify"> 
+                The website template is borrowed from <a href="https://immortalco.github.io/ProEdit/">ProEdit</a>. <br/>
+                We thank you and the other <script type="text/javascript" src="https://counter.websiteout.net/js/7/0/0/0"></script> visitors for visiting our project page.
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
