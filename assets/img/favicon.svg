@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="JC">
+  <defs><linearGradient id="g" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse"><stop stop-color="#315efb"/><stop offset="1" stop-color="#6c47e8"/></linearGradient></defs>
+  <rect width="64" height="64" rx="18" fill="url(#g)"/>
+  <text x="32" y="40" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="23" font-weight="700" letter-spacing="-1">JC</text>
+</svg>
