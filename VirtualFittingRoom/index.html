@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<head lang="en">
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Virtual Fitting Room: Generating Arbitrarily Long Videos of Virtual Try-On from a Single Image</title>
-    <meta name="description" content="Abstract">
+    <meta name="description" content="Virtual Fitting Room generates identity-consistent, minute-scale virtual try-on videos from a single image and short motion clips.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <meta property="og:image" content="img/teaser_simple.jpg">
 <meta property="og:image:type" content="image/png">
@@ -15,19 +15,25 @@
     <meta property="og:url" content="https://immortalco.github.io/VirtualFittingRoom/">
     <meta property="og:title"
         content="Virtual Fitting Room: Generating Arbitrarily Long Videos of Virtual Try-On from a Single Image">
-    <meta property="og:description" content="Abstract">
+    <meta property="og:description" content="Identity-consistent, minute-scale virtual try-on video generation from a single image and short motion clips.">
+    <meta property="og:image" content="https://immortalco.github.io/VirtualFittingRoom/img/teaser_vfr_poster.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title"
         content="Virtual Fitting Room: Generating Arbitrarily Long Videos of Virtual Try-On from a Single Image">
-    <meta name="twitter:description" content="Abstract">
+    <meta name="twitter:description" content="Identity-consistent, minute-scale virtual try-on video generation from a single image and short motion clips.">
+    <meta name="twitter:image" content="https://immortalco.github.io/VirtualFittingRoom/img/teaser_vfr_poster.jpg">
     <!-- <meta name="twitter:image" content="img/teaser_simple.jpg"> -->
     <!-- mirror: F0%9F%AA%9E&lt -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:700|Nunito:700&display=swap" rel="stylesheet">
+    <link rel="canonical" href="https://immortalco.github.io/VirtualFittingRoom/">
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display:wght@700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:700|Nunito:700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/codemirror.min.css">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/css/project-pages.css?v=20260831-152654">
+    <script defer src="../assets/js/project-pages.js?v=20260831-152654"></script>
     <style>
         .rrotated {
             transform: rotate(90deg);
@@ -321,7 +327,10 @@
         }
     </style>
 
-    <div id="resultOverlay" onclick="hide_result()">
+</head>
+
+<body>
+<div id="resultOverlay" onclick="hide_result()">
         <button id="resultCloseBtn" onclick="hide_result(); event.stopPropagation();" aria-label="Close">&times;
             Close</button>
 
@@ -337,7 +346,7 @@
             <!-- Generated Anchor Video -->
             <div id="cell-anchor" class="cell" style="display:none;">
                 <figure>
-                    <div class="media-box"><video id="vid-anchor" playsinline autoplay loop muted></video></div>
+                    <div class="media-box"><video data-viewport-autoplay id="vid-anchor" playsinline loop muted preload="none"></video></div>
                     <figcaption>Generated Anchor Video</figcaption>
                 </figure>
             </div>
@@ -345,7 +354,7 @@
             <!-- Motion Reference -->
             <div id="cell-motion" class="cell">
                 <figure>
-                    <div class="media-box"><video id="vid-motion" playsinline autoplay loop muted></video></div>
+                    <div class="media-box"><video data-viewport-autoplay id="vid-motion" playsinline loop muted preload="none"></video></div>
                     <figcaption>Motion Reference</figcaption>
                 </figure>
             </div>
@@ -361,7 +370,7 @@
             <!-- Try-On Result -->
             <div id="cell-result" class="cell">
                 <figure>
-                    <div class="media-box"><video id="vid-result" playsinline autoplay loop muted controls></video>
+                    <div class="media-box"><video data-viewport-autoplay id="vid-result" playsinline loop muted controls preload="none"></video>
                     </div>
                     <figcaption>Try-On Result</figcaption>
                 </figure>
@@ -563,11 +572,6 @@
             };
         })();
     </script>
-
-
-</head>
-
-<body>
     <div class="container" id="header" style="text-align: center; margin: auto;">
         <div class="row" id="title-row" style="max-width: 100%; margin: 0 auto; display: inline-block">
             <h2 class="col-md-12 text-center" id="title">
@@ -577,7 +581,7 @@
                 Single
                 Image
             </h2>
-            <h2 class="col-md-12 text-center" id="title" hidden> Virtual Fitting Room: Generating Arbitrarily Long
+            <h2 class="col-md-12 text-center" id="title-plain" hidden> Virtual Fitting Room: Generating Arbitrarily Long
                 Videos of Virtual Try-On from a Single Image<br>
                 <!-- <small> NeurIPS 2024 </small>  -->
             </h2>
@@ -586,8 +590,7 @@
             <div class="col-md-12 text-center" style="display: table; margin:0 auto">
                 <table class="author-table" id="author-table">
                     <tr>
-                        <td><a style="text-decoration:none"
-                                href="https://scholar.google.com/citations?user=_m5__wUAAAAJ"> Jun-Kun
+                        <td><a style="text-decoration:none" href="../"> Jun-Kun
                                 Chen </a><sup>
                                 <img src="img/icon_uiuc.png" alt="UIUC" style="height:1em;vertical-align:text-top;">
                                 <img src="img/icon_spreeai.png" alt="SpreeAI"
@@ -623,30 +626,30 @@
                 <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12 text-center">
                     <ul class="nav nav-pills nav-justified">
 
-                        <li> <a href="https://arxiv.org/abs/2509.04450" target="_blank"> <video class="gallery-video"
-                                    preload="metadata"
+                        <li> <a href="https://arxiv.org/abs/2509.04450" target="_blank"> <video data-viewport-autoplay class="gallery-video"
+                                    preload="none"
                                     style="width: 100%; height: auto; max-height: 200px; filter:contrast(1) brightness(1);"
-                                    playsinline="" autoplay="" loop="" muted="" onloadedmetadata="this.playbackRate=2.0"
-                                    id="gallery_video_se">
+                                    playsinline="" loop="" muted="" onloadedmetadata="this.playbackRate=2.0"
+                                    id="nav_video_vfr_report">
                                     <source src="video/teaser_vfr.mp4" type="video/mp4">
                                 </video>
                                 <h3><strong>Read Tech Report<br />ArXiV</strong></h3>
                             </a> </li>
 
                         <li> <a href="https://www.youtube.com/watch?v=6iKdyf-Xocw" target="_blank">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     style="width: auto; max-width: 100%; height: 200px; filter:contrast(1) brightness(1);"
-                                    playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+                                    playsinline="" loop="" muted="" id="nav_video_vfr_demo">
                                     <source src="video/vfr_demo_release_lowres_preview.mp4" type="video/mp4">
                                 </video>
                                 <h3><strong>Watch Demo Video<br />YouTube</strong></h3>
                             </a> </li>
 
-                        <li> <a href="../DressAndDance/index.html" target="_blank"> <video class="gallery-video"
-                                    preload="metadata"
+                        <li> <a href="../DressAndDance/index.html" target="_blank"> <video data-viewport-autoplay class="gallery-video"
+                                    preload="none"
                                     style="width: 100%; height: auto; max-height: 200px; filter:contrast(1) brightness(1);"
-                                    playsinline="" autoplay="" loop="" muted="" onloadedmetadata="this.playbackRate=2.0"
-                                    id="gallery_video_se">
+                                    playsinline="" loop="" muted="" onloadedmetadata="this.playbackRate=2.0"
+                                    id="nav_video_dnd">
                                     <source src="../DressAndDance/video/teaser_dnd.mp4" type="video/mp4">
                                 </video>
                                 <h3><strong><span style="color:#00B0F0;">Dress</span><span
@@ -654,8 +657,12 @@
                                             style="color:#FF0000;">Dance</span><br />Our Previous Work on Hi-Fi Video
                                         Try-On</strong></h3>
                             </a> </li>
-
-
+                        <li class="project-home-nav project-home-nav--feature">
+                            <a href="../" aria-label="Jun-Kun Chen homepage" title="Jun-Kun Chen homepage">
+                                <span class="project-home-media"><img class="project-home-avatar" src="../assets/img/jun-kun-chen.jpg?v=20260831-152654" alt=""></span>
+                                <h3><strong>Jun-Kun Chen<br><small>Homepage</small></strong></h3>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -698,10 +705,10 @@
 
 
             <div>
-                <video class="gallery-video" preload="metadata"
-                    style="width: 100%; height: 300px; filter:contrast(1) brightness(1);" playsinline autoplay loop
+                <video data-viewport-autoplay class="gallery-video" preload="none"
+                    style="width: 100%; height: 300px; filter:contrast(1) brightness(1);" playsinline loop
                     muted onloadedmetadata="this.playbackRate=2.0" id="gallary_video_vfr">
-                    <source src="video/vfr_various1.mp4" type="video/mp4">
+                    <source src="video/web/vfr_various1.mp4?v=20260831-152654" type="video/mp4">
                 </video>
                 <p><b id="gallary_video_vfr_desc">Various motions.</b></p>
 
@@ -710,6 +717,7 @@
                     let vfrTimer = null;
                     let vfrStoppedByUser = false;
                     let vfrIndex = 0;
+                    let vfrShowcaseVisible = false;
 
                     // 收集所有按钮（按页面出现顺序作为轮播顺序）
                     const vfrBtns = () => Array.from(document.querySelectorAll('.vfr-btn'));
@@ -725,7 +733,7 @@
                     function switchTo(videoName, desc) {
                         const videoEl = document.getElementById("gallary_video_vfr");
                         const sourceEl = videoEl.querySelector('source');
-                        sourceEl.src = "video/" + videoName + ".mp4";
+                        sourceEl.src = "video/web/" + videoName + ".mp4?v=20260831-152654";
                         videoEl.load();
                         videoEl.playbackRate = 2.0;
                         videoEl.play().catch(() => { });
@@ -744,9 +752,10 @@
 
                     // 自动轮播：每 10 秒切下一个（直到用户点击为止）
                     function startVfrAutoRotate() {
+                        if (!vfrShowcaseVisible || vfrStoppedByUser || document.visibilityState !== 'visible') return;
                         if (vfrTimer) clearInterval(vfrTimer);
                         vfrTimer = setInterval(() => {
-                            if (vfrStoppedByUser) return;
+                            if (vfrStoppedByUser || !vfrShowcaseVisible || document.visibilityState !== 'visible') return;
                             const btns = vfrBtns();
                             if (!btns.length) return;
                             vfrIndex = (vfrIndex + 1) % btns.length;
@@ -755,8 +764,14 @@
                         }, 10000);
                     }
 
-                    // 初始：根据当前 <source> 的 src 确定激活项并启动轮播
-                    window.addEventListener('load', () => {
+                    function stopVfrAutoRotate() {
+                        if (vfrTimer) clearInterval(vfrTimer);
+                        vfrTimer = null;
+                    }
+
+                    // 初始：只在 showcase 可见且标签页活跃时播放和轮播。
+                    window.addEventListener('DOMContentLoaded', () => {
+                        const videoEl = document.getElementById('gallary_video_vfr');
                         const sourceEl = document.querySelector('#gallary_video_vfr source');
                         let current = 'vfr_various1';
                         if (sourceEl && sourceEl.src) {
@@ -766,11 +781,33 @@
                         setActiveButtonByVideo(current);
                         const idx = vfrBtns().findIndex(a => a.dataset.video === current);
                         if (idx >= 0) vfrIndex = idx;
-                        startVfrAutoRotate();
+
+                        const observer = new IntersectionObserver((entries) => {
+                            const entry = entries[0];
+                            vfrShowcaseVisible = Boolean(entry && entry.isIntersecting && entry.intersectionRatio >= 0.2);
+                            if (vfrShowcaseVisible) {
+                                videoEl.play().catch(() => { });
+                                startVfrAutoRotate();
+                            } else {
+                                stopVfrAutoRotate();
+                                videoEl.pause();
+                            }
+                        }, { threshold: [0, 0.2] });
+                        observer.observe(videoEl);
+
+                        document.addEventListener('visibilitychange', () => {
+                            if (document.visibilityState === 'hidden') {
+                                stopVfrAutoRotate();
+                                videoEl.pause();
+                            } else if (vfrShowcaseVisible) {
+                                videoEl.play().catch(() => { });
+                                startVfrAutoRotate();
+                            }
+                        });
                     });
                 </script>
 
-                <div class="container" id="main">
+                <div class="container">
                     <div class="row">
                         <div class="text-center" width="50%">
                             <ul class="nav nav-pills nav-justified" width="50%">
@@ -819,7 +856,7 @@
                 <h3> Demo Video </h3>
                 <center>
                     <div class="youtube-video-container">
-                        <iframe src="https://www.youtube.com/embed/6iKdyf-Xocw?si=i52_X5Lac2EeUHv_"
+                        <iframe loading="lazy" src="https://www.youtube.com/embed/6iKdyf-Xocw?si=i52_X5Lac2EeUHv_"
                             title="YouTube video player" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -838,33 +875,29 @@
                     <ul class="nav nav-pills nav-justified" width="100%">
                         <li><a
                                 href="javascript:show_result('./video/gallery/aayush_long_100001.mp4','./video/gallery/aayush_long_100001_motion_ref_full.mp4','./video/gallery/aayush_long_100001_image_processed.jpg','./video/gallery/aayush_long_100001_garment_processed.jpg','./video/gallery/aayush_long_100001_sample_frame_video.mp4','./video/gallery/aayush_long_100001_prompt.txt')">
-                                <video class="gallery-video" preload="metadata" id="gallery_video_aayush_long_100001"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                <video data-viewport-autoplay class="gallery-video" preload="none" id="gallery_video_aayush_long_100001"
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/aayush_long_100001_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/aayush_long_100002.mp4','./video/gallery/aayush_long_100002_motion_ref_full.mp4','./video/gallery/aayush_long_100002_image_processed.jpg','./video/gallery/aayush_long_100002_garment_processed.jpg','./video/gallery/aayush_long_100002_sample_frame_video.mp4','./video/gallery/aayush_long_100002_prompt.txt')">
-                                <video class="gallery-video" preload="metadata" id="gallery_video_aayush_long_100002"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                <video data-viewport-autoplay class="gallery-video" preload="none" id="gallery_video_aayush_long_100002"
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/aayush_long_100002_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/aayush_long_100003.mp4','./video/gallery/aayush_long_100003_motion_ref_full.mp4','./video/gallery/aayush_long_100003_image_processed.jpg','./video/gallery/aayush_long_100003_garment_processed.jpg','./video/gallery/aayush_long_100003_sample_frame_video.mp4','./video/gallery/aayush_long_100003_prompt.txt')">
-                                <video class="gallery-video" preload="metadata" id="gallery_video_aayush_long_100003"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                <video data-viewport-autoplay class="gallery-video" preload="none" id="gallery_video_aayush_long_100003"
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/aayush_long_100003_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/aayush_long_100005.mp4','./video/gallery/aayush_long_100005_motion_ref_full.mp4','./video/gallery/aayush_long_100005_image_processed.jpg','./video/gallery/aayush_long_100005_garment_processed.jpg','./video/gallery/aayush_long_100005_sample_frame_video.mp4','./video/gallery/aayush_long_100005_prompt.txt')">
-                                <video class="gallery-video" preload="metadata" id="gallery_video_aayush_long_100005"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                <video data-viewport-autoplay class="gallery-video" preload="none" id="gallery_video_aayush_long_100005"
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/aayush_long_100005_preview.mp4" type="video/mp4">
                                 </video></a></li>
                     </ul>
@@ -873,33 +906,29 @@
                     <ul class="nav nav-pills nav-justified" width="100%">
                         <li><a
                                 href="javascript:show_result('./video/gallery/aayush_long_100006.mp4','./video/gallery/aayush_long_100006_motion_ref_full.mp4','./video/gallery/aayush_long_100006_image_processed.jpg','./video/gallery/aayush_long_100006_garment_processed.jpg','./video/gallery/aayush_long_100006_sample_frame_video.mp4','./video/gallery/aayush_long_100006_prompt.txt')">
-                                <video class="gallery-video" preload="metadata" id="gallery_video_aayush_long_100006"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                <video data-viewport-autoplay class="gallery-video" preload="none" id="gallery_video_aayush_long_100006"
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/aayush_long_100006_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/aayush_long_100008.mp4','./video/gallery/aayush_long_100008_motion_ref_full.mp4','./video/gallery/aayush_long_100008_image_processed.jpg','./video/gallery/aayush_long_100008_garment_processed.jpg','./video/gallery/aayush_long_100008_sample_frame_video.mp4','./video/gallery/aayush_long_100008_prompt.txt')">
-                                <video class="gallery-video" preload="metadata" id="gallery_video_aayush_long_100008"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                <video data-viewport-autoplay class="gallery-video" preload="none" id="gallery_video_aayush_long_100008"
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/aayush_long_100008_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/aayush_long_100009.mp4','./video/gallery/aayush_long_100009_motion_ref_full.mp4','./video/gallery/aayush_long_100009_image_processed.jpg','./video/gallery/aayush_long_100009_garment_processed.jpg','./video/gallery/aayush_long_100009_sample_frame_video.mp4','./video/gallery/aayush_long_100009_prompt.txt')">
-                                <video class="gallery-video" preload="metadata" id="gallery_video_aayush_long_100009"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                <video data-viewport-autoplay class="gallery-video" preload="none" id="gallery_video_aayush_long_100009"
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/aayush_long_100009_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/aayush_long_100011.mp4','./video/gallery/aayush_long_100011_motion_ref_full.mp4','./video/gallery/aayush_long_100011_image_processed.jpg','./video/gallery/aayush_long_100011_garment_processed.jpg','./video/gallery/aayush_long_100011_sample_frame_video.mp4','./video/gallery/aayush_long_100011_prompt.txt')">
-                                <video class="gallery-video" preload="metadata" id="gallery_video_aayush_long_100011"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                <video data-viewport-autoplay class="gallery-video" preload="none" id="gallery_video_aayush_long_100011"
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/aayush_long_100011_preview.mp4" type="video/mp4">
                                 </video></a></li>
                     </ul>
@@ -910,9 +939,8 @@
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/aayush_long_100013.mp4','./video/gallery/aayush_long_100013_motion_ref_full.mp4','./video/gallery/aayush_long_100013_image_processed.jpg','./video/gallery/aayush_long_100013_garment_processed.jpg','./video/gallery/aayush_long_100013_sample_frame_video.mp4','./video/gallery/aayush_long_100013_prompt.txt')">
-                                <video class="gallery-video" preload="metadata" id="gallery_video_aayush_long_100013"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                <video data-viewport-autoplay class="gallery-video" preload="none" id="gallery_video_aayush_long_100013"
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/aayush_long_100013_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
@@ -920,27 +948,24 @@
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/aayush_long_100015.mp4','./video/gallery/aayush_long_100015_motion_ref_full.mp4','./video/gallery/aayush_long_100015_image_processed.jpg','./video/gallery/aayush_long_100015_garment_processed.jpg','./video/gallery/aayush_long_100015_sample_frame_video.mp4','./video/gallery/aayush_long_100015_prompt.txt')">
-                                <video class="gallery-video" preload="metadata" id="gallery_video_aayush_long_100015"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                <video data-viewport-autoplay class="gallery-video" preload="none" id="gallery_video_aayush_long_100015"
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/aayush_long_100015_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000001.mp4','./video/gallery/long_video_601f_000001_motion_ref_full.mp4','./video/gallery/long_video_601f_000001_image_processed.jpg','./video/gallery/long_video_601f_000001_garment_processed.jpg','./video/gallery/long_video_601f_000001_sample_frame_video.mp4','./video/gallery/long_video_601f_000001_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000001"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000001_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000002.mp4','./video/gallery/long_video_601f_000002_motion_ref_full.mp4','./video/gallery/long_video_601f_000002_image_processed.jpg','./video/gallery/long_video_601f_000002_garment_processed.jpg','./video/gallery/long_video_601f_000002_sample_frame_video.mp4','./video/gallery/long_video_601f_000002_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000002"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000002_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
@@ -951,37 +976,33 @@
 
                         <!-- <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000003.mp4','./video/gallery/long_video_601f_000003_motion_ref_full.mp4','./video/gallery/long_video_601f_000003_image_processed.jpg','./video/gallery/long_video_601f_000003_garment_processed.jpg','./video/gallery/long_video_601f_000003_sample_frame_video.mp4','./video/gallery/long_video_601f_000003_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000003"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000003_preview.mp4" type="video/mp4">
                                 </video></a></li> -->
 
                         <!-- <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000007.mp4','./video/gallery/long_video_601f_000007_motion_ref_full.mp4','./video/gallery/long_video_601f_000007_image_processed.jpg','./video/gallery/long_video_601f_000007_garment_processed.jpg','./video/gallery/long_video_601f_000007_sample_frame_video.mp4','./video/gallery/long_video_601f_000007_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000007"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000007_preview.mp4" type="video/mp4">
                                 </video></a></li> -->
 
                         <!-- <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000008.mp4','./video/gallery/long_video_601f_000008_motion_ref_full.mp4','./video/gallery/long_video_601f_000008_image_processed.jpg','./video/gallery/long_video_601f_000008_garment_processed.jpg','./video/gallery/long_video_601f_000008_sample_frame_video.mp4','./video/gallery/long_video_601f_000008_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000008"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000008_preview.mp4" type="video/mp4">
                                 </video></a></li> -->
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000010.mp4','./video/gallery/long_video_601f_000010_motion_ref_full.mp4','./video/gallery/long_video_601f_000010_image_processed.jpg','./video/gallery/long_video_601f_000010_garment_processed.jpg','./video/gallery/long_video_601f_000010_sample_frame_video.mp4','./video/gallery/long_video_601f_000010_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000010"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000010_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
@@ -992,27 +1013,24 @@
 
                         <!-- <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000011.mp4','./video/gallery/long_video_601f_000011_motion_ref_full.mp4','./video/gallery/long_video_601f_000011_image_processed.jpg','./video/gallery/long_video_601f_000011_garment_processed.jpg','./video/gallery/long_video_601f_000011_sample_frame_video.mp4','./video/gallery/long_video_601f_000011_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000011"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000011_preview.mp4" type="video/mp4">
                                 </video></a></li> -->
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000012.mp4','./video/gallery/long_video_601f_000012_motion_ref_full.mp4','./video/gallery/long_video_601f_000012_image_processed.jpg','./video/gallery/long_video_601f_000012_garment_processed.jpg','./video/gallery/long_video_601f_000012_sample_frame_video.mp4','./video/gallery/long_video_601f_000012_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000012"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000012_preview.mp4" type="video/mp4">
                                 </video></a></li>
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000015.mp4','./video/gallery/long_video_601f_000015_motion_ref_full.mp4','./video/gallery/long_video_601f_000015_image_processed.jpg','./video/gallery/long_video_601f_000015_garment_processed.jpg','./video/gallery/long_video_601f_000015_sample_frame_video.mp4','./video/gallery/long_video_601f_000015_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000015"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000015_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
@@ -1021,10 +1039,9 @@
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000020.mp4','./video/gallery/long_video_601f_000020_motion_ref_full.mp4','./video/gallery/long_video_601f_000020_image_processed.jpg','./video/gallery/long_video_601f_000020_garment_processed.jpg','./video/gallery/long_video_601f_000020_sample_frame_video.mp4','./video/gallery/long_video_601f_000020_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000020"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000020_preview.mp4" type="video/mp4">
                                 </video></a></li>
                     </ul>
@@ -1033,37 +1050,33 @@
                     <ul class="nav nav-pills nav-justified" width="100%">
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000024.mp4','./video/gallery/long_video_601f_000024_motion_ref_full.mp4','./video/gallery/long_video_601f_000024_image_processed.jpg','./video/gallery/long_video_601f_000024_garment_processed.jpg','./video/gallery/long_video_601f_000024_sample_frame_video.mp4','./video/gallery/long_video_601f_000024_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000024"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000024_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000026.mp4','./video/gallery/long_video_601f_000026_motion_ref_full.mp4','./video/gallery/long_video_601f_000026_image_processed.jpg','./video/gallery/long_video_601f_000026_garment_processed.jpg','./video/gallery/long_video_601f_000026_sample_frame_video.mp4','./video/gallery/long_video_601f_000026_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000026"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000026_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000027.mp4','./video/gallery/long_video_601f_000027_motion_ref_full.mp4','./video/gallery/long_video_601f_000027_image_processed.jpg','./video/gallery/long_video_601f_000027_garment_processed.jpg','./video/gallery/long_video_601f_000027_sample_frame_video.mp4','./video/gallery/long_video_601f_000027_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000027"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000027_preview.mp4" type="video/mp4">
                                 </video></a></li>
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_601f_000030.mp4','./video/gallery/long_video_601f_000030_motion_ref_full.mp4','./video/gallery/long_video_601f_000030_image_processed.jpg','./video/gallery/long_video_601f_000030_garment_processed.jpg','./video/gallery/long_video_601f_000030_sample_frame_video.mp4','./video/gallery/long_video_601f_000030_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_601f_000030"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_601f_000030_preview.mp4" type="video/mp4">
                                 </video></a></li>
                     </ul>
@@ -1072,10 +1085,9 @@
                     <ul class="nav nav-pills nav-justified" width="100%">
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_templates_100000.mp4','./video/gallery/long_video_templates_100000_motion_ref_full.mp4','./video/gallery/long_video_templates_100000_image_processed.jpg','./video/gallery/long_video_templates_100000_garment_processed.jpg','./video/gallery/long_video_templates_100000_sample_frame_video.mp4','./video/gallery/long_video_templates_100000_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_templates_100000"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_templates_100000_preview.mp4"
                                         type="video/mp4">
                                 </video></a></li>
@@ -1083,10 +1095,9 @@
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_templates_100002.mp4','./video/gallery/long_video_templates_100002_motion_ref_full.mp4','./video/gallery/long_video_templates_100002_image_processed.jpg','./video/gallery/long_video_templates_100002_garment_processed.jpg','./video/gallery/long_video_templates_100002_sample_frame_video.mp4','./video/gallery/long_video_templates_100002_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_templates_100002"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_templates_100002_preview.mp4"
                                         type="video/mp4">
                                 </video></a></li>
@@ -1095,20 +1106,18 @@
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_templates_100004.mp4','./video/gallery/long_video_templates_100004_motion_ref_full.mp4','./video/gallery/long_video_templates_100004_image_processed.jpg','./video/gallery/long_video_templates_100004_garment_processed.jpg','./video/gallery/long_video_templates_100004_sample_frame_video.mp4','./video/gallery/long_video_templates_100004_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_templates_100004"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_templates_100004_preview.mp4"
                                         type="video/mp4">
                                 </video></a></li>
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_templates_100005.mp4','./video/gallery/long_video_templates_100005_motion_ref_full.mp4','./video/gallery/long_video_templates_100005_image_processed.jpg','./video/gallery/long_video_templates_100005_garment_processed.jpg','./video/gallery/long_video_templates_100005_sample_frame_video.mp4','./video/gallery/long_video_templates_100005_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_templates_100005"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_templates_100005_preview.mp4"
                                         type="video/mp4">
                                 </video></a></li>
@@ -1118,10 +1127,9 @@
                     <ul class="nav nav-pills nav-justified" width="100%">
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_templates_100006.mp4','./video/gallery/long_video_templates_100006_motion_ref_full.mp4','./video/gallery/long_video_templates_100006_image_processed.jpg','./video/gallery/long_video_templates_100006_garment_processed.jpg','./video/gallery/long_video_templates_100006_sample_frame_video.mp4','./video/gallery/long_video_templates_100006_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_templates_100006"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_templates_100006_preview.mp4"
                                         type="video/mp4">
                                 </video></a></li>
@@ -1131,10 +1139,9 @@
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_templates_100009.mp4','./video/gallery/long_video_templates_100009_motion_ref_full.mp4','./video/gallery/long_video_templates_100009_image_processed.jpg','./video/gallery/long_video_templates_100009_garment_processed.jpg','./video/gallery/long_video_templates_100009_sample_frame_video.mp4','./video/gallery/long_video_templates_100009_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_templates_100009"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_templates_100009_preview.mp4"
                                         type="video/mp4">
                                 </video></a></li>
@@ -1142,10 +1149,9 @@
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_templates_100011.mp4','./video/gallery/long_video_templates_100011_motion_ref_full.mp4','./video/gallery/long_video_templates_100011_image_processed.jpg','./video/gallery/long_video_templates_100011_garment_processed.jpg','./video/gallery/long_video_templates_100011_sample_frame_video.mp4','./video/gallery/long_video_templates_100011_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_templates_100011"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_templates_100011_preview.mp4"
                                         type="video/mp4">
                                 </video></a></li>
@@ -1154,10 +1160,9 @@
 
                         <li><a
                                 href="javascript:show_result('./video/gallery/long_video_templates_100015.mp4','./video/gallery/long_video_templates_100015_motion_ref_full.mp4','./video/gallery/long_video_templates_100015_image_processed.jpg','./video/gallery/long_video_templates_100015_garment_processed.jpg','./video/gallery/long_video_templates_100015_sample_frame_video.mp4','./video/gallery/long_video_templates_100015_prompt.txt')">
-                                <video class="gallery-video" preload="metadata"
+                                <video data-viewport-autoplay class="gallery-video" preload="none"
                                     id="gallery_video_long_video_templates_100015"
-                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline
-                                    autoplay loop muted>
+                                    style="width: 100%; height: auto; filter:contrast(1) brightness(1);" playsinline loop muted>
                                     <source src="./video/gallery/long_video_templates_100015_preview.mp4"
                                         type="video/mp4">
                                 </video></a></li>
@@ -1187,25 +1192,11 @@
             <div class="row">
                 <h3> Acknowledgements </h3>
                 <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
-                    <p class="text-justify">
-                        We thank you and the other
-                        <script type="text/javascript" src="https://counter.websiteout.net/js/7/0/0/0"></script>
-                        visitors for visiting our project page.
-                    </p>
                 </div>
                 <!-- Cloudflare Web Analytics -->
                 <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
                     data-cf-beacon='{"token": "d1495b5a72694da48eb8e2677acd9875"}'></script>
                 <!-- End Cloudflare Web Analytics -->
-                <!-- Google tag (gtag.js) -->
-                <script async src="https://www.googletagmanager.com/gtag/js?id=G-HKBZ0EZ5XL"></script>
-                <script>
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag() { dataLayer.push(arguments); }
-                    gtag('js', new Date());
-
-                    gtag('config', 'G-HKBZ0EZ5XL');
-                </script>
             </div>
         </div>
     </div>

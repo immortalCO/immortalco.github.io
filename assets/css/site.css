@@ -24,6 +24,8 @@ body {
 img, video { max-width: 100%; }
 a { color: var(--link); text-decoration: none; }
 a:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: 3px; }
+.subtle-link { color: inherit; }
+.subtle-link:hover { color: var(--link); }
 strong { font-weight: 650; }
 
 .page-width { width: var(--page-width); margin-inline: auto; }
@@ -219,6 +221,7 @@ strong { font-weight: 650; }
 .experience-item h3 { margin: 0; font-size: 18px; line-height: 1.35; }
 .experience-role { margin: 4px 0 0; color: var(--muted); font-size: 13.5px; }
 .experience-item > div:last-child p { margin: 0; color: #424951; }
+.experience-item > div:last-child p + p { margin-top: 8px; }
 .experience-item .experience-date { margin-bottom: 8px; color: #656d77; font-size: 13.5px; font-weight: 560; }
 .experience-item.compact { padding-block: 20px; }
 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
+<html lang="en">
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>ProEdit: Simple Progression is All You Need for High-Quality 3D Scene Editing</title>
-<meta name="description" content="This paper proposes ProEdit - a simple yet effective framework for high-quality 3D scene editing guided by diffusion distillation in a novel progressive manner. Inspired by the crucial observation that multi-view inconsistency in scene editing is rooted in the diffusion model’s large feasible output space (FOS), our framework controls the size of FOS and reduces inconsistency by decomposing the overall editing task into several subtasks, which are then executed progressively on the scene. Within this framework, we design a difficulty-aware subtask decomposition scheduler and an adaptive 3D Gaussian splatting (3DGS) training strategy, ensuring high efficiency in performing each subtask. Extensive evaluation shows that our ProEdit achieves state-of-the-art results in various scenes and challenging editing tasks, all through a simple framework without any expensive or sophisticated add-ons like distillation losses, components, or training procedures. Notably, ProEdit also provides a new way to preview, control, and select the aggressivity of editing operation during the editing process.">
+<meta name="description" content="ProEdit uses progressive diffusion-guided subtasks for controllable, tuning-free 3D scene editing with previews and edit-strength control.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- <meta property="og:image" content="img/teaser_simple.jpg">
 <meta property="og:image:type" content="image/png">
@@ -13,16 +13,20 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://immortalco.github.io/ProEdit/">
 <meta property="og:title" content="ProEdit: Simple Progression is All You Need for High-Quality 3D Scene Editing">
-<meta property="og:description" content="This paper proposes ProEdit - a simple yet effective framework for high-quality 3D scene editing guided by diffusion distillation in a novel progressive manner. Inspired by the crucial observation that multi-view inconsistency in scene editing is rooted in the diffusion model’s large feasible output space (FOS), our framework controls the size of FOS and reduces inconsistency by decomposing the overall editing task into several subtasks, which are then executed progressively on the scene. Within this framework, we design a difficulty-aware subtask decomposition scheduler and an adaptive 3D Gaussian splatting (3DGS) training strategy, ensuring high efficiency in performing each subtask. Extensive evaluation shows that our ProEdit achieves state-of-the-art results in various scenes and challenging editing tasks, all through a simple framework without any expensive or sophisticated add-ons like distillation losses, components, or training procedures. Notably, ProEdit also provides a new way to preview, control, and select the aggressivity of editing operation during the editing process.">
+<meta property="og:description" content="Progressive diffusion-guided subtasks for controllable, tuning-free 3D scene editing.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ProEdit: Simple Progression is All You Need for High-Quality 3D Scene Editing">
-<meta name="twitter:description" content="This paper proposes ProEdit - a simple yet effective framework for high-quality 3D scene editing guided by diffusion distillation in a novel progressive manner. Inspired by the crucial observation that multi-view inconsistency in scene editing is rooted in the diffusion model’s large feasible output space (FOS), our framework controls the size of FOS and reduces inconsistency by decomposing the overall editing task into several subtasks, which are then executed progressively on the scene. Within this framework, we design a difficulty-aware subtask decomposition scheduler and an adaptive 3D Gaussian splatting (3DGS) training strategy, ensuring high efficiency in performing each subtask. Extensive evaluation shows that our ProEdit achieves state-of-the-art results in various scenes and challenging editing tasks, all through a simple framework without any expensive or sophisticated add-ons like distillation losses, components, or training procedures. Notably, ProEdit also provides a new way to preview, control, and select the aggressivity of editing operation during the editing process.">
+<meta name="twitter:description" content="Progressive diffusion-guided subtasks for controllable, tuning-free 3D scene editing.">
 <!-- <meta name="twitter:image" content="img/teaser_simple.jpg"> -->
 <!-- mirror: F0%9F%AA%9E&lt -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/codemirror.min.css">
 <link rel="stylesheet" href="css/app.css">
+<link rel="canonical" href="https://immortalco.github.io/ProEdit/">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/project-pages.css?v=20260831-152654">
+<script defer src="../assets/js/project-pages.js?v=20260831-152654"></script>
 <style>
 .rrotated {
     transform: rotate(90deg);
@@ -61,7 +65,7 @@
     </div>
     <div class="row" id="author-row" style="margin:0 auto;">
         <div class="col-md-12 text-center" style="display: table; margin:0 auto">
-            <a style="text-decoration:none" href="https://scholar.google.com/citations?user=_m5__wUAAAAJ"> Jun-Kun Chen </a>
+            <a style="text-decoration:none" href="../"> Jun-Kun Chen </a>
             &emsp;
             <a style="text-decoration:none" href="https://yxw.cs.illinois.edu/"> Yu-Xiong Wang </a><br/>
             University of Illinois at Urbana-Champaign<br/>
@@ -86,9 +90,15 @@
                     <h4><strong>Video</strong></h4>
                     </a> </li>
                 <li> <a href="./code.html?version=1" target="_blank">
-                    <image src="img/github.png" height="60px" />
+                    <img src="img/github.png" height="60px" />
                     <h4><strong>Code</strong></h4>
                     </a> </li>
+                <li class="project-home-nav">
+                    <a href="../" aria-label="Jun-Kun Chen homepage" title="Jun-Kun Chen homepage">
+                        <img class="project-home-avatar" src="../assets/img/jun-kun-chen.jpg?v=20260831-152654" alt="">
+                        <h4><strong>Jun-Kun</strong><br><small>Homepage</small></h4>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -97,7 +107,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="video-compare-container" id="materialsDiv">
-                    <video class="video" id="materials" loop playsinline autoPlay muted src="video/materials_circle_mipnerf_ours.mp4" onplay="resizeAndPlay(this)"></video>
+                    <video data-viewport-autoplay class="video" id="materials" loop playsinline muted src="video/materials_circle_mipnerf_ours.mp4" onplay="resizeAndPlay(this)" preload="none"></video>
 
                     <canvas height=0 class="videoMerge" id="materialsMerge"></canvas>
                 </div>
@@ -106,7 +116,7 @@
 		-->
 
     <div class="row" align="center">
-        <image src="img/teaser.png" class="img-responsive" alt="overview" width="75%" style="max-height: 300px;margin:auto;" />
+        <img src="img/teaser.png" class="img-responsive" alt="overview" width="75%" style="max-height: 300px;margin:auto;" />
     </div>
     <div class="row">
         <h3> Abstract </h3>
@@ -117,14 +127,14 @@
     </div>
     <div class="row">
         <h3> Architecture &amp; Design</h3>
-        <image src="img/pipeline.png" class="img-responsive" alt="overview" width="75%" style="margin:auto;" />
+        <img src="img/pipeline.png" class="img-responsive" alt="overview" width="75%" style="margin:auto;" />
 
     </div>
     <div class="row">
 
         <h3> Gallery </h3>
         <center>
-            <video style="width: 100%; height: auto; max-height: 500px;" playsinline="" autoplay="" loop="" muted="" id="gallery_video">
+            <video data-viewport-autoplay style="width: 100%; height: auto; max-height: 500px;" playsinline="" loop="" muted="" id="gallery_video" preload="none">
                 <source src="video/progressive.mp4" type="video/mp4">
             </video>
             <p><b id="gallery_video_desc">Progressive Editing Process<br/>The editing task is decomposed into subtasks r<sub>0</sub> to r<sub>5</sub></b></p>
@@ -137,7 +147,7 @@
 
             </script>
 
-            <div class="container" id="main" >
+            <div class="container" >
                 <div class="row">
                     <div class="text-center" >
                         <ul class="nav nav-pills nav-justified" width="75%">
@@ -176,19 +186,19 @@
             <table width="75%" style="table-layout:fixed">
                 <tbody>
                     <tr>
-                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                        <td align="left" valign="top" width="" ><video data-viewport-autoplay width="100%" playsinline="" loop="" muted="" preload="none">
                                 <source src="video/in2n_face_orig.mp4" type="video/mp4">
                             </video></td>
-                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                        <td align="left" valign="top" width="" ><video data-viewport-autoplay width="100%" playsinline="" loop="" muted="" preload="none">
                                 <source src="video/in2n_face_orig.mp4" type="video/mp4">
                             </video></td>
-                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                        <td align="left" valign="top" width="" ><video data-viewport-autoplay width="100%" playsinline="" loop="" muted="" preload="none">
                                 <source src="video/in2n_face_orig.mp4" type="video/mp4">
                             </video></td>
-                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                        <td align="left" valign="top" width="" ><video data-viewport-autoplay width="100%" playsinline="" loop="" muted="" preload="none">
                                 <source src="video/in2n_face_orig.mp4" type="video/mp4">
                             </video></td>
-                        <td align="left" valign="top" width="" ><video width="100%" playsinline="" autoplay="" loop="" muted="">
+                        <td align="left" valign="top" width="" ><video data-viewport-autoplay width="100%" playsinline="" loop="" muted="" preload="none">
                                 <source src="video/in2n_face_orig.mp4" type="video/mp4">
                             </video></td>
                     </tr>
@@ -224,8 +234,7 @@
         <h3> Acknowledgements </h3>
         <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
             <p class="text-justify">
-                The website template is borrowed from <a href="https://immortalco.github.io/ConsistDreamer/">ConsistDreamer</a>. <br/>
-                We thank you and the other <script type="text/javascript" src="https://counter.websiteout.net/js/7/0/0/0"></script> visitors for visiting our project page.
+                The website template is borrowed from <a href="https://immortalco.github.io/ConsistDreamer/">ConsistDreamer</a>.
             </p>
         </div>
     </div>

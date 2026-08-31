@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
+<html lang="en">
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>HDEdit: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition</title>
@@ -23,6 +23,10 @@
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/codemirror.min.css">
 <link rel="stylesheet" href="css/app.css">
+<link rel="canonical" href="https://immortalco.github.io/HDEdit/">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/project-pages.css?v=20260831-152654">
+<script defer src="../assets/js/project-pages.js?v=20260831-152654"></script>
 <style>
 .rrotated {
     transform: rotate(90deg);
@@ -59,7 +63,7 @@
         <h2 class="col-md-12 text-center" id="title"> <b>HDEdit</b>: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition<br>
             <!-- <small> NeurIPS 2024 </small>  -->
         </h2>
-        <h2 class="col-md-12 text-center" id="title" hidden> HDEdit: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition<br>
+        <h2 class="col-md-12 text-center" id="title-plain" hidden> HDEdit: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition<br>
             <!-- <small> NeurIPS 2024 </small>  -->
         </h2>
     </div>
@@ -68,18 +72,18 @@
             <table class="author-table" id="author-table">
                 <tr>
                     <td><a style="text-decoration:none" href="mailto:yanmingzhang@zju.edu.cn"> Yanming Zhang </a><sup>2†</sup></td>
-                    <td><a style="text-decoration:none" href="https://scholar.google.com/citations?user=_m5__wUAAAAJ"> Jun-Kun Chen </a><sup>1†</sup></td>
+                    <td><a style="text-decoration:none" href="../"> Jun-Kun Chen </a><sup>1†</sup></td>
                     <td><a style="text-decoration:none" href="mailto:jipeng2@illinois.edu"> Jipeng Lyu </a><sup>1</sup></td>
                     <td><a style="text-decoration:none" href="https://yxw.cs.illinois.edu/"> Yu-Xiong Wang </a><sup>1</sup></td>
                 </tr>
             </table>
             <sup>1</sup>University of Illinois at Urbana-Champaign &emsp; <sup>2</sup>Zhejiang University  &emsp; <sup>†</sup>Equal Contribution <br/>
             {
-                <a style="text-decoration:none" href="mailto:junkun3@illinois.edu">junkun3</a>, 
-                <a style="text-decoration:none" href="mailto:jipeng2@illinois.edu">jipeng2</a>, 
+                <a style="text-decoration:none" href="mailto:junkun3@illinois.edu">junkun3</a>,
+                <a style="text-decoration:none" href="mailto:jipeng2@illinois.edu">jipeng2</a>,
                 <a style="text-decoration:none" href="mailto:yxw@illinois.edu">yxw</a>
-            }@illinois.edu 
-            &emsp; 
+            }@illinois.edu
+            &emsp;
             <a style="text-decoration:none" href="mailto:yanmingzhang@zju.edu.cn">yanmingzhang@zju.edu.cn</a> </div>
     </div>
 </div>
@@ -100,54 +104,60 @@
                     <h4><strong>Video</strong></h4>
                     </a> </li>
                 <li> <a href="./code.html?version=21" target="_blank">
-                    <image src="img/github.png" height="60px" />
+                    <img src="img/github.png" height="60px" />
                     <h4><strong>Code</strong></h4>
                     </a> </li>
+                <li class="project-home-nav">
+                    <a href="../" aria-label="Jun-Kun Chen homepage" title="Jun-Kun Chen homepage">
+                        <img class="project-home-avatar" src="../assets/img/jun-kun-chen.jpg?v=20260831-152654" alt="">
+                        <h4><strong>Jun-Kun</strong><br><small>Homepage</small></h4>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
-    
+
     <!--
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="video-compare-container" id="materialsDiv">
-                    <video class="video" id="materials" loop playsinline autoPlay muted src="video/materials_circle_mipnerf_ours.mp4" onplay="resizeAndPlay(this)"></video>
-                    
+                    <video data-viewport-autoplay class="video" id="materials" loop playsinline muted src="video/materials_circle_mipnerf_ours.mp4" onplay="resizeAndPlay(this)" preload="none"></video>
+
                     <canvas height=0 class="videoMerge" id="materialsMerge"></canvas>
                 </div>
             </div>
         </div>
 		-->
-    
+
     <div class="row" align="center">
-        <image src="img/figym-teaser.png" class="img-responsive" alt="overview" width="75%"  />
+        <img src="img/figym-teaser.png" class="img-responsive" alt="overview" width="75%"  />
     </div>
     <div class="row">
         <h3> Abstract </h3>
-        
+
         <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
             <p class="text-justify"> We introduce HDEdit, a training-free framework for instruction-guided video and 3D scene editing that resolves the fundamental tension between instruction fulfillment and original content preservation through Hierarchical task Decomposition. Our key insight is to progressively decompose complex edits into simpler subtasks. This hierarchical strategy aligns with dual objectives: an LLM-guided planner structures high-level subgoals for reliable instruction fulfillment, while embedding-space interpolation further refines each subgoal to preserve unedited content. Two tailored control mechanisms – word-level attention map propagation and parallel denoising synchronization – ensure temporally consistent, hyperparameter tuning-free execution. Beyond video, we extend HDEdit to 3D editing via a simple yet effective render-edit-reconstruct process that maintains strong geometric consistency. Extensive experiments demonstrate our state-of-the-art results across diverse and challenging edits, including long-duration videos, fast camera motion, and significant 3D geometric changes. </p>
         </div>
     </div>
     <!-- <div class="row">
         <h3> Architecture &amp; Design</h3>
-        <image src="img/figym-pipeline.png" class="img-responsive" alt="overview" style="margin:auto;" />
-        
+        <img src="img/figym-pipeline.png" class="img-responsive" alt="overview" style="margin:auto;" />
+
     </div>
     <div class="row"> -->
-        
+
         <!-- <h3> Gallery: Video Editing </h3>
         <center>
             <table width="100%" style="table-layout:fixed">
                 <tbody>
                     <tr>
                         <td align="left" valign="top" width="" >
-                            <video width="100%" playsinline="" autoplay="" loop="" muted="" id="ve_orig_video">
+                            <video data-viewport-autoplay width="100%" playsinline="" loop="" muted="" id="ve_orig_video" preload="none">
                                 <source src="video/scannetpp_B_orig.mp4" type="video/mp4">
                             </video>
                         </td>
                         <td align="left" valign="top" width="" >
-                            <video width="100%" playsinline="" autoplay="" loop="" muted=""id="ve_edit_video">
+                            <video data-viewport-autoplay width="100%" playsinline="" loop="" muted="" id="ve_edit_video" preload="none">
                                 <source src="video/scannetpp_B_2077.mp4" type="video/mp4">
                             </video>
                         </td>
@@ -159,7 +169,7 @@
                         <td align="center" valign="top">
                             <i id="ve_desc">Make it a near-futuristic night city style of Cyberpunk2077</i>
                         </td>
-                    </tr>                    
+                    </tr>
                 </tbody>
             </table>
 
@@ -171,15 +181,15 @@
                 }
             </script>
 
-            <div class="container" id="main" >
+            <div class="container" >
                 <div class="row">
                     <div class="text-center" >
                         <ul class="nav nav-pills nav-justified" width="75%">
-                            <li> 
+                            <li>
                                 <a href="javascript:replace_ve('scannetpp_B_orig', 'scannetpp_B_2077', 'Make it a near-futuristic night city style of Cyberpunk2077')">
                                     <img src="img/scannetpp_B_2077.jpg" height="50px" />
                                     <h4><strong>2077</strong></h4>
-                                </a> 
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -193,17 +203,17 @@
                 <tbody>
                     <tr>
                         <td align="left" valign="top" width="" >
-                            <video width="100%" playsinline="" autoplay="" loop="" muted="" id="se_orig_scene">
+                            <video data-viewport-autoplay width="100%" playsinline="" loop="" muted="" id="se_orig_scene" preload="none">
                                 <source src="video/scannetpp_B_orig.mp4" type="video/mp4">
                             </video>
                         </td>
                         <td align="left" valign="top" width="" >
-                            <video width="100%" playsinline="" autoplay="" loop="" muted=""id="se_edit_video">
+                            <video data-viewport-autoplay width="100%" playsinline="" loop="" muted="" id="se_edit_video" preload="none">
                                 <source src="video/scannetpp_B_2077.mp4" type="video/mp4">
                             </video>
                         </td>
                         <td align="left" valign="top" width="" >
-                            <video width="100%" playsinline="" autoplay="" loop="" muted=""id="se_edit_scene">
+                            <video data-viewport-autoplay width="100%" playsinline="" loop="" muted="" id="se_edit_scene" preload="none">
                                 <source src="video/scannetpp_B_2077.mp4" type="video/mp4">
                             </video>
                         </td>
@@ -217,7 +227,7 @@
                         <td colspan="2" align="center">
                             <i id="se_desc">Make it a near-futuristic night city style of Cyberpunk2077</i>
                         </td>
-                    </tr>                
+                    </tr>
                 </tbody>
             </table>
 
@@ -230,15 +240,15 @@
                 }
             </script>
 
-            <div class="container" id="main" >
+            <div class="container" >
                 <div class="row">
                     <div class="text-center" >
                         <ul class="nav nav-pills nav-justified" width="75%">
-                            <li> 
+                            <li>
                                 <a href="javascript:replace_se('scannetpp_B_orig', 'scannetpp_B_2077', 'scannetpp_B_2077', 'Make it a near-futuristic night city style of Cyberpunk2077')">
                                     <img src="img/scannetpp_B_2077.jpg" height="50px" />
                                     <h4><strong>2077</strong></h4>
-                                </a> 
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -249,7 +259,7 @@
 
         <h3> Gallery: Video Editing </h3>
         <center>
-            <video style="width: 100%; height: auto; max-height: 500px;" playsinline="" autoplay="" loop="" muted="" id="gallery_video_ve">
+            <video data-viewport-autoplay style="width: 100%; height: auto; max-height: 500px;" playsinline="" loop="" muted="" id="gallery_video_ve" preload="none">
                 <source src="video/compare_vid_fiery_ring.mp4" type="video/mp4">
             </video>
             <p hidden><b id="gallery_video_ve_desc">Add a large, fiery ring above the motorcyclist who drives through it and catches fire on head.</b></p>
@@ -259,10 +269,10 @@
                     document.getElementById("gallery_video_ve").src = "video/" + video + ".mp4";
                     document.getElementById("gallery_video_ve_desc").innerHTML = "" + desc + "";
                 }
-                
+
             </script>
 
-            <div class="container" id="main" >
+            <div class="container" >
                 <div class="row">
                     <div class="text-center" >
                         <ul class="nav nav-pills nav-justified" width="75%">
@@ -293,8 +303,8 @@
                                     <h4><strong>Pig</strong></h4>
                                 </a>
                             </li>
-                            
-                            
+
+
 
                         </ul>
                     </div>
@@ -304,7 +314,7 @@
 
         <h3> Gallery: 3D Scene Editing </h3>
         <center>
-            <video style="width: 100%; height: auto; max-height: 500px;" playsinline="" autoplay="" loop="" muted="" id="gallery_video_se">
+            <video data-viewport-autoplay style="width: 100%; height: auto; max-height: 500px;" playsinline="" loop="" muted="" id="gallery_video_se" preload="none">
                 <source src="video/compare_3d_parrot.mp4" type="video/mp4">
             </video>
             <p hidden><b id="gallery_video_se_desc">Place a colorful parrot statue on his shoulder, making him look like an adventurer.</b></p>
@@ -314,10 +324,10 @@
                     document.getElementById("gallery_video_se").src = "video/" + video + ".mp4";
                     document.getElementById("gallery_video_se_desc").innerHTML = "" + desc + "";
                 }
-                
+
             </script>
 
-            <div class="container" id="main" >
+            <div class="container" >
                 <div class="row">
                     <div class="text-center" >
                         <ul class="nav nav-pills nav-justified" width="75%">
@@ -345,15 +355,15 @@
                                     <h4><strong>Fairy Light</strong></h4>
                                 </a>
                             </li>
-                            
+
 
                         </ul>
                     </div>
                 </div>
             </div>
         </center>
- 
-    
+
+
     <div class="row">
         <h3> Citation </h3>
         <div class="col-md-8 col-md-offset-2">
@@ -366,13 +376,13 @@
     year={2026},
 }
 @misc{V2Edit,
-    title={{V2Edit}: Versatile Video Diffusion Editor for Videos and {3D} Scenes}, 
+    title={{V2Edit}: Versatile Video Diffusion Editor for Videos and {3D} Scenes},
     author={Yanming Zhang and Jun-Kun Chen and Jipeng Lyu and Yu-Xiong Wang},
     year={2025},
     eprint={2503.10634},
     archivePrefix={arXiv},
     primaryClass={cs.CV},
-    url={https://arxiv.org/abs/2503.10634}, 
+    url={https://arxiv.org/abs/2503.10634},
 }
 </textarea>
             </div>
@@ -381,9 +391,8 @@
     <div class="row">
         <h3> Acknowledgements </h3>
         <div class="col-md-8 col-md-offset-2 col-lg-offset-0 col-lg-12">
-            <p class="text-justify"> 
-                The website template is borrowed from <a href="https://immortalco.github.io/ProEdit/">ProEdit</a>. <br/>
-                We thank you and the other <script type="text/javascript" src="https://counter.websiteout.net/js/7/0/0/0"></script> visitors for visiting our project page.
+            <p class="text-justify">
+                The website template is borrowed from <a href="https://immortalco.github.io/ProEdit/">ProEdit</a>.
             </p>
         </div>
     </div>
