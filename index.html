@@ -46,7 +46,7 @@
         <a href="#research">Research</a>
         <a href="#publications">Publications</a>
         <a href="#experience">Experience</a>
-        <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260831-222405">CV</a>
+        <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260901-002529">CV</a>
       </nav>
     </div>
   </header>
@@ -64,7 +64,7 @@
         <nav class="sidebar-links" aria-label="Profile links">
           <a href="mailto:immortalco233@gmail.com">Gmail</a>
           <a href="mailto:junkun3@illinois.edu">UIUC Email</a>
-          <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260831-222405">CV</a>
+          <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260901-002529">CV</a>
           <a href="https://scholar.google.com/citations?user=_m5__wUAAAAJ" target="_blank" rel="noreferrer">Google Scholar</a>
           <a href="https://github.com/immortalCO" target="_blank" rel="noreferrer">GitHub</a>
           <a href="https://www.linkedin.com/in/junkun-chen-a24520167/" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -81,19 +81,19 @@
 
     <section class="content-section" id="research" aria-labelledby="research-title">
       <h2 id="research-title">Current Research</h2>
-      <p class="section-intro">Research vision: connect the complementary priors and capabilities of language models and visual generative models bidirectionally, so generated visual outcomes can inform subsequent reasoning instead of remaining one-way decoded outputs.</p>
+      <p class="section-intro">Research direction: train language and visual generation components around predicted outcomes, connecting reasoning and generation across computer-use, physical-event, and robot-interaction settings.</p>
       <div class="research-list">
         <article class="research-item">
-          <div class="research-heading"><h3>Computer-use visual world model</h3><p>Action-conditioned image diffusion · mixture of transformers</p></div>
-          <div><p>Building a SenseNova mixture-of-transformers (MoT) image-diffusion world model for action-conditioned visual forward prediction: given the current UI and a candidate action, it predicts one next UI screenshot for computer-use agent look-ahead.</p><p>The work spans diffusion post-training and Reasoner–Generator interface and training design, including structured consequence supervision, an interpretable text path, and experimental cache-preserving inference. Current research explores outcome-verified post-training and joint-training strategies that preserve Reasoner–Generator compatibility for candidate-action evaluation.</p></div>
+          <div class="research-heading"><h3>Computer-use visual world model</h3><p>Image diffusion · mixture of transformers</p></div>
+          <div><p>Built an action-conditioned next-screen prediction pipeline on the existing SenseNova MoT backbone using structured consequence supervision and separate Reasoner and Generator post-training.</p><p>Preliminary evaluation across 2,850 cases found teacher-refined conditions improved 400 next-screen predictions versus 130 regressions, with 2,320 unchanged.</p></div>
         </article>
         <article class="research-item">
           <div class="research-heading"><h3>Physical-event world model</h3><p>Video diffusion · multimodal reasoning</p></div>
-          <div><p>Post-training a Cosmos3 video-diffusion world model to predict physical events and outcomes from RGB history.</p><p>Current work explores a teacher-guided Reasoner–Generator loop that compares generated and target outcomes to adapt video reasoning and generation.</p></div>
+          <div><p>Built and post-trained a Cosmos3 video-diffusion system that predicts 69 future frames from a 49-frame RGB history; completed reproducible fixed inference and evaluation suites.</p><p>Implemented online multimodal-teacher post-training with sequential Reasoner and diffusion-Generator updates; physical-consistency gains remain under evaluation.</p></div>
         </article>
         <article class="research-item">
           <div class="research-heading"><h3>Robot-interaction world model</h3><p>Motion-conditioned video diffusion</p></div>
-          <div><p>Motion-conditioned video-diffusion world model for predicting robot–object interactions from an initial observation and prescribed robot motion.</p><p>The synthetic prototype studies query-time proxy-to-target correspondence across robot embodiments and evaluates trajectories, contacts, and task outcomes.</p></div>
+          <div><p>Built an initial synthetic video-diffusion prototype that predicts robot–object interaction video from an initial scene and prescribed robot motion, providing a controlled testbed for visual forward modeling.</p><p>The prototype combines robot-only visual proxies with target-system correspondence examples for controlled motion transfer and interaction prediction in the synthetic setting.</p></div>
         </article>
       </div>
     </section>
@@ -190,7 +190,7 @@
         </article>
         <article class="experience-item">
           <div><h3>SpreeAI</h3><p class="experience-role">AI Research Intern</p></div>
-          <div><p class="experience-date">May 2024–May 2025 · Remote, U.S.</p><p><strong>Dress&amp;Dance</strong> (WACV 2027, under review): multimodal conditioning and data-efficient multi-stage training for garment, identity, pose, and motion control.</p><p><strong>Virtual Fitting Room</strong> (NeurIPS 2025): anchored autoregressive generation for identity-consistent, minute-scale try-on video trained from short clips.</p></div>
+          <div><p class="experience-date">May 2024–May 2025 · Remote, U.S.</p><p><strong>Dress&amp;Dance</strong> (WACV 2027, under review): multimodal conditioning, paired-triplet data construction, and multi-stage training for garment, identity, pose, and motion control.</p><p><strong>Virtual Fitting Room</strong> (NeurIPS 2025): anchored autoregressive generation for identity-consistent, minute-scale try-on video trained from short clips.</p></div>
         </article>
         <article class="experience-item compact">
           <div><h3>Earlier Research</h3></div>
