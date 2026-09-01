@@ -9,7 +9,7 @@
   <link rel="canonical" href="https://immortalco.github.io/">
   <meta property="og:type" content="profile">
   <meta property="og:title" content="Jun-Kun Chen | Controllable Generation &amp; Visual World Models">
-  <meta property="og:description" content="Diffusion-based controllable generation, visual world models, and bidirectional LLM–diffusion reasoning.">
+  <meta property="og:description" content="Research on diffusion-based controllable generation, visual world models, and bidirectional LLM–diffusion reasoning.">
   <meta property="og:url" content="https://immortalco.github.io/">
   <meta property="og:image" content="https://immortalco.github.io/assets/img/og-card.png?v=20260831-152654">
   <meta name="twitter:card" content="summary_large_image">
@@ -46,7 +46,7 @@
         <a href="#research">Research</a>
         <a href="#publications">Publications</a>
         <a href="#experience">Experience</a>
-        <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260831-154316">CV</a>
+        <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260831-222405">CV</a>
       </nav>
     </div>
   </header>
@@ -64,7 +64,7 @@
         <nav class="sidebar-links" aria-label="Profile links">
           <a href="mailto:immortalco233@gmail.com">Gmail</a>
           <a href="mailto:junkun3@illinois.edu">UIUC Email</a>
-          <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260831-154316">CV</a>
+          <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260831-222405">CV</a>
           <a href="https://scholar.google.com/citations?user=_m5__wUAAAAJ" target="_blank" rel="noreferrer">Google Scholar</a>
           <a href="https://github.com/immortalCO" target="_blank" rel="noreferrer">GitHub</a>
           <a href="https://www.linkedin.com/in/junkun-chen-a24520167/" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -84,12 +84,12 @@
       <p class="section-intro">Research vision: connect the complementary priors and capabilities of language models and visual generative models bidirectionally, so generated visual outcomes can inform subsequent reasoning instead of remaining one-way decoded outputs.</p>
       <div class="research-list">
         <article class="research-item">
-          <div class="research-heading"><h3>Computer-use world model</h3><p>Image diffusion · mixture of transformers</p></div>
-          <div><p>SenseNova mixture-of-transformers (MoT) image-diffusion world model for instruction-conditioned UI outcome prediction and visual look-ahead in computer-use agents.</p><p>Research scope includes diffusion post-training and joint Reasoner–Generator design, with rollout-aware supervision and feedback from generated outcomes to agent reasoning.</p></div>
+          <div class="research-heading"><h3>Computer-use visual world model</h3><p>Action-conditioned image diffusion · mixture of transformers</p></div>
+          <div><p>Building a SenseNova mixture-of-transformers (MoT) image-diffusion world model for action-conditioned visual forward prediction: given the current UI and a candidate action, it predicts one next UI screenshot for computer-use agent look-ahead.</p><p>The work spans diffusion post-training and Reasoner–Generator interface and training design, including structured consequence supervision, an interpretable text path, and experimental cache-preserving inference. Current research explores outcome-verified post-training and joint-training strategies that preserve Reasoner–Generator compatibility for candidate-action evaluation.</p></div>
         </article>
         <article class="research-item">
           <div class="research-heading"><h3>Physical-event world model</h3><p>Video diffusion · multimodal reasoning</p></div>
-          <div><p>Cosmos video-diffusion world model for predicting physical events and outcomes from observed RGB video.</p><p>The current design uses a multimodal teacher to compare generated and target outcomes and adapt both visual reasoning and generation.</p></div>
+          <div><p>Post-training a Cosmos3 video-diffusion world model to predict physical events and outcomes from RGB history.</p><p>Current work explores a teacher-guided Reasoner–Generator loop that compares generated and target outcomes to adapt video reasoning and generation.</p></div>
         </article>
         <article class="research-item">
           <div class="research-heading"><h3>Robot-interaction world model</h3><p>Motion-conditioned video diffusion</p></div>
