@@ -18,10 +18,13 @@
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'preview-toggle';
-    button.textContent = 'Play video';
+    button.innerHTML = '<svg class="preview-play-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4v16l14-8z"/></svg><svg class="preview-pause-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg>';
+    const playIcon = button.querySelector('.preview-play-icon');
+    const pauseIcon = button.querySelector('.preview-pause-icon');
     const project = container.querySelector('h3')?.textContent.trim() || 'research';
     button.setAttribute('aria-label', `Play ${project} preview`);
     button.setAttribute('aria-pressed', 'false');
+    button.title = 'Play video';
     preview.append(button);
 
     const playbackRate = Number.parseFloat(video.dataset.playbackRate || '1');
@@ -33,14 +36,18 @@
 
     const play = () => video.play().catch(() => {
       manualPlaying = false;
-      button.textContent = 'Retry video';
+      updateButton();
+      button.title = 'Retry video';
+      button.setAttribute('aria-label', `Retry ${project} preview`);
     });
     const reset = () => {
       video.pause();
       if (video.readyState > 0) video.currentTime = 0;
     };
     const updateButton = () => {
-      button.textContent = video.paused ? 'Play video' : 'Pause video';
+      playIcon.toggleAttribute('hidden', !video.paused);
+      pauseIcon.toggleAttribute('hidden', video.paused);
+      button.title = video.paused ? 'Play video' : 'Pause video';
       button.setAttribute('aria-pressed', String(!video.paused));
       button.setAttribute('aria-label', `${video.paused ? 'Play' : 'Pause'} ${project} preview`);
     };

@@ -110,7 +110,6 @@ strong { font-weight: 650; }
 .research-evidence li { color: #303740; }
 .research-evidence li + li { margin-top: 8px; }
 .evidence-venue { color: var(--muted); font-size: 14px; }
-.about-section .current-summary { font-size: 14px; color: var(--muted); }
 
 .content-section {
   padding-block: 24px 28px;
@@ -191,13 +190,19 @@ strong { font-weight: 650; }
 .publication-media.instruct4d-teaser video { object-fit: contain; background: #fff; }
 .preview-toggle {
   position: absolute; z-index: 1; bottom: 8px; right: 8px;
-  min-height: 36px; padding: 5px 10px;
+  display: grid; place-items: center;
+  width: 36px; height: 36px; padding: 8px;
   border: 1px solid #bdc8d4; border-radius: 4px;
   background: #fff; color: #234563;
-  font: inherit; font-size: 14px; cursor: pointer;
+  cursor: pointer;
 }
+.preview-toggle svg { width: 18px; height: 18px; fill: currentColor; }
+.preview-toggle svg[hidden] { display: none; }
 .preview-toggle:hover { background: #edf4fa; }
 .preview-toggle:focus-visible { outline-offset: -3px; }
+@media (pointer: coarse) {
+  .preview-toggle { width: 44px; height: 44px; }
+}
 .preview-error { position: absolute; inset: auto 0 0; margin: 0; padding: 6px; background: #fff; font-size: 12px; }
 .publication-copy h3 {
   margin: -3px 0 0;
