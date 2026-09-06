@@ -46,7 +46,7 @@
         <a href="#publications">Publications</a>
         <a href="#research">Current Research</a>
         <a href="#experience">Experience</a>
-        <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260906194949">CV</a>
+        <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260906213134">CV</a>
       </nav>
     </div>
   </header>
@@ -64,7 +64,7 @@
         <nav class="sidebar-links" aria-label="Profile links">
           <a href="mailto:immortalco233@gmail.com">Gmail</a>
           <a href="mailto:junkun3@illinois.edu">UIUC Email</a>
-          <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260906194949">CV</a>
+          <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260906213134">CV</a>
           <a href="https://scholar.google.com/citations?user=_m5__wUAAAAJ" target="_blank" rel="noreferrer">Google Scholar</a>
           <a href="https://github.com/immortalCO" target="_blank" rel="noreferrer">GitHub</a>
           <a href="https://www.linkedin.com/in/junkun-chen-a24520167/" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -77,7 +77,7 @@
         <h2 id="about-title">About</h2>
         <p>Ph.D. researcher in <strong>diffusion-based controllable generation</strong> at <a href="https://cs.illinois.edu/" target="_blank" rel="noreferrer">UIUC</a>, advised by <a href="https://yxw.cs.illinois.edu/" target="_blank" rel="noreferrer">Yu-Xiong Wang</a>. I previously worked as a research intern at Meta and SpreeAI.</p>
         <ul class="research-evidence" aria-label="Selected research results">
-          <li>At <strong>SpreeAI</strong>, my work progressed from high-fidelity, controllable video try-on with <a href="#dress-and-dance">Dress&amp;Dance</a> to <strong>identity-consistent, minute-scale generation</strong> with <a href="#vfr">Virtual Fitting Room</a> <span class="evidence-venue">(NeurIPS 2025)</span>.</li>
+          <li>My research centers on <strong>learning new generative capabilities through supervision and training design</strong>. At SpreeAI, this led to new visual controls in <a href="#dress-and-dance">Dress&amp;Dance</a> and, subsequently, <strong>identity-consistent, minute-scale generation</strong> in <a href="#vfr">Virtual Fitting Room</a> <span class="evidence-venue">(NeurIPS 2025)</span>.</li>
         </ul>
         <p>Current work includes <a href="#research">diffusion post-training for computer-use world models</a>, using task-specific supervision to predict the visual outcomes of actions.</p>
       </section>
@@ -94,7 +94,7 @@
             <h3><a href="https://papers.nips.cc/paper_files/paper/2025/hash/e418c5302456a4ef275f43b001830458-Abstract-Conference.html" target="_blank" rel="noreferrer">Virtual Fitting Room: Generating Arbitrarily Long Videos of Virtual Try-On from a Single Image</a></h3>
             <p class="authors"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang</p>
             <p class="venue">NeurIPS 2025 · First author</p>
-            <p><strong>Anchored autoregressive generation</strong> of identity-consistent try-on videos up to <strong>90 seconds</strong> from short-clip training; evaluated against D&amp;D+FramePack and D&amp;D+Kling 2.0 pipelines.</p>
+            <p><strong>Reference-conditioned training on ordinary short-clip pairs</strong> enables generated 360° anchors to guide identity-consistent try-on videos up to <strong>90 seconds</strong>. Evaluated against D&amp;D+FramePack and D&amp;D+Kling 2.0 pipelines.</p>
             <p class="publication-links"><a href="VirtualFittingRoom/?v=20260904204428">Project</a><a href="https://papers.nips.cc/paper_files/paper/2025/hash/e418c5302456a4ef275f43b001830458-Abstract-Conference.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2509.04450" target="_blank" rel="noreferrer">Preview (arXiv, Sep. 2025)</a></p>
           </div>
         </article>
@@ -114,7 +114,7 @@
             <h3><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Chen_ConsistDreamer_3D-Consistent_2D_Diffusion_for_High-Fidelity_Scene_Editing_CVPR_2024_paper.html" target="_blank" rel="noreferrer">ConsistDreamer: 3D-Consistent 2D Diffusion for High-Fidelity Scene Editing</a></h3>
             <p class="authors"><strong>Jun-Kun Chen</strong>, Samuel Rota Bulò, Norman Müller, Lorenzo Porzi, Peter Kontschieder, Yu-Xiong Wang</p>
             <p class="venue">CVPR 2024 · First author</p>
-            <p>Context-rich multi-view conditioning, structured noise, and self-supervised warping consistency for coherent scene editing.</p>
+            <p><strong>Cross-view self-supervision and staged diffusion adaptation</strong> for consistent scene editing, with losses throughout the denoising trajectory. An asynchronous multi-GPU pipeline overlaps diffusion training and image generation with scene fitting.</p>
             <p class="publication-links"><a href="ConsistDreamer/">Project</a><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Chen_ConsistDreamer_3D-Consistent_2D_Diffusion_for_High-Fidelity_Scene_Editing_CVPR_2024_paper.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2406.09404" target="_blank" rel="noreferrer">arXiv</a></p>
           </div>
         </article>
@@ -144,7 +144,7 @@
             <h3><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Dress&amp;Dance: Dress up and Dance as You Like It</a></h3>
             <p class="authors"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang</p>
             <p class="venue review"><span>WACV 2027, under review</span> · First author</p>
-            <p><strong>Multimodal conditioning and progressive image/video training</strong> for controllable 5-second, 1152×720, 24-FPS try-on videos. Reduced FVD by <strong>20–59%</strong> versus a Kling 1.6 try-on-and-animation pipeline on Internet and captured benchmarks.</p>
+            <p><strong>Target-steered supervision and staged training</strong> teach pretrained video diffusion new garment, identity, and motion controls. Generates 1152×720, 24-FPS try-on videos, with <strong>20–59% lower FVD</strong> than a Kling 1.6 try-on-and-animation pipeline on Internet and captured benchmarks.</p>
             <p class="publication-links"><a href="DressAndDance/?v=20260906194949">Project</a><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Full paper</a><a href="https://arxiv.org/abs/2508.21070" target="_blank" rel="noreferrer">Preview (arXiv, Aug. 2025)</a></p>
           </div>
         </article>
@@ -170,7 +170,7 @@
       <div class="research-list">
         <article class="research-item">
           <div class="research-heading"><h3>Computer-use visual world model</h3><p>Image diffusion · mixture of transformers</p></div>
-          <div><p><strong>Post-trained image diffusion</strong> on SenseNova MoT to predict the next screenshot from a screen and action. Designed action-consequence and content-preservation supervision; incorporated agent interaction traces and failure cases into Reasoner training.</p></div>
+          <div><p>Designed and ran <strong>diffusion post-training</strong> on SenseNova MoT for next-screen prediction from a screenshot and action. Formulated teacher-grounded supervision for action effects and content preservation; incorporated interaction traces and failure cases into Reasoner training.</p></div>
         </article>
         <article class="research-item">
           <div class="research-heading"><h3>Physical-event world model</h3><p>Video diffusion · multimodal reasoning</p></div>
@@ -188,11 +188,11 @@
       <div class="experience-list">
         <article class="experience-item">
           <div><h3>Meta Reality Labs</h3><p class="experience-role">Research Scientist Intern</p></div>
-          <div><p class="experience-date">May–Dec. 2025 · Bay Area, CA, U.S.<br><span class="appointment-note">Part-time continuation: Aug.–Dec. 2025</span></p><p>Scaled a 3D/video-generation training project to <strong>128–256 GPUs</strong> across multi-node clusters, including parallel training workflows.</p><p class="experience-date appointment-date">May–Aug. 2023 · Zurich, Switzerland</p><p>Designed context-rich multi-view conditioning, 3D-consistent structured noise, and self-supervised consistency training for <em>ConsistDreamer</em> (CVPR 2024).</p></div>
+          <div><p class="experience-date">May–Dec. 2025 · Bay Area, CA, U.S.<br><span class="appointment-note">Part-time continuation: Aug.–Dec. 2025</span></p><p>Designed and implemented a <strong>GPU-role-separated pipeline for data processing and model training</strong>, supporting 3D/video-generation research at <strong>128–256-GPU scale</strong> on Meta's distributed infrastructure.</p><p class="experience-date appointment-date">May–Aug. 2023 · Zurich, Switzerland</p><p>For <em>ConsistDreamer</em> (CVPR 2024), carried the research from method design through implementation and evaluation: cross-view self-supervision, staged diffusion adaptation, and asynchronous scheduling of diffusion training, image generation, and scene fitting.</p></div>
         </article>
         <article class="experience-item">
           <div><h3>SpreeAI</h3><p class="experience-role">AI Research Intern</p></div>
-          <div><p class="experience-date">May 2024–May 2025 · Remote, U.S.</p><p><strong>Dress&amp;Dance:</strong> designed multimodal conditioning, garment/user/video training triplets, and progressive image/video training for high-fidelity video try-on with garment, identity, pose, and motion control.</p><p><strong>Subsequent work — Virtual Fitting Room</strong> (NeurIPS 2025): anchored autoregressive generation extended this research to identity-consistent, minute-scale video, trained from short clips.</p></div>
+          <div><p class="experience-date">May 2024–May 2025 · Remote, U.S.</p><p><strong>Dress&amp;Dance:</strong> designed and implemented target-steered supervision, synthetic-condition/real-target training triplets, and staged image/video curricula to teach pretrained diffusion new visual controls. Evaluated garment and identity fidelity, motion, and video quality.</p><p><strong>Subsequent work — Virtual Fitting Room</strong> (NeurIPS 2025): designed training around arbitrary pairs of short clips to learn reference appearance and prefix continuation, without requiring canonical 360° training anchors. At inference, a generated 360° reference and anchored autoregression support minute-scale consistency; targeted augmentation trains a refiner to remove characteristic generation artifacts.</p></div>
         </article>
         <article class="experience-item compact">
           <div><h3>Earlier Research</h3></div>
