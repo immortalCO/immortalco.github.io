@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dress&amp;Dance | Supplementary Video</title>
+  <meta name="description" content="The full supplementary video for Dress&Dance, with chapters for try-on modes, comparisons, refinement, and fast inference.">
+  <link rel="canonical" href="https://immortalco.github.io/DressAndDance/demo.html">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #202832; background: #fff; font: 16px/1.6 system-ui, sans-serif; }
+    main { max-width: 1060px; margin: 28px auto; padding: 0 24px; }
+    a { color: #16629b; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    a:focus-visible, button:focus-visible { outline: 3px solid #16629b; outline-offset: 3px; }
+    nav, .resources { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+    h1 { font-size: clamp(24px, 4vw, 32px); line-height: 1.25; margin: 22px 0 8px; }
+    h2 { font-size: 18px; margin: 20px 0 10px; }
+    p { margin: 8px 0 16px; }
+    .note { color: #53606d; font-size: 14px; }
+    video { display: block; width: 100%; height: auto; aspect-ratio: 16/9; border: 1px solid #e1e5ea; background: #fff; }
+    .chapters { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 8px; padding: 0; list-style: none; }
+    .chapters button { width: 100%; text-align: left; font: inherit; font-size: 14px; color: #202832; background: #fff; border: 1px solid #dce2e8; border-radius: 4px; padding: 8px 10px; cursor: pointer; }
+    .chapters button:hover { background: #f3f6f9; }
+    .chapters span { color: #16629b; font-variant-numeric: tabular-nums; margin-right: 8px; }
+    footer { border-top: 1px solid #e1e5ea; margin-top: 24px; padding-top: 14px; }
+  </style>
+</head>
+<body>
+<main>
+  <nav aria-label="Research navigation"><a href="./">Dress&amp;Dance project</a><a href="../">Jun-Kun Chen</a></nav>
+  <h1>Dress&amp;Dance: Supplementary Video</h1>
+  <p class="note">The video accompanying the full manuscript · 3:55 · 1920 × 1080</p>
+  <video id="demo-player" controls playsinline preload="none" poster="video/demo-poster.jpg?v=20260906194949" aria-label="Dress and Dance full supplementary video">
+    <source src="demo.mp4?v=20260906194949" type="video/mp4">
+    Your browser does not support embedded video. <a href="demo.mp4?v=20260906194949">Open the MP4</a>.
+  </video>
+  <p id="video-status" class="note" role="status" hidden></p>
+  <h2>Chapters</h2>
+  <ul class="chapters" aria-label="Supplementary video chapters">
+    <li><button type="button" data-time="0"><span>0:00</span>Introduction and try-on modes</button></li>
+    <li><button type="button" data-time="15"><span>0:15</span>Single garment try-on</button></li>
+    <li><button type="button" data-time="122"><span>2:02</span>Multiple garment try-on</button></li>
+    <li><button type="button" data-time="168"><span>2:48</span>Garment transfer</button></li>
+    <li><button type="button" data-time="189"><span>3:09</span>Text-only try-on</button></li>
+    <li><button type="button" data-time="194"><span>3:14</span>Comparisons and ablations</button></li>
+    <li><button type="button" data-time="209"><span>3:29</span>FPS upsampling and artifact removal</button></li>
+    <li><button type="button" data-time="216"><span>3:36</span>Fast inference</button></li>
+  </ul>
+  <footer>
+    <div class="resources"><a href="DnD_full.pdf?v=20260906194949">Full manuscript + supplement</a><a href="demo.mp4?v=20260906194949" download="demo.mp4">Download MP4</a><a href="https://arxiv.org/abs/2508.21070" target="_blank" rel="noopener noreferrer">Preview (arXiv, Aug. 2025)</a></div>
+    <p class="note">Also available: <a href="https://www.youtube.com/watch?v=s-IYxa0PBU8" target="_blank" rel="noopener noreferrer">YouTube demo (3:50 version)</a>.</p>
+  </footer>
+</main>
+<script>
+  (() => {
+    const player = document.getElementById('demo-player');
+    const status = document.getElementById('video-status');
+    const seekTo = (seconds) => {
+      const seek = () => { player.currentTime = Math.min(seconds, Math.max(0, player.duration - 0.05)); };
+      if (player.readyState >= 1) seek();
+      else player.addEventListener('loadedmetadata', seek, { once: true });
+    };
+    // PDF links use ?t=3:14; a direct visit seeks without forcing autoplay.
+    const timeParts = (new URLSearchParams(location.search).get('t') || '').split(':');
+    if (timeParts.length <= 3 && timeParts.every(part => /^\d+(\.\d+)?$/.test(part))) {
+      const seconds = timeParts.reduce((total, part) => total * 60 + Number(part), 0);
+      seekTo(seconds);
+      player.preload = 'metadata';
+      player.load();
+    }
+    document.querySelectorAll('[data-time]').forEach(button => {
+      button.addEventListener('click', () => {
+        seekTo(Number(button.dataset.time));
+        player.play().catch(() => { status.textContent = 'Press Play in the video controls to continue.'; status.hidden = false; });
+      });
+    });
+    player.addEventListener('playing', () => { status.hidden = true; });
+    const showError = () => {
+      status.textContent = 'The embedded video could not be loaded. Use Download MP4 or the YouTube demo link below.';
+      status.hidden = false;
+    };
+    player.addEventListener('error', showError);
+    player.querySelector('source').addEventListener('error', showError);
+  })();
+</script>
+</body>
+</html>
