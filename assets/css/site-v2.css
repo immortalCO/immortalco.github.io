@@ -78,6 +78,7 @@ p { margin: 0; }
   gap: 48px;
   align-items: start;
   padding: 44px 0 34px;
+  scroll-margin-top: 70px;
 }
 .hero h1 {
   font-size: 36px; line-height: 1.1; letter-spacing: -.03em; font-weight: 700;

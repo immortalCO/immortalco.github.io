@@ -4,9 +4,16 @@
 
   // In-page links whose target sits inside a collapsed <details> (e.g. the full publication
   // list) open that disclosure first, so the browser can actually scroll to the target.
+  const targetFor = (hash) => {
+    if (!hash || hash.length < 2) return null;
+    try {
+      return document.getElementById(decodeURIComponent(hash.slice(1)));
+    } catch (error) {
+      return null; // malformed percent-encoding: treat as "no such target"
+    }
+  };
   const revealTarget = (hash) => {
-    if (!hash || hash.length < 2) return;
-    const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+    const target = targetFor(hash);
     if (!target) return;
     let details = target.closest('details');
     while (details) {
@@ -21,7 +28,7 @@
     revealTarget(hash);
     // A second click on a link whose hash is already in the URL does not navigate; scroll by hand.
     if (window.location.hash === hash) {
-      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+      const target = targetFor(hash);
       if (target) target.scrollIntoView({ block: 'start' });
     }
   });
