@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jun-Kun Chen | Controllable Generation &amp; Visual World Models</title>
-  <meta name="description" content="Jun-Kun Chen is a UIUC Computer Science Ph.D. candidate researching diffusion-based controllable generation and visual world models.">
+  <meta name="description" content="Jun-Kun Chen is a UIUC Computer Science Ph.D. candidate researching diffusion-based controllable image/video generation and visual world models. Graduating Dec. 2026.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://immortalco.github.io/">
   <meta property="og:type" content="profile">
@@ -14,7 +14,10 @@
   <meta property="og:image" content="https://immortalco.github.io/assets/img/og-card.png?v=20260831-152654">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/site.css?v=20260904205822">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/css/site-v2.css?v=20261013134622">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -39,187 +42,362 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+
   <header class="site-header">
-    <div class="page-width header-inner">
+    <div class="page header-inner">
       <a class="site-name" href="#top">Jun-Kun Chen</a>
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="#publications">Publications</a>
         <a href="#research">Current Research</a>
         <a href="#experience">Experience</a>
-        <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260906213134">CV</a>
+        <a class="nav-cv" href="files/Jun-Kun_Chen_CV_Industry.pdf">CV</a>
       </nav>
     </div>
   </header>
 
-  <main id="main" class="page-width page-layout">
-    <aside class="profile-sidebar" aria-labelledby="page-title">
-      <img class="portrait" src="assets/img/jun-kun-chen.jpg?v=20260831-152654" alt="Jun-Kun Chen" width="960" height="960">
-      <div class="sidebar-copy">
+  <main id="main" class="page">
+
+    <!-- ============ Hero ============ -->
+    <section class="hero" id="top" aria-labelledby="page-title">
+      <div>
         <h1 id="page-title">Jun-Kun Chen</h1>
-        <p class="sidebar-legal-name">Legal name: Junkun Chen</p>
-        <p class="sidebar-role">Ph.D. Candidate in Computer Science</p>
-        <p class="sidebar-meta"><a class="subtle-link" href="https://illinois.edu/" target="_blank" rel="noreferrer"><span class="affiliation-full">University of Illinois Urbana-Champaign</span><span class="affiliation-short">UIUC</span></a><br>Expected Dec. 2026</p>
-        <p class="sidebar-focus">Controllable Generation<br>Visual World Models</p>
-        <p class="sidebar-status">Seeking Research Scientist / Research Engineer roles · 2027</p>
-        <nav class="sidebar-links" aria-label="Profile links">
-          <a href="mailto:immortalco233@gmail.com">Gmail</a>
-          <a href="mailto:junkun3@illinois.edu">UIUC Email</a>
-          <a href="files/Jun-Kun_Chen_CV_Industry.pdf?v=20260906213134">CV</a>
-          <a href="https://scholar.google.com/citations?user=_m5__wUAAAAJ" target="_blank" rel="noreferrer">Google Scholar</a>
-          <a href="https://github.com/immortalCO" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/junkun-chen-a24520167/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <p class="hero-alias">Legal name: Junkun Chen · Publications as Jun-Kun Chen / J.-K. Chen</p>
+        <p class="hero-title">Ph.D. Candidate in Computer Science, <a href="https://cs.illinois.edu/" target="_blank" rel="noreferrer">University of Illinois Urbana-Champaign</a></p>
+
+        <p class="hero-lead">I work on <strong>diffusion-based controllable image and video generation</strong> at UIUC, advised by <a href="https://yxw.cs.illinois.edu/" target="_blank" rel="noreferrer">Yu-Xiong Wang</a>. I design the supervision, training data, and curricula that teach pretrained generative models new capabilities. So far these include new visual controls, multi-view and temporal consistency, and identity-consistent video at minute scale.</p>
+        <p class="hero-lead">I am now training <a href="#research">visual world models</a> through multimodal post-training. They predict the next screen after a UI action, physical events from observed video, and robot–object interactions under a prescribed motion.</p>
+
+        <p class="status-line">
+          <span class="dot" aria-hidden="true"></span>
+          <span><strong>Graduating Dec. 2026</strong></span>
+          <span class="sep" aria-hidden="true">|</span>
+          <span>Open to <strong>Research Scientist / Research Engineer</strong> roles starting 2027</span>
+        </p>
+
+        <nav class="hero-links" aria-label="Profile links">
+          <a class="primary" href="files/Jun-Kun_Chen_CV_Industry.pdf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l6 6v14H6zm7 1.5V9h5.5zM8 13h8v1.5H8zm0 3.5h8V18H8z"/></svg>CV (PDF)</a>
+          <a href="mailto:immortalco233@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zm1.6 1.5 7.4 5.6 7.4-5.6zm0 1.9V17.5h14.8V8.4L12 14z"/></svg>immortalco233@gmail.com</a>
+          <a href="mailto:junkun3@illinois.edu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zm1.6 1.5 7.4 5.6 7.4-5.6zm0 1.9V17.5h14.8V8.4L12 14z"/></svg>junkun3@illinois.edu</a>
+          <a href="https://scholar.google.com/citations?user=_m5__wUAAAAJ" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9zm-6 9.6V17c0 2 2.7 3.5 6 3.5s6-1.5 6-3.5v-4.4l-6 3.3z"/></svg>Google Scholar</a>
+          <a href="https://github.com/immortalCO" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.4-1.1-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.2-.4-1.3.1-2.6 0 0 .8-.3 2.8 1a9.5 9.5 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.3.2 2.4.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>GitHub</a>
+          <a href="https://www.linkedin.com/in/junkun-chen-a24520167/" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6zM2.5 9h3v11h-3zm5.5 0h2.9v1.5c.4-.8 1.5-1.8 3.3-1.8 3.4 0 4.1 2.2 4.1 5.1V20h-3v-5.4c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V20H8z"/></svg>LinkedIn</a>
         </nav>
       </div>
-    </aside>
 
-    <div class="main-content">
-      <section class="about-section" id="top" aria-labelledby="about-title">
-        <h2 id="about-title">About</h2>
-        <p>Ph.D. researcher in <strong>diffusion-based controllable generation</strong> at <a href="https://cs.illinois.edu/" target="_blank" rel="noreferrer">UIUC</a>, advised by <a href="https://yxw.cs.illinois.edu/" target="_blank" rel="noreferrer">Yu-Xiong Wang</a>. I previously worked as a research intern at Meta and SpreeAI.</p>
-        <ul class="research-evidence" aria-label="Selected research results">
-          <li>My research centers on <strong>learning new generative capabilities through supervision and training design</strong>. At SpreeAI, this led to new visual controls in <a href="#dress-and-dance">Dress&amp;Dance</a> and, subsequently, <strong>identity-consistent, minute-scale generation</strong> in <a href="#vfr">Virtual Fitting Room</a> <span class="evidence-venue">(NeurIPS 2025)</span>.</li>
-        </ul>
-        <p>Current work includes <a href="#research">diffusion post-training for computer-use world models</a>, using task-specific supervision to predict the visual outcomes of actions.</p>
-      </section>
-
-    <section class="content-section" id="publications" aria-labelledby="publications-title">
-      <div class="section-title-row">
-        <h2 id="publications-title">Selected Publications</h2>
-        <a href="https://scholar.google.com/citations?user=_m5__wUAAAAJ" target="_blank" rel="noreferrer">Google Scholar</a>
+      <div class="portrait-wrap">
+        <img class="portrait" src="assets/img/jun-kun-chen.jpg?v=20260831-152654" alt="Portrait of Jun-Kun Chen" width="960" height="960">
       </div>
-      <div class="publication-list">
+    </section>
+
+    <!-- ============ Highlights ============ -->
+    <ul class="highlights" aria-label="Highlights">
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M6 15V9m4 6V5m4 10v-4m4 4V7"/></svg>
+        <span>First or co-first author at <strong>NeurIPS 2025, NeurIPS 2024, CVPR 2024 (×2)</strong>, and 3DV 2026, across controllable image, video, 3D, and 4D generation.</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4zM4 10h16M9 6v12"/></svg>
+        <span>Virtual Fitting Room: identity-consistent try-on video <strong>up to 90 seconds</strong> long from a single image, trained only on short clips. <span class="tag">NeurIPS 2025</span></span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6.3 6.3l2.8 2.8m5.8 5.8 2.8 2.8M6.3 17.7l2.8-2.8m5.8-5.8 2.8-2.8"/></svg>
+        <span>Dress&amp;Dance: teaches pretrained video diffusion new garment, identity, and motion controls. <strong>20–59% lower FVD</strong> than a Kling 1.6 try-on-and-animation pipeline. <span class="tag">Under review</span></span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18v10H3zM7 7v10m10-10v10M3 12h18"/></svg>
+        <span>Research internships at <strong>Meta Reality Labs</strong> (Zurich 2023, Bay Area 2025) and SpreeAI. At Meta in 2025, designed a data-processing and training pipeline at 128–256-GPU scale.</span>
+      </li>
+    </ul>
+
+    <!-- ============ Publications ============ -->
+    <section class="section" id="publications" aria-labelledby="publications-title">
+      <div class="section-head">
+        <h2 id="publications-title">Selected Publications</h2>
+        <p class="aside"><a href="https://scholar.google.com/citations?user=_m5__wUAAAAJ" target="_blank" rel="noreferrer">Google Scholar</a></p>
+      </div>
+
+      <!-- Research arc: a compact map of how the work fits together -->
+      <div class="arc" role="list" aria-label="Research arc: from controllable editing to predictive world models">
+        <div class="arc-stage" role="listitem">
+          <p class="arc-kicker">Static 3D scenes</p>
+          <p class="arc-title">Spatial consistency</p>
+          <div class="arc-chips"><a href="#consistdreamer">ConsistDreamer</a><a href="#proedit">ProEdit</a><a href="#neuraleditor">NeuralEditor</a></div>
+        </div>
+        <div class="arc-stage" role="listitem">
+          <p class="arc-kicker">Videos &amp; 4D scenes</p>
+          <p class="arc-title">Temporal consistency</p>
+          <div class="arc-chips"><a href="#instruct-4d">Instruct 4D-to-4D</a><a href="#hdedit">HDEdit</a></div>
+        </div>
+        <div class="arc-stage" role="listitem">
+          <p class="arc-kicker">Human-centric video</p>
+          <p class="arc-title">Multimodal control, long horizon</p>
+          <div class="arc-chips"><a href="#dress-and-dance">Dress&amp;Dance</a><a href="#vfr">Virtual Fitting Room</a></div>
+        </div>
+        <div class="arc-stage current" role="listitem">
+          <p class="arc-kicker">Interactive worlds · current</p>
+          <p class="arc-title">Predicting visual outcomes</p>
+          <div class="arc-chips"><a href="#research">Computer use</a><a href="#research">Physics</a><a href="#research">Robotics</a></div>
+        </div>
+      </div>
+
+      <div class="pub-list">
         <article class="publication" id="vfr">
-          <a class="publication-media tryon-teaser" href="VirtualFittingRoom/?v=20260904204428" aria-label="Virtual Fitting Room project page"><video muted loop playsinline preload="metadata" poster="VirtualFittingRoom/img/teaser_vfr_poster.jpg?v=20260831-152654" data-preview-video data-playback-rate="3"><source src="assets/media/vfr-preview.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
+          <a class="publication-media contain" href="VirtualFittingRoom/" aria-label="Virtual Fitting Room project page"><video muted loop playsinline preload="metadata" poster="VirtualFittingRoom/img/teaser_vfr_poster.jpg?v=20260831-152654" data-preview-video data-playback-rate="3"><source src="assets/media/vfr-preview.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
           <div class="publication-copy">
+            <p class="pub-meta"><span class="venue">NeurIPS 2025</span><span class="role">First author</span></p>
             <h3><a href="https://papers.nips.cc/paper_files/paper/2025/hash/e418c5302456a4ef275f43b001830458-Abstract-Conference.html" target="_blank" rel="noreferrer">Virtual Fitting Room: Generating Arbitrarily Long Videos of Virtual Try-On from a Single Image</a></h3>
             <p class="authors"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang</p>
-            <p class="venue">NeurIPS 2025 · First author</p>
-            <p><strong>Reference-conditioned training on ordinary short-clip pairs</strong> enables generated 360° anchors to guide identity-consistent try-on videos up to <strong>90 seconds</strong>. Evaluated against D&amp;D+FramePack and D&amp;D+Kling 2.0 pipelines.</p>
-            <p class="publication-links"><a href="VirtualFittingRoom/?v=20260904204428">Project</a><a href="https://papers.nips.cc/paper_files/paper/2025/hash/e418c5302456a4ef275f43b001830458-Abstract-Conference.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2509.04450" target="_blank" rel="noreferrer">Preview (arXiv, Sep. 2025)</a></p>
+            <p class="summary">Learns reference-conditioned generation from ordinary pairs of short clips. At inference, generated 360° anchors keep identity consistent in try-on videos <strong>up to 90 seconds</strong> long. Evaluated against D&amp;D+FramePack and D&amp;D+Kling 2.0 pipelines.</p>
+            <p class="publication-links"><a href="VirtualFittingRoom/">Project</a><a href="https://papers.nips.cc/paper_files/paper/2025/hash/e418c5302456a4ef275f43b001830458-Abstract-Conference.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2509.04450" target="_blank" rel="noreferrer">Preview (arXiv, Sep. 2025)</a></p>
           </div>
         </article>
+
         <article class="publication" id="proedit">
-          <a class="publication-media proedit-teaser" href="ProEdit/" aria-label="ProEdit project page"><video muted loop playsinline preload="metadata" poster="ProEdit/img/progressive.png?v=20260831-152654" data-preview-video><source src="assets/media/proedit-preview.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
+          <a class="publication-media" href="ProEdit/" aria-label="ProEdit project page"><video muted loop playsinline preload="metadata" poster="ProEdit/img/progressive.png?v=20260831-152654" data-preview-video><source src="assets/media/proedit-preview.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
           <div class="publication-copy">
+            <p class="pub-meta"><span class="venue">NeurIPS 2024</span><span class="role">First author</span></p>
             <h3><a href="https://papers.nips.cc/paper_files/paper/2024/hash/08a4e10cb5b950971a64cf2155871f51-Abstract-Conference.html" target="_blank" rel="noreferrer">ProEdit: Simple Progression is All You Need for High-Quality 3D Scene Editing</a></h3>
             <p class="authors"><strong>Jun-Kun Chen</strong>, Yu-Xiong Wang</p>
-            <p class="venue">NeurIPS 2024 · First author</p>
-            <p>A progressive workflow for tuning-free previews, edit-strength control, and preservation of scene geometry and appearance.</p>
+            <p class="summary">Edits 3D scenes in simple progressive steps, with previews, edit-strength control, and tuning-free preservation of scene geometry and appearance.</p>
             <p class="publication-links"><a href="ProEdit/">Project</a><a href="https://papers.nips.cc/paper_files/paper/2024/hash/08a4e10cb5b950971a64cf2155871f51-Abstract-Conference.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2411.05006" target="_blank" rel="noreferrer">arXiv</a></p>
           </div>
         </article>
+
         <article class="publication" id="consistdreamer">
           <a class="publication-media" href="ConsistDreamer/" aria-label="ConsistDreamer project page"><video muted loop playsinline preload="metadata" poster="ConsistDreamer/img/scannetpp_B_2077.jpg?v=20260831-152654" data-preview-video><source src="assets/media/consistdreamer-preview.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
           <div class="publication-copy">
+            <p class="pub-meta"><span class="venue">CVPR 2024</span><span class="role">First author · with Meta Reality Labs Zurich</span></p>
             <h3><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Chen_ConsistDreamer_3D-Consistent_2D_Diffusion_for_High-Fidelity_Scene_Editing_CVPR_2024_paper.html" target="_blank" rel="noreferrer">ConsistDreamer: 3D-Consistent 2D Diffusion for High-Fidelity Scene Editing</a></h3>
             <p class="authors"><strong>Jun-Kun Chen</strong>, Samuel Rota Bulò, Norman Müller, Lorenzo Porzi, Peter Kontschieder, Yu-Xiong Wang</p>
-            <p class="venue">CVPR 2024 · First author</p>
-            <p><strong>Cross-view self-supervision and staged diffusion adaptation</strong> for consistent scene editing, with losses throughout the denoising trajectory. An asynchronous multi-GPU pipeline overlaps diffusion training and image generation with scene fitting.</p>
+            <p class="summary">Teaches 2D diffusion to edit 3D scenes consistently across views. Uses <strong>cross-view self-supervision</strong> and staged adaptation, with consistency losses along the whole denoising trajectory. An asynchronous multi-GPU pipeline overlaps diffusion training and image generation with scene fitting.</p>
             <p class="publication-links"><a href="ConsistDreamer/">Project</a><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Chen_ConsistDreamer_3D-Consistent_2D_Diffusion_for_High-Fidelity_Scene_Editing_CVPR_2024_paper.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2406.09404" target="_blank" rel="noreferrer">arXiv</a></p>
           </div>
         </article>
-        <article class="publication">
-          <a class="publication-media instruct4d-teaser" href="Instruct-4D-to-4D/" aria-label="Instruct 4D-to-4D project page"><video muted loop playsinline preload="metadata" poster="Instruct-4D-to-4D/img/dycheck_1.png?v=20260831-152654" data-preview-video><source src="assets/media/instruct4d-preview.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
+
+        <article class="publication" id="instruct-4d">
+          <a class="publication-media contain" href="Instruct-4D-to-4D/" aria-label="Instruct 4D-to-4D project page"><video muted loop playsinline preload="metadata" poster="Instruct-4D-to-4D/img/dycheck_1.png?v=20260831-152654" data-preview-video><source src="assets/media/instruct4d-preview.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
           <div class="publication-copy">
+            <p class="pub-meta"><span class="venue">CVPR 2024</span><span class="role">Co-first author</span></p>
             <h3><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Mou_Instruct_4D-to-4D_Editing_4D_Scenes_as_Pseudo-3D_Scenes_Using_2D_CVPR_2024_paper.html" target="_blank" rel="noreferrer">Instruct 4D-to-4D: Editing 4D Scenes as Pseudo-3D Scenes Using 2D Diffusion</a></h3>
             <p class="authors">Linzhan Mou*, <strong>Jun-Kun Chen*</strong>, Yu-Xiong Wang</p>
-            <p class="venue">CVPR 2024 · Co-first author</p>
-            <p>The first instruction-driven 4D editing framework, decomposing long dynamic-scene edits into tractable pseudo-3D editing problems.</p>
+            <p class="summary">The first instruction-driven 4D editing framework. It treats a dynamic scene as a pseudo-3D scene, which breaks a long 4D edit into tractable problems for 2D diffusion.</p>
             <p class="publication-links"><a href="Instruct-4D-to-4D/">Project</a><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Mou_Instruct_4D-to-4D_Editing_4D_Scenes_as_Pseudo-3D_Scenes_Using_2D_CVPR_2024_paper.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2406.09402" target="_blank" rel="noreferrer">arXiv</a></p>
           </div>
         </article>
-        <article class="publication">
-          <a class="publication-media" href="HDEdit/?v=20260925" aria-label="HDEdit project page"><video muted loop playsinline preload="metadata" poster="HDEdit/img/teaser_fiery_ring_ours.jpg?v=20260831-152654" data-preview-video data-playback-rate="2"><source src="HDEdit/video/teaser_fiery_ring_ours.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
+
+        <article class="publication" id="hdedit">
+          <a class="publication-media" href="HDEdit/" aria-label="HDEdit project page"><video muted loop playsinline preload="metadata" poster="HDEdit/img/teaser_fiery_ring_ours.jpg?v=20260831-152654" data-preview-video data-playback-rate="2"><source src="HDEdit/video/teaser_fiery_ring_ours.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
           <div class="publication-copy">
+            <p class="pub-meta"><span class="venue">3DV 2026</span><span class="role">Co-first author · first posted Mar. 2025</span></p>
             <h3><a href="HDEdit/HDEdit.pdf" target="_blank" rel="noreferrer">HDEdit: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition</a></h3>
             <p class="authors">Yanming Zhang*, <strong>Jun-Kun Chen*</strong>, Jipeng Lyu, Yu-Xiong Wang</p>
-            <p class="venue">3DV 2026 · Co-first author · First posted Mar. 2025</p>
-            <p>Hierarchical task decomposition separates instruction fulfillment from content preservation for general-purpose video and scene editing.</p>
-            <p class="publication-links"><a href="HDEdit/?v=20260925">Project</a><a href="HDEdit/HDEdit.pdf" target="_blank" rel="noreferrer">PDF (3DV 2026)</a><a href="https://doi.org/10.1109/3DV69130.2026.00150" target="_blank" rel="noreferrer">IEEE</a><a href="https://arxiv.org/abs/2503.10634" target="_blank" rel="noreferrer">Earlier version (arXiv, Mar. 2025)</a></p>
+            <p class="summary">General-purpose, training-free editing of videos and 3D scenes. A hierarchical task decomposition separates following the instruction from preserving the original content.</p>
+            <p class="publication-links"><a href="HDEdit/">Project</a><a href="HDEdit/HDEdit.pdf" target="_blank" rel="noreferrer">PDF (3DV 2026)</a><a href="https://doi.org/10.1109/3DV69130.2026.00150" target="_blank" rel="noreferrer">IEEE</a><a href="https://arxiv.org/abs/2503.10634" target="_blank" rel="noreferrer">Earlier version (arXiv, Mar. 2025)</a></p>
           </div>
         </article>
+
         <article class="publication" id="dress-and-dance">
-          <a class="publication-media tryon-teaser" href="DressAndDance/" aria-label="Dress and Dance project page"><video muted loop playsinline preload="metadata" poster="DressAndDance/img/teaser_dnd_poster.jpg?v=20260831-152654" data-preview-video><source src="assets/media/dnd-preview.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
+          <a class="publication-media contain" href="DressAndDance/" aria-label="Dress and Dance project page"><video muted loop playsinline preload="metadata" poster="DressAndDance/img/teaser_dnd_poster.jpg?v=20260831-152654" data-preview-video><source src="assets/media/dnd-preview.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
           <div class="publication-copy">
+            <p class="pub-meta"><span class="venue review">Under review</span><span class="role">First author · with SpreeAI</span></p>
             <h3><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Dress&amp;Dance: Dress up and Dance as You Like It</a></h3>
             <p class="authors"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang</p>
-            <p class="venue review"><span>WACV 2027, under review</span> · First author</p>
-            <p><strong>Target-steered supervision and staged training</strong> teach pretrained video diffusion new garment, identity, and motion controls. Generates 1152×720, 24-FPS try-on videos, with <strong>20–59% lower FVD</strong> than a Kling 1.6 try-on-and-animation pipeline on Internet and captured benchmarks.</p>
-            <p class="publication-links"><a href="DressAndDance/?v=20260906194949">Project</a><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Full paper</a><a href="https://arxiv.org/abs/2508.21070" target="_blank" rel="noreferrer">Preview (arXiv, Aug. 2025)</a></p>
+            <p class="summary">Teaches pretrained video diffusion new garment, identity, and motion controls through target-steered supervision and staged training. Generates 1152×720, 24-FPS try-on videos. Scores <strong>20–59% lower FVD</strong> than a Kling 1.6 try-on-and-animation pipeline on Internet and captured benchmarks.</p>
+            <p class="publication-links"><a href="DressAndDance/">Project</a><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Full paper</a><a href="https://arxiv.org/abs/2508.21070" target="_blank" rel="noreferrer">Preview (arXiv, Aug. 2025)</a></p>
           </div>
         </article>
       </div>
-      <details class="additional-publications">
-        <summary>Additional publications</summary>
-        <ul>
-          <li><a href="https://papers.nips.cc/paper_files/paper/2024/hash/953d276d037e701fcd97dbb34ebb2394-Abstract-Conference.html" target="_blank" rel="noreferrer">SceneCraft: Layout-Guided 3D Scene Generation</a> — NeurIPS 2024</li>
-          <li><a href="https://openaccess.thecvf.com/content/ICCV2023/html/Zhong_Contrastive_Learning_Relies_More_on_Spatial_Inductive_Bias_Than_Supervised_ICCV_2023_paper.html" target="_blank" rel="noreferrer">Contrastive Learning Relies More on Spatial Inductive Bias Than Supervised Learning</a> — ICCV 2023</li>
-          <li><a href="https://openaccess.thecvf.com/content/CVPR2023/html/Chen_NeuralEditor_Editing_Neural_Radiance_Fields_via_Manipulating_Point_Clouds_CVPR_2023_paper.html" target="_blank" rel="noreferrer">NeuralEditor: Editing Neural Radiance Fields via Manipulating Point Clouds</a> — CVPR 2023</li>
-          <li><a href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136630107.pdf" target="_blank" rel="noreferrer">PointTree: Transformation-Robust Point Cloud Encoder with Relaxed K-D Trees</a> — ECCV 2022</li>
-          <li><a href="https://icml.cc/virtual/2022/20703" target="_blank" rel="noreferrer">Is Self-Supervised Contrastive Learning More Robust Than Supervised Learning?</a> — ICML 2022 Workshop</li>
-          <li><a href="https://arxiv.org/abs/2202.08320" target="_blank" rel="noreferrer">TorchDrug: A Powerful and Flexible Machine Learning Platform for Drug Discovery</a> — arXiv 2022</li>
-          <li><a href="https://openreview.net/forum?id=tGZu6DlbreV" target="_blank" rel="noreferrer">RNNLogic: Learning Logic Rules for Reasoning on Knowledge Graphs</a> — ICLR 2021</li>
-          <li><a href="https://sites.google.com/dstc.community/dstc8/aaai-20-workshop" target="_blank" rel="noreferrer">Pre-training Assisted Scene-aware Dialogue Generation</a> — DSTC8 Workshop at AAAI 2020</li>
-        </ul>
+
+      <details class="all-pubs" id="all-publications">
+        <summary>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          <span class="when-closed">Show all 14 publications</span>
+          <span class="when-open">Hide full publication list</span>
+        </summary>
+        <ol class="pub-years">
+          <li>
+            <p class="pub-year">2026</p>
+            <ol class="pub-compact">
+              <li><span class="t"><a href="HDEdit/HDEdit.pdf" target="_blank" rel="noreferrer">HDEdit: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition</a></span><span class="v">3DV 2026</span><span class="a">Yanming Zhang*, <strong>Jun-Kun Chen*</strong>, Jipeng Lyu, Yu-Xiong Wang <a class="l" href="HDEdit/">Project</a><a class="l" href="https://arxiv.org/abs/2503.10634" target="_blank" rel="noreferrer">arXiv</a></span></li>
+            </ol>
+          </li>
+          <li>
+            <p class="pub-year">2025</p>
+            <ol class="pub-compact">
+              <li><span class="t"><a href="https://papers.nips.cc/paper_files/paper/2025/hash/e418c5302456a4ef275f43b001830458-Abstract-Conference.html" target="_blank" rel="noreferrer">Virtual Fitting Room: Generating Arbitrarily Long Videos of Virtual Try-On from a Single Image</a></span><span class="v">NeurIPS 2025</span><span class="a"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang <a class="l" href="VirtualFittingRoom/">Project</a><a class="l" href="https://arxiv.org/abs/2509.04450" target="_blank" rel="noreferrer">arXiv</a></span></li>
+              <li><span class="t"><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Dress&amp;Dance: Dress up and Dance as You Like It</a></span><span class="v">Under review</span><span class="a"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang <a class="l" href="DressAndDance/">Project</a><a class="l" href="https://arxiv.org/abs/2508.21070" target="_blank" rel="noreferrer">arXiv</a></span></li>
+            </ol>
+          </li>
+          <li>
+            <p class="pub-year">2024</p>
+            <ol class="pub-compact">
+              <li><span class="t"><a href="https://papers.nips.cc/paper_files/paper/2024/hash/08a4e10cb5b950971a64cf2155871f51-Abstract-Conference.html" target="_blank" rel="noreferrer">ProEdit: Simple Progression is All You Need for High-Quality 3D Scene Editing</a></span><span class="v">NeurIPS 2024</span><span class="a"><strong>Jun-Kun Chen</strong>, Yu-Xiong Wang <a class="l" href="ProEdit/">Project</a><a class="l" href="https://arxiv.org/abs/2411.05006" target="_blank" rel="noreferrer">arXiv</a></span></li>
+              <li><span class="t"><a href="https://papers.nips.cc/paper_files/paper/2024/hash/953d276d037e701fcd97dbb34ebb2394-Abstract-Conference.html" target="_blank" rel="noreferrer">SceneCraft: Layout-Guided 3D Scene Generation</a></span><span class="v">NeurIPS 2024</span><span class="a">Xiuyu Yang*, Yunze Man*, <strong>Jun-Kun Chen</strong>, Yu-Xiong Wang <a class="l" href="https://orangesodahub.github.io/SceneCraft/" target="_blank" rel="noreferrer">Project</a><a class="l" href="https://arxiv.org/abs/2410.09049" target="_blank" rel="noreferrer">arXiv</a></span></li>
+              <li><span class="t"><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Chen_ConsistDreamer_3D-Consistent_2D_Diffusion_for_High-Fidelity_Scene_Editing_CVPR_2024_paper.html" target="_blank" rel="noreferrer">ConsistDreamer: 3D-Consistent 2D Diffusion for High-Fidelity Scene Editing</a></span><span class="v">CVPR 2024</span><span class="a"><strong>Jun-Kun Chen</strong>, Samuel Rota Bulò, Norman Müller, Lorenzo Porzi, Peter Kontschieder, Yu-Xiong Wang <a class="l" href="ConsistDreamer/">Project</a><a class="l" href="https://arxiv.org/abs/2406.09404" target="_blank" rel="noreferrer">arXiv</a></span></li>
+              <li><span class="t"><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Mou_Instruct_4D-to-4D_Editing_4D_Scenes_as_Pseudo-3D_Scenes_Using_2D_CVPR_2024_paper.html" target="_blank" rel="noreferrer">Instruct 4D-to-4D: Editing 4D Scenes as Pseudo-3D Scenes Using 2D Diffusion</a></span><span class="v">CVPR 2024</span><span class="a">Linzhan Mou*, <strong>Jun-Kun Chen*</strong>, Yu-Xiong Wang <a class="l" href="Instruct-4D-to-4D/">Project</a><a class="l" href="https://arxiv.org/abs/2406.09402" target="_blank" rel="noreferrer">arXiv</a></span></li>
+            </ol>
+          </li>
+          <li>
+            <p class="pub-year">2023</p>
+            <ol class="pub-compact">
+              <li><span class="t"><a href="https://openaccess.thecvf.com/content/ICCV2023/html/Zhong_Contrastive_Learning_Relies_More_on_Spatial_Inductive_Bias_Than_Supervised_ICCV_2023_paper.html" target="_blank" rel="noreferrer">Contrastive Learning Relies More on Spatial Inductive Bias Than Supervised Learning: An Empirical Study</a></span><span class="v">ICCV 2023</span><span class="a">Yuanyi Zhong*, Haoran Tang*, <strong>Jun-Kun Chen*</strong>, Yu-Xiong Wang</span></li>
+              <li id="neuraleditor"><span class="t"><a href="https://openaccess.thecvf.com/content/CVPR2023/html/Chen_NeuralEditor_Editing_Neural_Radiance_Fields_via_Manipulating_Point_Clouds_CVPR_2023_paper.html" target="_blank" rel="noreferrer">NeuralEditor: Editing Neural Radiance Fields via Manipulating Point Clouds</a></span><span class="v">CVPR 2023</span><span class="a"><strong>Jun-Kun Chen*</strong>, Jipeng Lyu*, Yu-Xiong Wang</span></li>
+            </ol>
+          </li>
+          <li>
+            <p class="pub-year">2022</p>
+            <ol class="pub-compact">
+              <li><span class="t"><a href="https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136630107.pdf" target="_blank" rel="noreferrer">PointTree: Transformation-Robust Point Cloud Encoder with Relaxed K-D Trees</a></span><span class="v">ECCV 2022</span><span class="a"><strong>Jun-Kun Chen</strong>, Yu-Xiong Wang</span></li>
+              <li><span class="t"><a href="https://icml.cc/virtual/2022/20703" target="_blank" rel="noreferrer">Is Self-Supervised Contrastive Learning More Robust Than Supervised Learning?</a></span><span class="v">ICML 2022 Workshop</span><span class="a">Yuanyi Zhong*, Haoran Tang*, <strong>Jun-Kun Chen</strong>, Jian Peng, Yu-Xiong Wang</span></li>
+              <li><span class="t"><a href="https://arxiv.org/abs/2202.08320" target="_blank" rel="noreferrer">TorchDrug: A Powerful and Flexible Machine Learning Platform for Drug Discovery</a></span><span class="v">arXiv 2022</span><span class="a">Zhaocheng Zhu, Chence Shi, Zuobai Zhang, …, <strong>Jun-Kun Chen</strong>, …, Jian Tang</span></li>
+            </ol>
+          </li>
+          <li>
+            <p class="pub-year">2021</p>
+            <ol class="pub-compact">
+              <li><span class="t"><a href="https://openreview.net/forum?id=tGZu6DlbreV" target="_blank" rel="noreferrer">RNNLogic: Learning Logic Rules for Reasoning on Knowledge Graphs</a></span><span class="v">ICLR 2021</span><span class="a">Meng Qu*, <strong>Jun-Kun Chen*</strong>, Louis-Pascal Xhonneux, Yoshua Bengio, Jian Tang</span></li>
+            </ol>
+          </li>
+          <li>
+            <p class="pub-year">2020</p>
+            <ol class="pub-compact">
+              <li><span class="t"><a href="https://sites.google.com/dstc.community/dstc8/aaai-20-workshop" target="_blank" rel="noreferrer">Pre-training Assisted Scene-aware Dialogue Generation</a></span><span class="v">DSTC8 Workshop at AAAI 2020</span><span class="a"><strong>Jun-Kun Chen</strong>, Huang He, Siqi Bao, Fan Wang</span></li>
+            </ol>
+          </li>
+        </ol>
       </details>
-      <p class="name-note">Publications appear under Jun-Kun Chen; earlier papers may use Junkun Chen or J. Chen. * denotes equal contribution.</p>
+      <p class="name-note">* Equal contribution. Publications appear under Jun-Kun Chen; earlier papers may use Junkun Chen or J. Chen.</p>
     </section>
 
-    <section class="content-section" id="research" aria-labelledby="research-title">
-      <h2 id="research-title">Current Research</h2>
-      <div class="research-list">
-        <article class="research-item">
-          <div class="research-heading"><h3>Computer-use visual world model</h3><p>Image diffusion · mixture of transformers</p></div>
-          <div><p>Designed and ran <strong>diffusion post-training</strong> on SenseNova MoT for next-screen prediction from a screenshot and action. Formulated teacher-grounded supervision for action effects and content preservation; incorporated interaction traces and failure cases into Reasoner training.</p></div>
+    <!-- ============ Current research ============ -->
+    <section class="section" id="research" aria-labelledby="research-title">
+      <div class="section-head">
+        <h2 id="research-title">Current Research: Generative World Models</h2>
+      </div>
+      <p class="section-intro">Research direction: connect language reasoning with visual generation, and use the outcomes the model predicts as training feedback.</p>
+      <div class="research-grid">
+        <article class="research-card">
+          <div class="research-media"><video muted loop playsinline preload="metadata" poster="assets/img/research/cu-task-a.jpg?v=20261013134622" data-preview-video aria-label="Computer-use world model task: current screen and tap, then the next screen"><source src="assets/media/research/cu-task-a.mp4?v=20261013134622#t=0.1" type="video/mp4"></video></div>
+          <p class="media-credit">Task example from the training data: screen + tap → next screen.</p>
+          <h3>Computer-use visual world model</h3>
+          <p class="backbone">Image diffusion · SenseNova MoT</p>
+          <p class="body">Built a next-screen world model on SenseNova MoT: a language Reasoner describes what an action changes and what must stay the same, and a diffusion Generator adapted through <strong>diffusion post-training</strong> renders the next screenshot. Ongoing work trains the Reasoner on a teacher's corrections of the model's own rendering mistakes.</p>
         </article>
-        <article class="research-item">
-          <div class="research-heading"><h3>Physical-event world model</h3><p>Video diffusion · multimodal reasoning</p></div>
-          <div><p>Adapted Cosmos3 video diffusion for physical-event prediction from RGB history. Implemented <strong>online teacher distillation</strong> using generated-versus-target video feedback to train the language Reasoner and diffusion Generator.</p></div>
+        <article class="research-card">
+          <div class="research-media"><video muted loop playsinline preload="metadata" poster="assets/img/research/physics-task-a.jpg?v=20261013134622" data-preview-video aria-label="Physical-event world model task: past frames, then future frames"><source src="assets/media/research/physics-task-a.mp4?v=20261013134622#t=0.1" type="video/mp4"></video></div>
+          <p class="media-credit">Task example from PhysicsIQ: past video → future video.</p>
+          <h3>Physical-event world model</h3>
+          <p class="backbone">Video diffusion · Cosmos3</p>
+          <p class="body">Adapted <strong>Cosmos3 video diffusion</strong> to predict physical events from past RGB frames, conditioned on structured event descriptions. Implemented teacher distillation: a teacher that sees the whole video supervises a language Reasoner that sees only the past frames. An earlier online variant also updated the Generator from generated-versus-real comparisons.</p>
         </article>
-        <article class="research-item">
-          <div class="research-heading"><h3>Robot-interaction world model</h3><p>Motion-conditioned video diffusion</p></div>
-          <div><p>Built an initial synthetic <strong>video-diffusion prototype</strong> predicting robot–object interactions from an initial scene and prescribed motion. Designed visual-proxy and paired-correspondence conditioning to represent motion across robot–world setups.</p></div>
+        <article class="research-card">
+          <div class="research-media"><video muted loop playsinline preload="metadata" poster="assets/img/research/robot-task-b.jpg?v=20261013134622" data-preview-video aria-label="Robot-interaction world model: scene and robot motion, then predicted and real interaction video"><source src="assets/media/research/robot-task-b.mp4?v=20261013134622#t=0.1" type="video/mp4"></video></div>
+          <p class="media-credit">Held-out DROID scene: predicted (left) vs. real (right) interaction video.</p>
+          <h3>Robot-interaction world model</h3>
+          <p class="backbone">Motion-conditioned video diffusion · Cosmos3</p>
+          <p class="body">Trained a <strong>motion-conditioned video world model</strong> on simulated and real robot data (MimicGen, RoboTwin, DROID, RH20T, AgiBot). It predicts robot–object interaction video from a starting scene, recent frames, and a rendering of the prescribed robot motion. Ongoing work studies adaptation to new robot and camera setups without retraining.</p>
         </article>
       </div>
     </section>
 
-    <section class="content-section" id="experience" aria-labelledby="experience-title">
-      <h2 id="experience-title">Experience</h2>
-      <div class="experience-list">
-        <article class="experience-item">
-          <div><h3>Meta Reality Labs</h3><p class="experience-role">Research Scientist Intern</p></div>
-          <div><p class="experience-date">May–Dec. 2025 · Bay Area, CA, U.S.<br><span class="appointment-note">Part-time continuation: Aug.–Dec. 2025</span></p><p>Designed and implemented a <strong>GPU-role-separated pipeline for data processing and model training</strong>, supporting 3D/video-generation research at <strong>128–256-GPU scale</strong> on Meta's distributed infrastructure.</p><p class="experience-date appointment-date">May–Aug. 2023 · Zurich, Switzerland</p><p>For <em>ConsistDreamer</em> (CVPR 2024), carried the research from method design through implementation and evaluation: cross-view self-supervision, staged diffusion adaptation, and asynchronous scheduling of diffusion training, image generation, and scene fitting.</p></div>
+    <!-- ============ Experience ============ -->
+    <section class="section" id="experience" aria-labelledby="experience-title">
+      <div class="section-head">
+        <h2 id="experience-title">Experience</h2>
+      </div>
+      <div class="exp-list">
+        <article class="exp-item">
+          <div>
+            <h3>Meta Reality Labs</h3>
+            <span class="role">Research Scientist Intern</span>
+            <span class="where">Bay Area, CA, U.S. · Zurich, Switzerland</span>
+          </div>
+          <div class="exp-body">
+            <p><span class="when">May–Dec. 2025</span><span class="note">Bay Area · part-time continuation Aug.–Dec.</span></p>
+            <p>Designed and implemented a GPU-role-separated pipeline for data processing and model training at <strong>128–256-GPU scale</strong>. Built on Meta's distributed infrastructure to support 3D/video-generation research.</p>
+            <p style="margin-top:14px"><span class="when">May–Aug. 2023</span><span class="note">Zurich</span></p>
+            <p>Took <em>ConsistDreamer</em> (CVPR 2024) from method design through implementation and evaluation. Designed cross-view self-supervision and staged diffusion adaptation. Built an asynchronous pipeline that overlaps diffusion training and image generation with scene fitting.</p>
+          </div>
         </article>
-        <article class="experience-item">
-          <div><h3>SpreeAI</h3><p class="experience-role">AI Research Intern</p></div>
-          <div><p class="experience-date">May 2024–May 2025 · Remote, U.S.</p><p><strong>Dress&amp;Dance:</strong> designed and implemented target-steered supervision, synthetic-condition/real-target training triplets, and staged image/video curricula to teach pretrained diffusion new visual controls. Evaluated garment and identity fidelity, motion, and video quality.</p><p><strong>Subsequent work — Virtual Fitting Room</strong> (NeurIPS 2025): designed training around arbitrary pairs of short clips to learn reference appearance and prefix continuation, without requiring canonical 360° training anchors. At inference, a generated 360° reference and anchored autoregression support minute-scale consistency; targeted augmentation trains a refiner to remove characteristic generation artifacts.</p></div>
+        <article class="exp-item">
+          <div>
+            <h3>SpreeAI</h3>
+            <span class="role">AI Research Intern</span>
+            <span class="where">Remote, U.S.</span>
+          </div>
+          <div class="exp-body">
+            <p><span class="when">May 2024 – May 2025</span></p>
+            <p><strong>Dress&amp;Dance:</strong> taught pretrained video diffusion new garment, identity, and motion controls. Designed and implemented target-steered supervision, training triplets with synthetic conditions and real targets, and staged image/video curricula. Evaluated garment and identity fidelity, motion, and video quality.</p>
+            <p><strong>Virtual Fitting Room</strong> (NeurIPS 2025): designed training on arbitrary pairs of short clips. The model learns reference appearance and prefix continuation, with no canonical 360° anchors needed for training. At inference, a generated 360° reference and anchored autoregression keep the video consistent at minute scale. Targeted augmentation trains a refiner to remove the generator's typical artifacts.</p>
+          </div>
         </article>
-        <article class="experience-item compact">
-          <div><h3>Earlier Research</h3></div>
-          <div><p>Mila – Quebec AI Institute (2020): knowledge-graph reasoning for <em>RNNLogic</em> (ICLR 2021). Baidu NLP (2019–2020): scene-aware dialogue generation for the DSTC8 Workshop at AAAI 2020.</p></div>
+        <article class="exp-item compact">
+          <div>
+            <h3>Mila – Quebec AI Institute</h3>
+            <span class="role">Research Intern</span>
+            <span class="where">Montreal, Canada</span>
+          </div>
+          <div class="exp-body">
+            <p><span class="when">Feb.–Aug. 2020</span>Knowledge-graph reasoning with Prof. Jian Tang. Co-first author of <em>RNNLogic</em> (ICLR 2021).</p>
+          </div>
+        </article>
+        <article class="exp-item compact">
+          <div>
+            <h3>Baidu, NLP Department</h3>
+            <span class="role">Research / Development Intern</span>
+            <span class="where">Beijing, China</span>
+          </div>
+          <div class="exp-body">
+            <p><span class="when">July 2019 – Jan. 2020</span>Scene-aware dialogue generation. Top-3 system at DSTC8, presented at the DSTC8 Workshop at AAAI 2020.</p>
+          </div>
         </article>
       </div>
     </section>
 
-      <section class="content-section two-column-section" aria-label="Education and selected honors">
+    <!-- ============ Education / skills / honors ============ -->
+    <section class="section three-col" aria-label="Education, skills, and honors">
       <div>
         <h2>Education</h2>
-        <div class="compact-entry"><h3><a class="subtle-link" href="https://illinois.edu/" target="_blank" rel="noreferrer">University of Illinois Urbana-Champaign</a></h3><p>Ph.D. Candidate in Computer Science · Expected Dec. 2026<br>Advisor: <a href="https://yxw.cs.illinois.edu/" target="_blank" rel="noreferrer">Yu-Xiong Wang</a></p></div>
-        <div class="compact-entry"><h3><a class="subtle-link" href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noreferrer">Tsinghua University</a></h3><p>B.Eng. in Computer Science, <a href="https://iiis.tsinghua.edu.cn/en/Yao_Class/About_Yao_Class.htm" target="_blank" rel="noreferrer">Yao Class</a> · 2017–2021<br>Major GPA: 3.94/4.0</p></div>
+        <div class="edu">
+          <h3><a href="https://illinois.edu/" target="_blank" rel="noreferrer">University of Illinois Urbana-Champaign</a></h3>
+          <p>Ph.D. Candidate in Computer Science · 2021 – Dec. 2026 (expected)<br>Advisor: <a href="https://yxw.cs.illinois.edu/" target="_blank" rel="noreferrer">Yu-Xiong Wang</a></p>
+        </div>
+        <div class="edu">
+          <h3><a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noreferrer">Tsinghua University</a></h3>
+          <p>B.Eng. in Computer Science, <a href="https://iiis.tsinghua.edu.cn/en/Yao_Class/About_Yao_Class.htm" target="_blank" rel="noreferrer">Yao Class</a> (IIIS) · 2017 – 2021<br>Major GPA: 3.94/4.0</p>
+        </div>
+      </div>
+      <div>
+        <h2>Skills</h2>
+        <div class="skills">
+          <p><span class="k">Tools:</span> PyTorch, Python, C++, FSDP2, torch.compile, Slurm, MuJoCo</p>
+          <p><span class="k">Models:</span> image/video diffusion, diffusion Transformers (DiT), video world models (NVIDIA Cosmos), unified multimodal models (mixture-of-transformers), vision-language models, LoRA</p>
+          <p><span class="k">Practice:</span> diffusion post-training (rectified flow / flow matching), VLM teacher distillation and SFT, action and multimodal conditioning, video and robot-data pipelines, multi-GPU training with exact checkpoint resume, held-out benchmark design, human and VLM-judge evaluation, paired-bootstrap statistics</p>
+        </div>
       </div>
       <div>
         <h2>Selected Honors</h2>
-        <ul class="honors-list"><li>ICPC EC-Final — Gold Medal, 4th Place (2018)</li><li>ICPC Qingdao Regional — Gold Medal, 2nd Place (2018)</li><li>CCPC Harbin Regional — Gold Medal (2017)</li><li>National Olympiad in Informatics — Gold Medal (2016)</li></ul>
+        <ul class="honors">
+          <li>ICPC EC-Final — Gold Medal, 4th place <span class="y">(2018)</span></li>
+          <li>ICPC Qingdao Regional — Gold Medal, 2nd place <span class="y">(2018)</span></li>
+          <li>CCPC Harbin Regional — Gold Medal <span class="y">(2017)</span></li>
+          <li>National Olympiad in Informatics — Gold Medal <span class="y">(2016)</span></li>
+        </ul>
       </div>
-      </section>
-    </div>
+    </section>
   </main>
 
-  <footer class="site-footer"><div class="page-width footer-inner"><span>© <span data-year></span> Jun-Kun Chen</span><span class="footer-contact"><a href="mailto:immortalco233@gmail.com">immortalco233@gmail.com</a><a href="mailto:junkun3@illinois.edu">junkun3@illinois.edu</a></span></div></footer>
+  <footer class="site-footer">
+    <div class="page footer-inner">
+      <span>© <span data-year></span> Jun-Kun Chen</span>
+      <span class="footer-contact"><a href="mailto:immortalco233@gmail.com">immortalco233@gmail.com</a><a href="mailto:junkun3@illinois.edu">junkun3@illinois.edu</a><a href="files/Jun-Kun_Chen_CV_Academic.pdf">Academic CV</a></span>
+    </div>
+  </footer>
+
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
     data-cf-beacon='{"token":"d1495b5a72694da48eb8e2677acd9875"}'></script>
   <!-- End Cloudflare Web Analytics -->
-  <script src="assets/js/site.js?v=20260904205822"></script>
+  <script src="assets/js/site-v2.js?v=20261013134622"></script>
 </body>
 </html>

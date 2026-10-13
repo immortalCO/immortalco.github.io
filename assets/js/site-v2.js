@@ -2,12 +2,38 @@
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 
+  // In-page links whose target sits inside a collapsed <details> (e.g. the full publication
+  // list) open that disclosure first, so the browser can actually scroll to the target.
+  const revealTarget = (hash) => {
+    if (!hash || hash.length < 2) return;
+    const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (!target) return;
+    let details = target.closest('details');
+    while (details) {
+      details.open = true;
+      details = details.parentElement ? details.parentElement.closest('details') : null;
+    }
+  };
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    const hash = link.getAttribute('href');
+    revealTarget(hash);
+    // A second click on a link whose hash is already in the URL does not navigate; scroll by hand.
+    if (window.location.hash === hash) {
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (target) target.scrollIntoView({ block: 'start' });
+    }
+  });
+  window.addEventListener('hashchange', () => revealTarget(window.location.hash));
+  revealTarget(window.location.hash);
+
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   document.querySelectorAll('[data-preview-video]').forEach((video) => {
-    const container = video.closest('.publication');
-    const media = video.closest('.publication-media');
+    const container = video.closest('.publication, .research-card');
+    const media = video.closest('.publication-media, .research-media');
     if (!container || !media) return;
 
     // Keep the project link and the playback button as separate, accessible actions.
