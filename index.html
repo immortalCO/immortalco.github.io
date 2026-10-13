@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="assets/css/site-v2.css?v=20261013135500">
+  <link rel="stylesheet" href="assets/css/site-v2.css?v=20261013b">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -284,8 +284,8 @@
           <p class="body">Built a next-screen world model on SenseNova MoT: a language Reasoner describes what an action changes and what must stay the same, and a diffusion Generator adapted through <strong>diffusion post-training</strong> renders the next screenshot. Ongoing work trains the Reasoner on a teacher's corrections of the model's own rendering mistakes.</p>
         </article>
         <article class="research-card">
-          <div class="research-media"><video muted loop playsinline preload="metadata" poster="assets/img/research/physics-task-a.jpg?v=20261013134622" data-preview-video aria-label="Physical-event world model task: past frames, then future frames"><source src="assets/media/research/physics-task-a.mp4?v=20261013134622#t=0.1" type="video/mp4"></video></div>
-          <p class="media-credit">Task example from PhysicsIQ: past video → future video.</p>
+          <div class="research-media"><video muted loop playsinline preload="metadata" poster="assets/img/research/physics-task-b.jpg?v=20261013134622" data-preview-video aria-label="Physical-event world model: past frames, then predicted and real future frames"><source src="assets/media/research/physics-task-b.mp4?v=20261013134622#t=0.1" type="video/mp4"></video></div>
+          <p class="media-credit">PhysicsIQ example: past video → predicted future (middle) vs. real (right).</p>
           <h3>Physical-event world model</h3>
           <p class="backbone">Video diffusion · Cosmos3</p>
           <p class="body">Adapted <strong>Cosmos3 video diffusion</strong> to predict physical events from past RGB frames, conditioned on structured event descriptions. Implemented teacher distillation: a teacher that sees the whole video supervises a language Reasoner that sees only the past frames. An earlier online variant also updated the Generator from generated-versus-real comparisons.</p>
@@ -398,6 +398,6 @@
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
     data-cf-beacon='{"token":"d1495b5a72694da48eb8e2677acd9875"}'></script>
   <!-- End Cloudflare Web Analytics -->
-  <script src="assets/js/site-v2.js?v=20261013135500"></script>
+  <script src="assets/js/site-v2.js?v=20261013b"></script>
 </body>
 </html>

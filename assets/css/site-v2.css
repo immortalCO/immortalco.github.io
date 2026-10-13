@@ -470,3 +470,56 @@ p { margin: 0; }
   .publication { grid-template-columns: 1fr; }
   a { color: inherit; }
 }
+
+/* ---------- research media lightbox ----------
+   Current-research previews open enlarged in a modal <dialog class="media-lightbox"> that
+   site-v2.js creates once at the end of <body>. role="button" is only set when the browser
+   supports dialog.showModal, so the zoom cursor never promises a lightbox that cannot open. */
+.research-card .research-media[role="button"] { cursor: zoom-in; }
+html.lightbox-open { overflow: hidden; }
+.media-lightbox {
+  width: min(92vw, 1200px);
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  overflow: visible;
+}
+.media-lightbox::backdrop { background: rgba(10, 12, 16, .84); }
+/* The bar only holds the close button; clicks beside it fall through to the dialog and close it. */
+.media-lightbox-bar { display: flex; justify-content: flex-end; margin-bottom: 10px; pointer-events: none; }
+.media-lightbox-close {
+  display: grid; place-items: center;
+  width: 40px; height: 40px; padding: 0;
+  border: 0; border-radius: 50%;
+  background: rgba(255, 255, 255, .16);
+  color: #fff;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.media-lightbox-close:hover { background: rgba(255, 255, 255, .28); }
+.media-lightbox-close:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.media-lightbox-close svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.media-lightbox-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  /* 82vh, but leave room for the close bar and caption on short (landscape) screens */
+  max-height: min(82vh, calc(100vh - 120px));
+  object-fit: contain;
+  border-radius: 8px;
+  background: #000;
+}
+.media-lightbox-caption {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px;
+  margin-top: 12px;
+  line-height: 1.45;
+}
+.media-lightbox-title { color: #fff; font-size: 15px; font-weight: 600; }
+.media-lightbox-credit { color: #b8c0c9; font-size: 13px; }
+@media (max-width: 640px) {
+  .media-lightbox { width: calc(100vw - 24px); }
+}

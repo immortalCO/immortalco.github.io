@@ -107,6 +107,8 @@
         if (!manualPlaying) reset();
       });
       container.addEventListener('focusin', (event) => {
+        // Focus handed back by the closing lightbox (below) should not restart the small preview.
+        if (document.documentElement.classList.contains('lightbox-open')) return;
         if (event.target !== button && !manuallyPaused) play();
       });
       container.addEventListener('focusout', (event) => {
@@ -120,4 +122,102 @@
     }
     document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
   });
+
+  // Current-research cards: clicking a preview (or Enter / Space on it) opens the same clip
+  // enlarged in a modal <dialog>. Publication previews keep linking to their project pages,
+  // and browsers without dialog.showModal keep the plain inline preview.
+  const researchMedia = document.querySelectorAll('.research-card .research-media');
+  const canShowModal = typeof HTMLDialogElement === 'function'
+    && typeof HTMLDialogElement.prototype.showModal === 'function';
+  if (canShowModal && researchMedia.length) {
+    const root = document.documentElement;
+    const dialog = document.createElement('dialog');
+    dialog.className = 'media-lightbox';
+    dialog.setAttribute('aria-labelledby', 'media-lightbox-title');
+    dialog.innerHTML = '<div class="media-lightbox-bar"><button type="button" class="media-lightbox-close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>'
+      + '<video class="media-lightbox-video" controls autoplay muted loop playsinline></video>'
+      + '<p class="media-lightbox-caption"><span class="media-lightbox-title" id="media-lightbox-title"></span><span class="media-lightbox-credit"></span></p>';
+    document.body.append(dialog);
+    const lightboxVideo = dialog.querySelector('.media-lightbox-video');
+    const lightboxTitle = dialog.querySelector('.media-lightbox-title');
+    const lightboxCredit = dialog.querySelector('.media-lightbox-credit');
+    let trigger = null;
+    let pressedOnBackdrop = false;
+
+    const openLightbox = (media) => {
+      const video = media.querySelector('video');
+      const card = media.closest('.research-card');
+      const source = video.querySelector('source');
+      const src = (source ? source.getAttribute('src') : video.getAttribute('src')) || '';
+      const credit = card.querySelector('.media-credit')?.textContent.trim() || '';
+      const autoplay = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      video.pause();
+      trigger = media;
+      lightboxTitle.textContent = card.querySelector('h3')?.textContent.trim() || '';
+      lightboxCredit.textContent = credit;
+      lightboxCredit.hidden = !credit;
+      lightboxVideo.setAttribute('aria-label', video.getAttribute('aria-label') || lightboxTitle.textContent);
+      const poster = video.getAttribute('poster');
+      if (poster) lightboxVideo.setAttribute('poster', poster);
+      else lightboxVideo.removeAttribute('poster');
+      // Reduced-motion users get the enlarged clip paused on its poster and press play themselves.
+      lightboxVideo.autoplay = autoplay;
+      lightboxVideo.muted = true;
+      lightboxVideo.src = src.replace(/#.*$/, ''); // drop the inline poster-frame hint (#t=0.1)
+
+      root.classList.add('lightbox-open');
+      dialog.showModal();
+      if (autoplay) lightboxVideo.play().catch(() => {});
+    };
+
+    // Cleanup after any close. Chrome delivers the 'close' event only at the next animation
+    // frame, so our own close paths run it synchronously; the event covers Esc and stays a
+    // no-op when it arrives late or after the lightbox was opened again.
+    const finishClose = () => {
+      if (dialog.open || !trigger) return;
+      lightboxVideo.pause();
+      lightboxVideo.removeAttribute('src');
+      lightboxVideo.load(); // abort the download
+      // Return focus while html.lightbox-open is still set, so the card's focus-to-play
+      // preview stays paused (browsers that restore focus in close() already did this).
+      if (document.activeElement !== trigger) trigger.focus({ preventScroll: true });
+      root.classList.remove('lightbox-open');
+      trigger = null;
+    };
+    const closeLightbox = () => {
+      dialog.close();
+      finishClose();
+    };
+    dialog.addEventListener('close', finishClose);
+    dialog.querySelector('.media-lightbox-close').addEventListener('click', closeLightbox);
+    // Close on a click on the backdrop itself; a drag that starts on the video controls and
+    // ends outside them must not count.
+    dialog.addEventListener('pointerdown', (event) => { pressedOnBackdrop = event.target === dialog; });
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog && pressedOnBackdrop) closeLightbox();
+      pressedOnBackdrop = false;
+    });
+
+    researchMedia.forEach((media) => {
+      if (!media.querySelector('video')) return;
+      const title = media.closest('.research-card')?.querySelector('h3')?.textContent.trim() || 'research';
+      media.setAttribute('role', 'button');
+      media.setAttribute('tabindex', '0');
+      media.setAttribute('aria-haspopup', 'dialog');
+      media.setAttribute('aria-label', `Enlarge ${title} preview`);
+      media.addEventListener('click', () => openLightbox(media));
+      // Same keys as a native button: Enter on keydown, Space on keyup. Cancelling keydown
+      // also stops the page from scrolling on Space and the Enter keypress from reaching the
+      // dialog's close button once focus has moved there.
+      media.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        if (event.key === 'Enter') openLightbox(media);
+      });
+      media.addEventListener('keyup', (event) => {
+        if (event.key === ' ') openLightbox(media);
+      });
+    });
+  }
 })();
