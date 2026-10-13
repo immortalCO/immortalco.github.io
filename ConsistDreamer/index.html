@@ -14,9 +14,11 @@
 <meta property="og:url" content="https://immortalco.github.io/ConsistDreamer/">
 <meta property="og:title" content="ConsistDreamer: 3D-Consistent 2D Diffusion for High-Fidelity Scene Editing">
 <meta property="og:description" content="Context-rich multi-view conditioning and self-supervised consistency for coherent diffusion-based scene editing.">
+<meta property="og:image" content="https://immortalco.github.io/ConsistDreamer/img/scannetpp_B_2077.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ConsistDreamer: 3D-Consistent 2D Diffusion for High-Fidelity Scene Editing">
 <meta name="twitter:description" content="Context-rich multi-view conditioning and self-supervised consistency for coherent diffusion-based scene editing.">
+<meta name="twitter:image" content="https://immortalco.github.io/ConsistDreamer/img/scannetpp_B_2077.jpg">
 <!-- <meta name="twitter:image" content="img/teaser_simple.jpg"> -->
 <!-- mirror: F0%9F%AA%9E&lt -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -25,8 +27,8 @@
 <link rel="stylesheet" href="css/app.css">
 <link rel="canonical" href="https://immortalco.github.io/ConsistDreamer/">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/css/project-pages.css?v=20260831-152654">
-<script defer src="../assets/js/project-pages.js?v=20260831-152654"></script>
+<link rel="stylesheet" href="../assets/css/project-pages.css?v=20261013">
+<script defer src="../assets/js/project-pages.js?v=20261013"></script>
 <style>
 .rrotated {
     transform: rotate(90deg);
@@ -88,7 +90,7 @@
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3 text-center">
             <ul class="nav nav-pills nav-justified">
-                <li> <a href="https://arxiv.org/abs/2406.09404"> <img src="https://info.arxiv.org/brand/images/brand-logomark-primary-large.jpg" height="60px" />
+                <li> <a href="https://openaccess.thecvf.com/content/CVPR2024/html/Chen_ConsistDreamer_3D-Consistent_2D_Diffusion_for_High-Fidelity_Scene_Editing_CVPR_2024_paper.html"> <svg width="48" height="60" viewBox="0 0 24 30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 1h10l7 7v21H4z M14 1v7h7 M8 14h9 M8 19h9 M8 24h6"/></svg>
                     <h4><strong>Paper</strong></h4>
                     </a> </li>
                 <li> <a href="./poster.pdf"> <img src="./img/poster_small.png" height="60px" />
@@ -104,12 +106,14 @@
                 <li class="project-home-nav">
                     <a href="../" aria-label="Jun-Kun Chen homepage" title="Jun-Kun Chen homepage">
                         <img class="project-home-avatar" src="../assets/img/jun-kun-chen.jpg?v=20260831-152654" alt="">
-                        <h4><strong>Jun-Kun</strong><br><small>Homepage</small></h4>
+                        <h4><strong>Jun-Kun Chen</strong><br><small>Homepage</small></h4>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
+
+    <p class="project-version-note">Published in <a href="https://openaccess.thecvf.com/content/CVPR2024/html/Chen_ConsistDreamer_3D-Consistent_2D_Diffusion_for_High-Fidelity_Scene_Editing_CVPR_2024_paper.html">CVPR 2024</a> · <a href="https://arxiv.org/abs/2406.09404">arXiv</a></p>
 
     <!--
         <div class="row">
@@ -135,7 +139,7 @@
     </div>
     <div class="row">
         <h3> Architecture &amp; Design</h3>
-        <img src="img/pipeline.png" class="img-responsive" alt="overview" width="75%" style="margin:auto;" />
+        <img src="img/pipeline.png" loading="lazy" decoding="async" class="img-responsive" alt="overview" width="75%" style="margin:auto;" />
         <!-- <table width="100%" style="table-layout:fixed">
             <tbody>
                 <tr>
@@ -222,50 +226,50 @@
                         <ul class="nav nav-pills nav-justified" width="75%">
                             <li>
                                 <a href="javascript:replace_scannetpp_video('scannetpp_B_orig', 'scannetpp_B_2077', 'Make it a near-futuristic night city style of Cyberpunk2077')">
-                                    <img src="img/scannetpp_B_2077.jpg" height="50px" />
+                                    <img src="img/scannetpp_B_2077.jpg" loading="lazy" decoding="async" height="50px" />
                                     <h4><strong>2077</strong></h4>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:replace_scannetpp_video('scannetpp_B_orig', 'scannetpp_B_van_gogh', 'Make it look like a Van Gogh painting')">
-                                    <img src="img/scannetpp_B_van_gogh.jpg" height="50px" />
+                                    <img src="img/scannetpp_B_van_gogh.jpg" loading="lazy" decoding="async" height="50px" />
                                     <h4><strong>Van Gogh</strong></h4>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:replace_scannetpp_video('scannetpp_A_orig', 'scannetpp_A_transistor', 'Make the room look like in Transistor game')">
-                                    <img src="img/scannetpp_A_transistor.jpg" height="50px" />
+                                    <img src="img/scannetpp_A_transistor.jpg" loading="lazy" decoding="async" height="50px" />
                                     <h4><strong>Transistor</strong></h4>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:replace_scannetpp_video('scannetpp_A_orig', 'scannetpp_A_picasso', 'Make it look like a Picasso painting')">
-                                    <img src="img/scannetpp_A_picasso.jpg" height="50px" />
+                                    <img src="img/scannetpp_A_picasso.jpg" loading="lazy" decoding="async" height="50px" />
                                     <h4><strong>Picasso</strong></h4>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="javascript:replace_scannetpp_video('scannetpp_W_orig', 'scannetpp_W_fauvism', 'Make it look like a Fauvism painting')">
-                                    <img src="img/scannetpp_W_fauvism.jpg" height="50px" />
+                                    <img src="img/scannetpp_W_fauvism.jpg" loading="lazy" decoding="async" height="50px" />
                                     <h4><strong>Fauvism</strong></h4>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:replace_scannetpp_video('scannetpp_X_orig', 'scannetpp_X_utagawa', 'Make it look like a Hiroshige Utagawa painting')">
-                                    <img src="img/scannetpp_X_utagawa.jpg" height="50px" />
+                                    <img src="img/scannetpp_X_utagawa.jpg" loading="lazy" decoding="async" height="50px" />
                                     <h4><strong>Utagawa</strong></h4>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:replace_scannetpp_video('scannetpp_Y_orig', 'scannetpp_Y_munch', 'Make it look like a Edvard Munch painting')">
-                                    <img src="img/scannetpp_Y_munch.jpg" height="50px" />
+                                    <img src="img/scannetpp_Y_munch.jpg" loading="lazy" decoding="async" height="50px" />
                                     <h4><strong>Munch</strong></h4>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:replace_scannetpp_video('scannetpp_Z_orig', 'scannetpp_Z_bastion', 'Make the room look like in Bastion game')">
-                                    <img src="img/scannetpp_Z_bastion.jpg" height="50px" />
+                                    <img src="img/scannetpp_Z_bastion.jpg" loading="lazy" decoding="async" height="50px" />
                                     <h4><strong>Bastion</strong></h4>
                                 </a>
                             </li>
@@ -296,31 +300,31 @@
                         <ul class="nav nav-pills nav-justified" width="75%">
                             <li>
                                 <a href="javascript:replace_in2n_video('in2n_face_all', 'Face')">
-                                    <img src="img/in2n_face.png" height="80px" />
+                                    <img src="img/in2n_face.png" loading="lazy" decoding="async" height="80px" />
                                     <h4><strong>Face</strong></h4>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:replace_in2n_video('in2n_person_all', 'Person')">
-                                    <img src="img/in2n_person.png" height="80px" />
+                                    <img src="img/in2n_person.png" loading="lazy" decoding="async" height="80px" />
                                     <h4><strong>Person</strong></h4>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:replace_in2n_video('in2n_fangzhou_all', 'Fangzhou')">
-                                    <img src="img/in2n_fangzhou.png" height="80px" />
+                                    <img src="img/in2n_fangzhou.png" loading="lazy" decoding="async" height="80px" />
                                     <h4><strong>Fangzhou</strong></h4>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:replace_in2n_video('in2n_outdoor_1', 'Farm')">
-                                    <img src="img/in2n_farm.png" height="80px" />
+                                    <img src="img/in2n_farm.png" loading="lazy" decoding="async" height="80px" />
                                     <h4><strong>Farm</strong></h4>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:replace_in2n_video('in2n_outdoor_2', 'Farm')">
-                                    <img src="img/in2n_campsite.png" height="80px" />
+                                    <img src="img/in2n_campsite.png" loading="lazy" decoding="async" height="80px" />
                                     <h4><strong>Campsite</strong></h4>
                                 </a>
                             </li>

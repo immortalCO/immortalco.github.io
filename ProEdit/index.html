@@ -14,9 +14,11 @@
 <meta property="og:url" content="https://immortalco.github.io/ProEdit/">
 <meta property="og:title" content="ProEdit: Simple Progression is All You Need for High-Quality 3D Scene Editing">
 <meta property="og:description" content="Progressive diffusion-guided subtasks for controllable, tuning-free 3D scene editing.">
+<meta property="og:image" content="https://immortalco.github.io/ProEdit/img/progressive.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ProEdit: Simple Progression is All You Need for High-Quality 3D Scene Editing">
 <meta name="twitter:description" content="Progressive diffusion-guided subtasks for controllable, tuning-free 3D scene editing.">
+<meta name="twitter:image" content="https://immortalco.github.io/ProEdit/img/progressive.png">
 <!-- <meta name="twitter:image" content="img/teaser_simple.jpg"> -->
 <!-- mirror: F0%9F%AA%9E&lt -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -25,8 +27,8 @@
 <link rel="stylesheet" href="css/app.css">
 <link rel="canonical" href="https://immortalco.github.io/ProEdit/">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/css/project-pages.css?v=20260831-152654">
-<script defer src="../assets/js/project-pages.js?v=20260831-152654"></script>
+<link rel="stylesheet" href="../assets/css/project-pages.css?v=20261013">
+<script defer src="../assets/js/project-pages.js?v=20261013"></script>
 <style>
 .rrotated {
     transform: rotate(90deg);
@@ -80,15 +82,16 @@
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3 text-center">
             <ul class="nav nav-pills nav-justified">
-                <li> <a href="./paper.html?version=1"> <img src="https://info.arxiv.org/brand/images/brand-logomark-primary-large.jpg" height="60px" />
+                <li> <a href="https://papers.nips.cc/paper_files/paper/2024/hash/08a4e10cb5b950971a64cf2155871f51-Abstract-Conference.html"> <svg width="48" height="60" viewBox="0 0 24 30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 1h10l7 7v21H4z M14 1v7h7 M8 14h9 M8 19h9 M8 24h6"/></svg>
                     <h4><strong>Paper</strong></h4>
                     </a> </li>
                 <!-- <li> <a href="./poster.pdf"> <img src="./img/poster_small.png" height="60px" />
                     <h4><strong>Poster</strong></h4>
                     </a> </li> -->
-                <li> <a href="./presentation.html?version=1"> <img src="./img/youtube_icon.png" height="60px" />
+                <!-- Video hidden: presentation.html is only a "Coming soon" placeholder. -->
+                <!-- <li> <a href="./presentation.html?version=1"> <img src="./img/youtube_icon.png" height="60px" />
                     <h4><strong>Video</strong></h4>
-                    </a> </li>
+                    </a> </li> -->
                 <li> <a href="./code.html?version=1" target="_blank">
                     <img src="img/github.png" height="60px" />
                     <h4><strong>Code</strong></h4>
@@ -96,12 +99,14 @@
                 <li class="project-home-nav">
                     <a href="../" aria-label="Jun-Kun Chen homepage" title="Jun-Kun Chen homepage">
                         <img class="project-home-avatar" src="../assets/img/jun-kun-chen.jpg?v=20260831-152654" alt="">
-                        <h4><strong>Jun-Kun</strong><br><small>Homepage</small></h4>
+                        <h4><strong>Jun-Kun Chen</strong><br><small>Homepage</small></h4>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
+
+    <p class="project-version-note">Published in <a href="https://papers.nips.cc/paper_files/paper/2024/hash/08a4e10cb5b950971a64cf2155871f51-Abstract-Conference.html">NeurIPS 2024</a> · <a href="https://arxiv.org/abs/2411.05006">arXiv</a></p>
 
     <!--
         <div class="row">
@@ -127,7 +132,7 @@
     </div>
     <div class="row">
         <h3> Architecture &amp; Design</h3>
-        <img src="img/pipeline.png" class="img-responsive" alt="overview" width="75%" style="margin:auto;" />
+        <img src="img/pipeline.png" loading="lazy" decoding="async" class="img-responsive" alt="overview" width="75%" style="margin:auto;" />
 
     </div>
     <div class="row">
@@ -153,26 +158,26 @@
                         <ul class="nav nav-pills nav-justified" width="75%">
                             <li>
                                 <a href="javascript:replace_video('progressive', 'Progressive Editing Process<br/>Each editing task is decomposed into subtasks r<sub>0</sub> to r<sub>5</sub>.')">
-                                    <img src="img/progressive.png" height="80px" />
+                                    <img src="img/progressive.png" loading="lazy" decoding="async" height="80px" />
                                     <h4><strong>Progressive Process</strong></h4>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="javascript:replace_video('fangzhou', 'Scene: Fangzhou')">
-                                    <img src="img/in2n_fangzhou.png" height="80px" />
+                                    <img src="img/in2n_fangzhou.png" loading="lazy" decoding="async" height="80px" />
                                     <h4><strong>Scene: Fangzhou</strong></h4>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:replace_video('person', 'Scene: Person<br/>Editing Tasks (left to right): suit; marble statue; plaid shirt; firefighter with a hat')">
-                                    <img src="img/in2n_person.png" height="80px" />
+                                    <img src="img/in2n_person.png" loading="lazy" decoding="async" height="80px" />
                                     <h4><strong>Scene: Person</strong></h4>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:replace_video('scannetpp', 'Indoor Scenes in ScanNet++')">
-                                    <img src="img/scannetpp.png" height="80px" />
+                                    <img src="img/scannetpp.png" loading="lazy" decoding="async" height="80px" />
                                     <h4><strong>Indoor Scenes (ScanNet++)</strong></h4>
                                 </a>
                             </li>

@@ -54,6 +54,11 @@
   box-shadow: 0 5px 18px rgba(27, 39, 51, .12);
 }
 
+/* Inline SVG paper icon: middle alignment keeps it level with the image icons in the button row. */
+.nav-justified > li > a > svg {
+  vertical-align: middle;
+}
+
 .project-version-note {
   max-width: 760px;
   margin: 18px auto 6px;
@@ -71,13 +76,79 @@
 }
 
 @media (max-width: 767px) {
+  #title {
+    font-size: 24px;
+    line-height: 1.22;
+  }
+
+  #title small {
+    font-size: 15px;
+  }
+
+  .author-table,
+  .author-table tbody,
+  .author-table tr {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2px 12px;
+    min-width: 0;
+  }
+
+  .author-table td {
+    width: auto;
+    min-width: 0;
+    padding: 1px 0;
+    white-space: nowrap;
+  }
+
+  /* Project button row: two-column grid instead of Bootstrap's stacked nav-justified list. */
+  ul.nav-justified:has(> .project-home-nav) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 10px;
+  }
+
+  ul.nav-justified:has(> .project-home-nav) > li {
+    display: block;
+    float: none;
+    width: auto;
+    margin: 0;
+  }
+
+  /* A lone last button (odd count) spans both columns so it stays centered. */
+  ul.nav-justified:has(> .project-home-nav) > li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  /* Bootstrap's .nav clearfix pseudo-elements would otherwise take the first grid cell. */
+  ul.nav-justified:has(> .project-home-nav)::before,
+  ul.nav-justified:has(> .project-home-nav)::after {
+    content: none;
+    display: none;
+  }
+
+  /* Same 140px media box for portrait and landscape previews so the labels line up. */
+  ul.nav-justified:has(> .project-home-nav) video {
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 140px !important;
+    max-height: 140px !important;
+    object-fit: contain;
+  }
+
   .project-home-nav--feature .project-home-media {
-    height: 150px;
+    height: 140px;
   }
 
   .project-home-nav--feature .project-home-avatar {
     width: 96px;
     height: 96px;
+  }
+
+  .container > .row > h3 {
+    padding: 0 15px;
   }
 }
 

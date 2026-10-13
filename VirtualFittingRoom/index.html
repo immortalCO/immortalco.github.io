@@ -27,13 +27,11 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="canonical" href="https://immortalco.github.io/VirtualFittingRoom/">
-    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display:wght@700&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:700|Nunito:700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/codemirror.min.css">
     <link rel="stylesheet" href="css/app.css">
     <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../assets/css/project-pages.css?v=20260831-152654">
-    <script defer src="../assets/js/project-pages.js?v=20260831-152654"></script>
+    <link rel="stylesheet" href="../assets/css/project-pages.css?v=20261013">
+    <script defer src="../assets/js/project-pages.js?v=20261013"></script>
     <style>
         .rrotated {
             transform: rotate(90deg);
@@ -579,7 +577,8 @@
                     style="font-family:'Georgia Pro', Georgia, 'Times New Roman', Times, serif; text-shadow: 0.5px 0.5px 0.5px #888;">
                     Virtual Fitting Room</span>:<br /> Generating Arbitrarily Long Videos of Virtual Try-On from a
                 Single
-                Image
+                Image<br>
+                <small> NeurIPS 2025 </small>
             </h2>
             <h2 class="col-md-12 text-center" id="title-plain" hidden> Virtual Fitting Room: Generating Arbitrarily Long
                 Videos of Virtual Try-On from a Single Image<br>
@@ -630,8 +629,8 @@
                                     preload="none"
                                     style="width: 100%; height: auto; max-height: 200px; filter:contrast(1) brightness(1);"
                                     playsinline="" loop="" muted="" onloadedmetadata="this.playbackRate=2.0"
-                                    id="nav_video_vfr_report">
-                                    <source src="video/teaser_vfr.mp4" type="video/mp4">
+                                    id="nav_video_vfr_report" poster="img/teaser_vfr_poster.jpg">
+                                    <source src="../assets/media/vfr-preview.mp4" type="video/mp4">
                                 </video>
                                 <h3><strong>Paper<br />NeurIPS 2025</strong></h3>
                             </a> </li>
@@ -649,8 +648,8 @@
                                     preload="none"
                                     style="width: 100%; height: auto; max-height: 200px; filter:contrast(1) brightness(1);"
                                     playsinline="" loop="" muted="" onloadedmetadata="this.playbackRate=2.0"
-                                    id="nav_video_dnd">
-                                    <source src="../DressAndDance/video/teaser_dnd.mp4" type="video/mp4">
+                                    id="nav_video_dnd" poster="../DressAndDance/img/teaser_dnd_poster.jpg">
+                                    <source src="../assets/media/dnd-preview.mp4" type="video/mp4">
                                 </video>
                                 <h3><strong><span style="color:#00B0F0;">Dress</span><span
                                             style="color:#000000;">&amp;</span><span
@@ -815,35 +814,35 @@
                                 <li>
                                     <a class="vfr-btn" data-video="vfr_360" data-desc="360° view."
                                         href="javascript:replace_video_vfr('vfr_360','360° view.')">
-                                        <img src="img/vfr_360.png" height="50px" />
+                                        <img src="img/vfr_360_thumb.jpg" height="50px" loading="lazy" decoding="async" />
                                         <h4><strong>360° View</strong></h4>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="vfr-btn" data-video="vfr_90s" data-desc="Fixed motion."
                                         href="javascript:replace_video_vfr('vfr_90s','Fixed motion.')">
-                                        <img src="img/vfr_90s.png" height="50px" />
+                                        <img src="img/vfr_90s_thumb.jpg" height="50px" loading="lazy" decoding="async" />
                                         <h4><strong>Fixed Motion</strong></h4>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="vfr-btn" data-video="vfr_various1" data-desc="Various motions."
                                         href="javascript:replace_video_vfr('vfr_various1','Various motions.')">
-                                        <img src="img/vfr_various1.png" height="50px" />
+                                        <img src="img/vfr_various1_thumb.jpg" height="50px" loading="lazy" decoding="async" />
                                         <h4><strong>Various Motions 1</strong></h4>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="vfr-btn" data-video="vfr_various2" data-desc="Various motions."
                                         href="javascript:replace_video_vfr('vfr_various2','Various motions.')">
-                                        <img src="img/vfr_various2.png" height="50px" />
+                                        <img src="img/vfr_various2_thumb.jpg" height="50px" loading="lazy" decoding="async" />
                                         <h4><strong>Various Motions 2</strong></h4>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="vfr-btn" data-video="vfr_compare" data-desc="Baseline comparison."
                                         href="javascript:replace_video_vfr('vfr_compare','Baseline comparison.')">
-                                        <img src="img/vfr_compare.png" height="50px" />
+                                        <img src="img/vfr_compare_thumb.jpg" height="50px" loading="lazy" decoding="async" />
                                         <h4><strong>Comparison</strong></h4>
                                     </a>
                                 </li>
