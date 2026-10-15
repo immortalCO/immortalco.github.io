@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="assets/css/site-v2.css?v=20261013b">
+  <link rel="stylesheet" href="assets/css/site-v2.css?v=20261014">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -93,7 +93,7 @@
     <ul class="highlights" aria-label="Highlights">
       <li>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M6 15V9m4 6V5m4 10v-4m4 4V7"/></svg>
-        <span>First or co-first author at <strong>NeurIPS 2025, NeurIPS 2024, CVPR 2024 (×2)</strong>, and 3DV 2026, across controllable image, video, 3D, and 4D generation.</span>
+        <span>First or co-first author at <strong>NeurIPS 2025, NeurIPS 2024, CVPR 2024 (×2)</strong>, 3DV 2026, and WACV 2027, across controllable image, video, 3D, and 4D generation.</span>
       </li>
       <li>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4zM4 10h16M9 6v12"/></svg>
@@ -101,7 +101,7 @@
       </li>
       <li>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6.3 6.3l2.8 2.8m5.8 5.8 2.8 2.8M6.3 17.7l2.8-2.8m5.8-5.8 2.8-2.8"/></svg>
-        <span>Dress&amp;Dance: teaches pretrained video diffusion new garment, identity, and motion controls. <strong>20–59% lower FVD</strong> than a Kling 1.6 try-on-and-animation pipeline. <span class="tag">Under review</span></span>
+        <span>Dress&amp;Dance: teaches pretrained video diffusion new garment, identity, and motion controls. <strong>20–59% lower FVD</strong> than a Kling 1.6 try-on-and-animation pipeline. <span class="tag">WACV 2027</span></span>
       </li>
       <li>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18v10H3zM7 7v10m10-10v10M3 12h18"/></svg>
@@ -147,8 +147,19 @@
             <p class="pub-meta"><span class="venue">NeurIPS 2025</span><span class="role">First author</span></p>
             <h3><a href="https://papers.nips.cc/paper_files/paper/2025/hash/e418c5302456a4ef275f43b001830458-Abstract-Conference.html" target="_blank" rel="noreferrer">Virtual Fitting Room: Generating Arbitrarily Long Videos of Virtual Try-On from a Single Image</a></h3>
             <p class="authors"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang</p>
-            <p class="summary">Learns reference-conditioned generation from ordinary pairs of short clips. At inference, generated 360° anchors keep identity consistent in try-on videos <strong>up to 90 seconds</strong> long. Evaluated against D&amp;D+FramePack and D&amp;D+Kling 2.0 pipelines.</p>
+            <p class="summary">Builds on <a href="#dress-and-dance">Dress&amp;Dance</a> (D&amp;D). Learns reference-conditioned generation from ordinary pairs of short clips. At inference, generated 360° anchors keep identity consistent in try-on videos <strong>up to 90 seconds</strong> long. Evaluated against D&amp;D+FramePack and D&amp;D+Kling 2.0 pipelines.</p>
             <p class="publication-links"><a href="VirtualFittingRoom/">Project</a><a href="https://papers.nips.cc/paper_files/paper/2025/hash/e418c5302456a4ef275f43b001830458-Abstract-Conference.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2509.04450" target="_blank" rel="noreferrer">Preview (arXiv, Sep. 2025)</a></p>
+          </div>
+        </article>
+
+        <article class="publication" id="dress-and-dance">
+          <a class="publication-media contain" href="DressAndDance/" aria-label="Dress and Dance project page"><video muted loop playsinline preload="metadata" poster="DressAndDance/img/teaser_dnd_poster.jpg?v=20260831-152654" data-preview-video><source src="assets/media/dnd-preview.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
+          <div class="publication-copy">
+            <p class="pub-meta"><span class="venue">WACV 2027</span><span class="role">First author · with SpreeAI</span></p>
+            <h3><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Dress&amp;Dance: Dress up and Dance as You Like It</a></h3>
+            <p class="authors"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang</p>
+            <p class="summary">Teaches pretrained video diffusion new garment, identity, and motion controls through target-steered supervision and staged training. Generates 1152×720, 24-FPS try-on videos. Scores <strong>20–59% lower FVD</strong> than a Kling 1.6 try-on-and-animation pipeline on Internet and captured benchmarks. Followed by <a href="#vfr">Virtual Fitting Room</a>, which extends this setting to minute-long videos.</p>
+            <p class="publication-links"><a href="DressAndDance/">Project</a><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Full paper</a><a href="https://arxiv.org/abs/2508.21070" target="_blank" rel="noreferrer">Preview (arXiv, Aug. 2025)</a></p>
           </div>
         </article>
 
@@ -195,17 +206,6 @@
             <p class="publication-links"><a href="HDEdit/">Project</a><a href="HDEdit/HDEdit.pdf" target="_blank" rel="noreferrer">PDF (3DV 2026)</a><a href="https://doi.org/10.1109/3DV69130.2026.00150" target="_blank" rel="noreferrer">IEEE</a><a href="https://arxiv.org/abs/2503.10634" target="_blank" rel="noreferrer">Earlier version (arXiv, Mar. 2025)</a></p>
           </div>
         </article>
-
-        <article class="publication" id="dress-and-dance">
-          <a class="publication-media contain" href="DressAndDance/" aria-label="Dress and Dance project page"><video muted loop playsinline preload="metadata" poster="DressAndDance/img/teaser_dnd_poster.jpg?v=20260831-152654" data-preview-video><source src="assets/media/dnd-preview.mp4?v=20260831-152654#t=0.1" type="video/mp4"></video></a>
-          <div class="publication-copy">
-            <p class="pub-meta"><span class="venue review">Under review</span><span class="role">First author · with SpreeAI</span></p>
-            <h3><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Dress&amp;Dance: Dress up and Dance as You Like It</a></h3>
-            <p class="authors"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang</p>
-            <p class="summary">Teaches pretrained video diffusion new garment, identity, and motion controls through target-steered supervision and staged training. Generates 1152×720, 24-FPS try-on videos. Scores <strong>20–59% lower FVD</strong> than a Kling 1.6 try-on-and-animation pipeline on Internet and captured benchmarks.</p>
-            <p class="publication-links"><a href="DressAndDance/">Project</a><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Full paper</a><a href="https://arxiv.org/abs/2508.21070" target="_blank" rel="noreferrer">Preview (arXiv, Aug. 2025)</a></p>
-          </div>
-        </article>
       </div>
 
       <details class="all-pubs" id="all-publications">
@@ -216,6 +216,12 @@
         </summary>
         <ol class="pub-years">
           <li>
+            <p class="pub-year">2027</p>
+            <ol class="pub-compact">
+              <li><span class="t"><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Dress&amp;Dance: Dress up and Dance as You Like It</a></span><span class="v">WACV 2027</span><span class="a"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang <a class="l" href="DressAndDance/">Project</a><a class="l" href="https://arxiv.org/abs/2508.21070" target="_blank" rel="noreferrer">arXiv</a></span></li>
+            </ol>
+          </li>
+          <li>
             <p class="pub-year">2026</p>
             <ol class="pub-compact">
               <li><span class="t"><a href="HDEdit/HDEdit.pdf" target="_blank" rel="noreferrer">HDEdit: Editing Videos and 3D Scenes with Video Diffusion Through Hierarchical Task Decomposition</a></span><span class="v">3DV 2026</span><span class="a">Yanming Zhang*, <strong>Jun-Kun Chen*</strong>, Jipeng Lyu, Yu-Xiong Wang <a class="l" href="HDEdit/">Project</a><a class="l" href="https://arxiv.org/abs/2503.10634" target="_blank" rel="noreferrer">arXiv</a></span></li>
@@ -225,7 +231,6 @@
             <p class="pub-year">2025</p>
             <ol class="pub-compact">
               <li><span class="t"><a href="https://papers.nips.cc/paper_files/paper/2025/hash/e418c5302456a4ef275f43b001830458-Abstract-Conference.html" target="_blank" rel="noreferrer">Virtual Fitting Room: Generating Arbitrarily Long Videos of Virtual Try-On from a Single Image</a></span><span class="v">NeurIPS 2025</span><span class="a"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang <a class="l" href="VirtualFittingRoom/">Project</a><a class="l" href="https://arxiv.org/abs/2509.04450" target="_blank" rel="noreferrer">arXiv</a></span></li>
-              <li><span class="t"><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Dress&amp;Dance: Dress up and Dance as You Like It</a></span><span class="v">Under review</span><span class="a"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang <a class="l" href="DressAndDance/">Project</a><a class="l" href="https://arxiv.org/abs/2508.21070" target="_blank" rel="noreferrer">arXiv</a></span></li>
             </ol>
           </li>
           <li>
@@ -327,7 +332,7 @@
           </div>
           <div class="exp-body">
             <p><span class="when">May 2024 – May 2025</span></p>
-            <p><strong>Dress&amp;Dance:</strong> taught pretrained video diffusion new garment, identity, and motion controls. Designed and implemented target-steered supervision, training triplets with synthetic conditions and real targets, and staged image/video curricula. Evaluated garment and identity fidelity, motion, and video quality.</p>
+            <p><strong>Dress&amp;Dance</strong> (WACV 2027): taught pretrained video diffusion new garment, identity, and motion controls. Designed and implemented target-steered supervision, training triplets with synthetic conditions and real targets, and staged image/video curricula. Evaluated garment and identity fidelity, motion, and video quality.</p>
             <p><strong>Virtual Fitting Room</strong> (NeurIPS 2025): designed training on arbitrary pairs of short clips. The model learns reference appearance and prefix continuation, with no canonical 360° anchors needed for training. At inference, a generated 360° reference and anchored autoregression keep the video consistent at minute scale. Targeted augmentation trains a refiner to remove the generator's typical artifacts.</p>
           </div>
         </article>

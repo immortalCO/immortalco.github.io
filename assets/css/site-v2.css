@@ -268,7 +268,6 @@ p { margin: 0; }
   font-size: 12.5px; font-weight: 600; letter-spacing: .01em;
   white-space: nowrap;
 }
-.venue.review { background: #f3f0e6; color: #6f5a1f; }
 .role { color: var(--muted); font-size: 12.5px; font-weight: 500; }
 .publication h3 { font-size: 17.5px; line-height: 1.38; letter-spacing: -.012em; font-weight: 650; }
 .publication h3 a { color: var(--ink); }
