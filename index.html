@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="assets/css/site-v2.css?v=20261014">
+  <link rel="stylesheet" href="assets/css/site-v2.css?v=20261022">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -158,7 +158,7 @@
             <p class="pub-meta"><span class="venue">WACV 2027</span><span class="role">First author · with SpreeAI</span></p>
             <h3><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Dress&amp;Dance: Dress up and Dance as You Like It</a></h3>
             <p class="authors"><strong>Jun-Kun Chen</strong>, Aayush Bansal, Minh Phuoc Vo, Yu-Xiong Wang</p>
-            <p class="summary">Teaches pretrained video diffusion new garment, identity, and motion controls through target-steered supervision and staged training. Generates 1152×720, 24-FPS try-on videos, achieving <strong>20–59% lower FVD</strong> than a Kling 1.6 try-on-and-animation pipeline on Internet and captured benchmarks. Followed by <a href="#vfr">Virtual Fitting Room</a>, which extends this setting to minute-long videos.</p>
+            <p class="summary">A general framework for conditional video generation: <strong>CondNet</strong> maps text, layout, pose, garment, and identity into one conditioning space, and target-steered supervision with staged training adds these controls to pretrained video diffusion. Demonstrated on high-resolution virtual try-on, it generates 1152×720, 24-FPS videos and reaches FVD (lower is better) of <strong>157 vs. 197</strong> on Internet videos and <strong>20 vs. 49</strong> on captured videos against a Kling 1.6 try-on-and-animation pipeline, and lower FVD than all four evaluated modular baselines on both benchmarks. Followed by <a href="#vfr">Virtual Fitting Room</a>, which extends this setting to minute-long videos.</p>
             <p class="publication-links"><a href="DressAndDance/">Project</a><a href="DressAndDance/DnD_full.pdf?v=20260906194949" target="_blank" rel="noreferrer">Full paper</a><a href="https://arxiv.org/abs/2508.21070" target="_blank" rel="noreferrer">Preview (arXiv, Aug. 2025)</a></p>
           </div>
         </article>
@@ -170,7 +170,7 @@
             <h3><a href="https://papers.nips.cc/paper_files/paper/2024/hash/08a4e10cb5b950971a64cf2155871f51-Abstract-Conference.html" target="_blank" rel="noreferrer">ProEdit: Simple Progression is All You Need for High-Quality 3D Scene Editing</a></h3>
             <p class="authors"><strong>Jun-Kun Chen</strong>, Yu-Xiong Wang</p>
             <p class="summary">Edits 3D scenes in simple progressive steps, with previews, edit-strength control, and tuning-free preservation of scene geometry and appearance.</p>
-            <p class="publication-links"><a href="ProEdit/">Project</a><a href="https://papers.nips.cc/paper_files/paper/2024/hash/08a4e10cb5b950971a64cf2155871f51-Abstract-Conference.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2411.05006" target="_blank" rel="noreferrer">arXiv</a></p>
+            <p class="publication-links"><a href="ProEdit/">Project</a><a href="https://github.com/immortalCO/ProEdit" target="_blank" rel="noreferrer">Code</a><a href="https://papers.nips.cc/paper_files/paper/2024/hash/08a4e10cb5b950971a64cf2155871f51-Abstract-Conference.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2411.05006" target="_blank" rel="noreferrer">arXiv</a></p>
           </div>
         </article>
 
@@ -180,7 +180,7 @@
             <p class="pub-meta"><span class="venue">CVPR 2024</span><span class="role">First author · with Meta Reality Labs Zurich</span></p>
             <h3><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Chen_ConsistDreamer_3D-Consistent_2D_Diffusion_for_High-Fidelity_Scene_Editing_CVPR_2024_paper.html" target="_blank" rel="noreferrer">ConsistDreamer: 3D-Consistent 2D Diffusion for High-Fidelity Scene Editing</a></h3>
             <p class="authors"><strong>Jun-Kun Chen</strong>, Samuel Rota Bulò, Norman Müller, Lorenzo Porzi, Peter Kontschieder, Yu-Xiong Wang</p>
-            <p class="summary">Teaches 2D diffusion to edit 3D scenes consistently across views. Uses <strong>cross-view self-supervision</strong> and staged adaptation, with consistency losses along the full denoising trajectory. An asynchronous multi-GPU pipeline overlaps diffusion training and image generation with scene fitting.</p>
+            <p class="summary">Teaches 2D diffusion to edit 3D scenes consistently across views. Uses <strong>cross-view self-supervision</strong> and staged adaptation, with consistency losses along the full denoising trajectory. A 4-GPU asynchronous pipeline overlaps diffusion training and image generation with scene fitting, for a <strong>10× training speed-up</strong>.</p>
             <p class="publication-links"><a href="ConsistDreamer/">Project</a><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Chen_ConsistDreamer_3D-Consistent_2D_Diffusion_for_High-Fidelity_Scene_Editing_CVPR_2024_paper.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2406.09404" target="_blank" rel="noreferrer">arXiv</a></p>
           </div>
         </article>
@@ -192,7 +192,7 @@
             <h3><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Mou_Instruct_4D-to-4D_Editing_4D_Scenes_as_Pseudo-3D_Scenes_Using_2D_CVPR_2024_paper.html" target="_blank" rel="noreferrer">Instruct 4D-to-4D: Editing 4D Scenes as Pseudo-3D Scenes Using 2D Diffusion</a></h3>
             <p class="authors">Linzhan Mou*, <strong>Jun-Kun Chen*</strong>, Yu-Xiong Wang</p>
             <p class="summary">The first instruction-driven 4D editing framework. Treating a dynamic scene as pseudo-3D breaks long 4D edits into tractable problems for 2D diffusion.</p>
-            <p class="publication-links"><a href="Instruct-4D-to-4D/">Project</a><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Mou_Instruct_4D-to-4D_Editing_4D_Scenes_as_Pseudo-3D_Scenes_Using_2D_CVPR_2024_paper.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2406.09402" target="_blank" rel="noreferrer">arXiv</a></p>
+            <p class="publication-links"><a href="Instruct-4D-to-4D/">Project</a><a href="https://github.com/Friedrich-M/Instruct-4D-to-4D" target="_blank" rel="noreferrer">Code</a><a href="https://openaccess.thecvf.com/content/CVPR2024/html/Mou_Instruct_4D-to-4D_Editing_4D_Scenes_as_Pseudo-3D_Scenes_Using_2D_CVPR_2024_paper.html" target="_blank" rel="noreferrer">Paper</a><a href="https://arxiv.org/abs/2406.09402" target="_blank" rel="noreferrer">arXiv</a></p>
           </div>
         </article>
 
@@ -279,28 +279,28 @@
       <div class="section-head">
         <h2 id="research-title">Current Research: Generative World Models</h2>
       </div>
-      <p class="section-intro">Research direction: connect language reasoning with visual generation, using the model's predicted outcomes as training feedback.</p>
+      <p class="section-intro">Research direction: generative world models that predict what happens next on a screen, in a physical scene, or under a robot's motion.</p>
       <div class="research-grid">
         <article class="research-card">
           <div class="research-media"><video muted loop playsinline preload="metadata" poster="assets/img/research/cu-task-b.jpg?v=20261013134622" data-preview-video aria-label="Computer-use world model: current screen and tap, then predicted and real next screen"><source src="assets/media/research/cu-task-b.mp4?v=20261013134622#t=0.1" type="video/mp4"></video></div>
           <p class="media-credit">Training-data example: screen + tap → predicted next screen (middle) vs. real (right).</p>
           <h3>Computer-use visual world model</h3>
-          <p class="backbone">Image diffusion · SenseNova MoT</p>
+          <p class="backbone">Image diffusion · SenseNova MoT · <span>2025–26 · with collaborators</span></p>
           <p class="body">Built a next-screen world model on SenseNova MoT: a language Reasoner describes what an action changes and what stays the same, and a diffusion Generator adapted via <strong>diffusion post-training</strong> renders the next screenshot. Ongoing work trains the Reasoner on teacher corrections of the model's own rendering mistakes.</p>
         </article>
         <article class="research-card">
           <div class="research-media"><video muted loop playsinline preload="metadata" poster="assets/img/research/physics-task-b.jpg?v=20261013134622" data-preview-video aria-label="Physical-event world model: past frames, then predicted and real future frames"><source src="assets/media/research/physics-task-b.mp4?v=20261013134622#t=0.1" type="video/mp4"></video></div>
           <p class="media-credit">PhysicsIQ example: past video → predicted future (middle) vs. real (right).</p>
           <h3>Physical-event world model</h3>
-          <p class="backbone">Video diffusion · Cosmos3</p>
-          <p class="body">Adapted <strong>Cosmos3 video diffusion</strong> to predict physical events from past RGB frames and structured event descriptions. Implemented teacher distillation, where a teacher with full-video access supervises a language Reasoner that sees only past frames. An earlier online variant also updated the Generator from generated-versus-real comparisons.</p>
+          <p class="backbone">Video diffusion · Cosmos3 · <span>2025–26 · with collaborators</span></p>
+          <p class="body">Adapted <strong>Cosmos3 video diffusion</strong> to predict physical events from past RGB frames and structured event descriptions. Implemented teacher distillation, where a teacher with full-video access supervises a language Reasoner that sees only past frames.</p>
         </article>
         <article class="research-card">
           <div class="research-media"><video muted loop playsinline preload="metadata" poster="assets/img/research/robot-task-b.jpg?v=20261013134622" data-preview-video aria-label="Robot-interaction world model: scene and robot motion, then predicted and real interaction video"><source src="assets/media/research/robot-task-b.mp4?v=20261013134622#t=0.1" type="video/mp4"></video></div>
           <p class="media-credit">Held-out DROID scene: predicted (left) vs. real (right) interaction video.</p>
           <h3>Robot-interaction world model</h3>
-          <p class="backbone">Motion-conditioned video diffusion · Cosmos3</p>
-          <p class="body">Trained a <strong>motion-conditioned video world model</strong> on simulated and real robot data (MimicGen, RoboTwin, DROID, RH20T, AgiBot). It predicts robot–object interaction video from a starting scene, recent frames, and rendered robot motion. Ongoing work studies adaptation to new robot and camera setups without retraining.</p>
+          <p class="backbone">Motion-conditioned video diffusion · Cosmos3 · <span>2025–26 · lead</span></p>
+          <p class="body">Trained a <strong>motion-conditioned video world model</strong> on simulated and real robot data (MimicGen, RoboTwin, DROID, RH20T, AgiBot). It predicts robot–object interaction video from a starting scene, recent frames, and rendered robot motion. It conditions on a rendered robot-motion proxy plus paired motion–video examples from the target setup. Ongoing work studies adaptation to new robot and camera setups without retraining.</p>
         </article>
       </div>
     </section>
@@ -319,9 +319,9 @@
           </div>
           <div class="exp-body">
             <p><span class="when">May–Dec. 2025</span><span class="note">Bay Area · part-time continuation Aug.–Dec.</span></p>
-            <p>Designed and implemented a GPU-role-separated pipeline for data processing and model training at <strong>128–256-GPU scale</strong> on Meta's distributed infrastructure, supporting 3D and video generation research.</p>
+            <p>Studied <strong>joint 3D and video generation</strong>, then explored video-to-3D and 3D-to-video generation. Designed and implemented a GPU-role-separated pipeline for data processing and model training at <strong>128–256-GPU scale</strong> on Meta's distributed infrastructure.</p>
             <p style="margin-top:14px"><span class="when">May–Aug. 2023</span><span class="note">Zurich</span></p>
-            <p>Took <em>ConsistDreamer</em> (CVPR 2024) from method design through implementation and evaluation. Designed cross-view self-supervision, staged diffusion adaptation, and an asynchronous pipeline that overlaps diffusion training and image generation with scene fitting.</p>
+            <p>Took <em>ConsistDreamer</em> (CVPR 2024) from method design through implementation and evaluation. Designed cross-view self-supervision, staged diffusion adaptation, and a 4-GPU asynchronous pipeline that overlaps diffusion training and image generation with scene fitting, for a <strong>10× training speed-up</strong>.</p>
           </div>
         </article>
         <article class="exp-item">
